@@ -15,7 +15,7 @@ class Teacher
      */
     public function handle($request, Closure $next)
     {
-        if(\Auth::user()->level > 1)
+        if(\Auth::guest() || \Auth::user()->level > 1)
             return redirect('/');    
         
         return $next($request);

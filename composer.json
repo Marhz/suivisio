@@ -10,7 +10,8 @@
 	    "nesbot/carbon" : "*",
         "laravelcollective/html": "^5.3.0",
         "maatwebsite/excel": "^2.1",
-        "yajra/laravel-datatables-oracle": "~6.0"
+        "yajra/laravel-datatables-oracle": "~6.0",
+        "eternicode/bootstrap-datepicker": "^1.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

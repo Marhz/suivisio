@@ -18,10 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-
 	Route::get('/home', 'HomeController@index');
 
-});
 
 Route::group(['middleware' => 'teacher'], function () {
 	Route::resource('classes','GroupController');
@@ -32,8 +30,10 @@ Route::group(['middleware' => 'teacher'], function () {
 	Route::post('classes/{id}/ajouterEleve', 'UserController@post_addUserInGroup');
 
 });
+//Middleware géré directement dans le constructeur de SituationController
+Route::resource('situation', 'SituationController');
 
 Route::group(['middleware' => 'admin'], function () {
 
 });
-
+});

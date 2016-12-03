@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Situation extends Controller
+class SituationController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('student')->only('create','store');
+	}
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,7 @@ class Situation extends Controller
      */
     public function index()
     {
-        //
+    	echo "yolo";
     }
 
     /**
@@ -23,7 +27,8 @@ class Situation extends Controller
      */
     public function create()
     {
-        //
+    	$sources = \App\Source::all()->pluck('label','id');
+        return view('situations.create',compact('souces'));
     }
 
     /**
