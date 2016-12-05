@@ -10,9 +10,10 @@ class Situation extends Model
 
     protected $dates = ['begin_at','end_at','deleted_at'];
 
+
     public function getActivityListAttribute()
     {
-    	return $this->activities->pluck('id','id')->all();
+    	return $this->activities->pluck('id')->all();
     }
     public function getEndAtAttribute()
     {

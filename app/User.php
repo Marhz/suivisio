@@ -31,7 +31,11 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
-     public function scopeStudent($query)
+    public function isAdmin()
+    {
+        return $this->level == 0;
+    }
+    public function scopeStudent($query)
     {
         return $query->where('level', '=', 2); // Dans la BDD, level 0 = admin, 1 = prof, 2 = étudiant
     }

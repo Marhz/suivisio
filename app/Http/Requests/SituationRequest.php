@@ -13,7 +13,21 @@ class SituationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        switch ($this->method())
+        {
+            case 'DELETE':
+            case 'PUT':
+            {
+                if(\Auth::user()->isAdmin())
+                    return true;
+                $situation = \App\Situation::findOrFail($this->route()->parameters()['situation']);
+                return $situation->user_id == \Auth::user()->id;
+            }
+            default:
+            {
+                return true;
+            }
+        }
     }
 
     /**

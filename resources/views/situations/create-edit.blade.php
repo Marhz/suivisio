@@ -14,7 +14,7 @@
                 <div class="alert alert-danger">{{ $error }}</div>
             @endforeach
             <div class="panel panel-default">
-                <div class="panel-heading">Création d'une situation</div>
+                <div class="panel-heading">{{isset($situation) ? 'Modification' : 'Création'}} d'une situation</div>
                 <div class="panel-body">
                     @if(isset($situation))
                         {{Form::model($situation,[
@@ -25,8 +25,8 @@
                 	   {{Form::open(['route' => 'situation.store'])}}
                     @endif
                         <div class="form-group">
-                        {{Form::label('name','Libellé :')}}
-                        {{Form::text('name',null,['class' => 'form-control'])}}
+                            {{Form::label('name','Libellé :')}}
+                            {{Form::text('name',null,['class' => 'form-control'])}}
                         </div>
                         <div class="form-group">
                             {{Form::label('description','Description :')}}
@@ -49,9 +49,10 @@
                             {{Form::select('activity_list[]',$activities,null,['id' => 'activity_list', 'class' => 'form-control','multiple'])}}
                         </div>
                         <div class="form-group">
-                            {{Form::submit('Envoyer',['class' => 'btn btn-primary form-control'])}}
+                            {{Form::submit(isset($situation) ? 'Modifier' : 'Créer',['class' => 'btn btn-primary form-control'])}}
                         </div>
                     {{Form::close()}}
+                    
                 </div>
             </div>
         </div>
@@ -67,10 +68,20 @@
     <script>
         $('.datepicker').datepicker({
             language : 'fr',
-            
+            autoclose : true
         });
         $('#activity_list').select2({
             closeOnSelect : false,
         });
+        var data = $('#activity_list').select2('data');
+        console.log(data[0].text);
+        data = $("#activity_list").on("select2:unselect", function (e) { 
+                        data = $(e.currentTarget).select2('data');
+                       
+                    });
+        data = $("#activity_list").on("select2:select", function (e) { 
+                        data = $(e.currentTarget).select2('data');
+                       
+                    });
     </script>
 @endsection
