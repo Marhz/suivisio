@@ -11,7 +11,7 @@
         "laravelcollective/html": "^5.3.0",
         "maatwebsite/excel": "^2.1",
         "yajra/laravel-datatables-oracle": "~6.0",
-        "eternicode/bootstrap-datepicker": "^1.6"
+        "barryvdh/laravel-debugbar": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

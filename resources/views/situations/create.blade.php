@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{url('vendor/eternicode/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css')}}" />
+    <link rel="stylesheet" href="{{url('js/eternicode/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css')}}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -13,7 +14,7 @@
                 <div class="panel-heading">Création d'une situation</div>
 
                 <div class="panel-body">
-                	{{Form::open(['route' => 'classes.store'])}}
+                	{{Form::open(['route' => 'situation.store'])}}
                         <div class="form-group">
                         {{Form::label('name','Libellé :')}}
                         {{Form::text('name','',['class' => 'form-control'])}}
@@ -21,6 +22,22 @@
                         <div class="form-group">
                             {{Form::label('description','Description :')}}
                             {{Form::textarea('description','',['class' => 'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('source_id','Source :')}}
+                            {{Form::select('source_id',$sources,null,['class' =>'form-control'])}}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{Form::label('begin_at','Debut :')}}
+                            {{Form::text('begin_at',null,['class' => 'form-control datepicker'])}}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{Form::label('end_at','Fin :')}}
+                            {{Form::text('end_at',null,['class' => 'form-control datepicker'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('activity_list')}}
+                            {{Form::select('activity_list[]',$activities,null,['id' => 'activity_list', 'class' => 'form-control','multiple'])}}
                         </div>
                         <div class="form-group">
                             {{Form::submit('Envoyer',['class' => 'btn btn-primary form-control'])}}
@@ -38,5 +55,16 @@
 @endsection
 
 @section('js')
-    <script src="{{url('vendor/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{url('js/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{url('js/eternicode/bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script>
+        $('.datepicker').datepicker({
+            language : 'fr',
+            
+        });
+        $('#activity_list').select2({
+            closeOnSelect : false,
+        });
+    </script>
 @endsection

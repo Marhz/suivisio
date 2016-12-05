@@ -16,7 +16,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
+        $groups = Group::with('course')->get();
         return view('groups.list')->with('groups', $groups);
     }
 
@@ -81,7 +81,6 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd(var_dump($id));
         $this->validate($request, [
             'name' => 'required',
             Rule::unique('groups')->ignore($id)

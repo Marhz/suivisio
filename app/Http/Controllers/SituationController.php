@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Situation;
 
 class SituationController extends Controller
 {
@@ -27,8 +28,12 @@ class SituationController extends Controller
      */
     public function create()
     {
+        $activities = \App\Activity::all();
+        foreach($activities as $activity)
+            $activity->formatForSelect();
+        $activities = $activities->pluck('nomenclature', 'id');
     	$sources = \App\Source::all()->pluck('label','id');
-        return view('situations.create',compact('souces'));
+        return view('situations.create',compact('activities','sources'));
     }
 
     /**
@@ -39,7 +44,12 @@ class SituationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $situation = new Situation($request->except('begin_at','end_at','_token'));
+        $situation->user_id = \Auth::user()->id;
+        $situation->begin_at = \Carbon::createFromFormat('d/m/Y', $request->input('begin_at'));
+        $situation->end_at = \Carbon::createFromFormat('d/m/Y',$request->input('end_at'));
+        $situation->save();
+        $situation->activities()->sync($request->input('activity_list'));
     }
 
     /**
