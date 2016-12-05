@@ -13,7 +13,7 @@ class SituationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class SituationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-        ];
+            'name' => 'required',
+            'description' => 'required',
+            'source_id' => 'required|numeric',
+            'activity_list' => 'required|array',
+            'begin_at' => 'required|date_format:d/m/Y',
+            'end_at' => 'required|date_format:d/m/Y|after:begin_at',
+        ];        
     }
 }

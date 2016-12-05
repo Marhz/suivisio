@@ -1,0 +1,8 @@
+.actionButton{
+	width:40px;
+	text-align: center;
+}
+.deleteBtn{
+	display: inline-block;
+	margin-left:10px;
+}
