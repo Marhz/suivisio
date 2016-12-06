@@ -35,6 +35,10 @@ class User extends Authenticatable
     {
         return $this->level == 0;
     }
+    public function fullName()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
     public function scopeStudent($query)
     {
         return $query->where('level', '=', 2); // Dans la BDD, level 0 = admin, 1 = prof, 2 = étudiant

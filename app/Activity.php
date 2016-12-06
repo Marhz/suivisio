@@ -9,9 +9,9 @@ class Activity extends Model
     public $timestamps = false;
 
 
-    public function scopeFormatForSelect()
+    public function fullName()
 	{
-		$this->nomenclature .= ' - '.$this->label;
+		return $this->nomenclature.' - '.$this->label;
 	}
 	public function test()
 	{
