@@ -35,11 +35,14 @@
                                     <td>{{$situation->begin_at}}</td>
                                     <td>{{$situation->end_at}}</td>
 									<td>
+                                        <a href="situation/{{$situation->id}}">
+                                            <button class="btn btn-primary actionButton"><i class="fa fa-eye"></i></button>
+                                        </a>
     									<a href="situation/{{$situation->id}}/edit">
     										<button class="btn btn-warning actionButton"><i class="fa fa-edit"></i></button>
     									</a>
     									{{Form::open(['method' => 'delete', 
-                                                    'url' => 'classes/'.$situation->id,
+                                                    'url' => 'situation/'.$situation->id,
                                                     'class' => 'deleteBtn'])}}
     										<button type="submit" class="btn btn-danger actionButton"><i class="fa fa-trash"></i></button>
     									{{Form::close()}}

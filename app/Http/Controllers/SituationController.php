@@ -10,7 +10,8 @@ class SituationController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('student')->only('create','store');
+		$this->middleware('student')->only('create','edit');
+        $this->middleware('isOwnerOfSituation')->only('show');
 	}
     /**
      * Display a listing of the resource.
@@ -44,12 +45,13 @@ class SituationController extends Controller
      */
     public function store(SituationRequest $request)
     {
-        $situation = new Situation($request->except('begin_at','end_at','_token'));
+        $situation = new Situation($request->except('begin_at','end_at','_token','rephrasing'));
         $situation->user_id = \Auth::user()->id;
         $situation->begin_at = \Carbon::createFromFormat('d/m/Y', $request->input('begin_at'));
         $situation->end_at = \Carbon::createFromFormat('d/m/Y',$request->input('end_at'));
         $situation->save();
         $situation->activities()->sync($request->input('activity_list'));
+        $this->addRephrasing($situation,$request->input('rephrasing'));
         return redirect()->action('SituationController@index')
         				 ->with('success','Situation '.$situation->name.' ajoutée avec succès');
     }
@@ -62,7 +64,12 @@ class SituationController extends Controller
      */
     public function show($id)
     {
-        //
+        $situation = Situation::find($id);
+        if(\Auth::user()->isTeacher()){
+            $situation->viewed = 1;
+            $situation->save();
+        }
+        return view('situations.show',compact('situation'));
     }
 
     /**
@@ -89,14 +96,16 @@ class SituationController extends Controller
      */
     public function update(SituationRequest $request, $id)
     {
-        $situation = Situation::where('user_id','=',\Auth::user()->id)->find($id);
+        $situation = Situation::find($id);
         $situation->name = $request->input('name');
         $situation->description = $request->input('description');
         $situation->source_id = $request->input('source_id');
         $situation->begin_at = \Carbon::createFromFormat('d/m/Y',$request->input('begin_at'));
         $situation->end_at = \Carbon::createFromFormat('d/m/Y',$request->input('end_at'));
+        $situation->viewed = 0;
         $situation->save();
         $situation->activities()->sync($request->input('activity_list'));
+        $this->addRephrasing($situation,$request->input('rephrasing'));
         return redirect()->action('SituationController@index')->with('success','Situation '.$situation->name.' modifiée avec succès');
     }
 
@@ -108,13 +117,23 @@ class SituationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $situation = Situation::find($id);
+        $situation->delete();
+        return redirect()->action('SituationController@index')->with('success','Situation '.$situation->name.' éffacée avec succès');
     }
     protected function prepareForSelect($activities)
     {
     	foreach($activities as $activity)
-            $activity->formatForSelect();
+            $activity->nomenclature = $activity->fullName();
         $activities = $activities->pluck('nomenclature', 'id');
         return $activities;
+    }
+    protected function addRephrasing($situation,$rephrasing)
+    {
+        foreach($situation->activities as $activity)
+        {
+            $activity->pivot->rephrasing = $rephrasing[$activity->id];
+            $activity->pivot->save();
+        }
     }
 }

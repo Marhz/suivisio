@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Situation extends Model
 {
+    use SoftDeletes;
+
 	protected $fillable =['name','description','begin_at','end_at','source_id'];
 
     protected $dates = ['begin_at','end_at','deleted_at'];
@@ -38,6 +42,6 @@ class Situation extends Model
     }
     public function activities()
     {
-    	return $this->belongsToMany(Activity::class);
+    	return $this->belongsToMany(Activity::class)->withPivot('rephrasing');
     }
 }
