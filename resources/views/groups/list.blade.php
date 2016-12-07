@@ -18,9 +18,7 @@
                 				<td>Nom</td>
                 				<td>Année</td>
                 				<td>Parcours</td>
-                				<td></td>
-                				<td></td>
-                				<td></td>
+                				<td>Actions</td>
                 			</tr>
                 		</thead>
                 		<tbody>
@@ -30,14 +28,13 @@
 									<td>{{$group->year}}</td>
 									<td>{{$group->course->name}}</td>
 									<td><a href="classes/{{$group->id}}">
-										<button class="btn btn-primary"><i class="fa fa-eye"></i></button>
-									</a></td>
-									<td><a href="classes/{{$group->id}}/edit">
-										<button class="btn btn-warning"><i class="fa fa-edit"></i></button>
-									</a></td>
-									<td>
-										{{Form::open(['method' => 'delete', 'url' => 'classes/'.$group->id])}}
-											<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+										<button class="btn btn-primary actionButton"><i class="fa fa-eye"></i></button>
+									</a>
+									<a href="classes/{{$group->id}}/edit">
+										<button class="btn btn-warning actionButton"><i class="fa fa-edit"></i></button>
+									</a>
+										{{Form::open(['method' => 'delete', 'url' => 'classes/'.$group->id,'class' => 'deleteBtn'])}}
+											<button type="submit" class="btn btn-danger actionButton"><i class="fa fa-trash"></i></button>
 										{{Form::close()}}
 									</a></td>
 								</tr>
