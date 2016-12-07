@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
-use Illuminate\Validation\Rule;
-use Datatables;
+use App\Http\Requests\GroupRequest;
 
 class GroupController extends Controller
 {
@@ -37,14 +36,10 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GroupRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:groups,name|max:255',
-            'year' => 'required|numeric',
-        ]);
         Group::create($request->input());
-        return redirect()->route('groupes.index');
+        return redirect()->route('classes.index')->with('success','La classe a été crée avec succès');
     }
 
     /**
@@ -79,14 +74,10 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GroupRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            Rule::unique('groups')->ignore($id)
-        ]);
         Group::find($id)->update($request->input());
-        return redirect()->route('groupes.index');
+        return redirect()->route('classes.index')->with('success','La classe a été modifiée avec succès');
     }
 
     /**

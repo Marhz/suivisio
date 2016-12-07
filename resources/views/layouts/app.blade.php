@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,7 +58,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->first_name }} {{Auth::user()->last_name}} <span class="caret"></span>
+                                    {{Auth::user()->fullName()}} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">

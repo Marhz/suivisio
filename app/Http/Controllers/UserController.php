@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Excel;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\UserRequest;
 
 
 class UserController extends Controller
@@ -75,14 +75,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        $this->validate($request, [
-            'email' => 'required|email|max:255',
-                        Rule::unique('users')->ignore($id),
-            'last_name' => 'required|alpha',
-            'first_name' => 'required|alpha',
-        ]);
         User::find($id)->update($request->input());
         $user = User::find($id);
         return redirect()->back()
@@ -97,8 +91,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return redirect()->back();
+        $user = User::find($id);
+        $user->situations()->delete();
+        $user->delete();
+        return redirect()->back()->with('success','L\utilisateur '.$user->email.' a été effacé avec succès');
     }
 
     public function OdsImport(Request $request,$id)
@@ -150,13 +146,8 @@ class UserController extends Controller
         $group = \App\Group::find($id);
         return view('groups.addUser',compact('group'));
     }
-    public function post_addUserInGroup(Request $request)
+    public function post_addUserInGroup(UserRequest $request)
     {
-        $this->validate($request, [
-            'first_name' => 'required|between:2,255|alpha',
-            'last_name' => 'required|between:2,255|alpha',
-            'email' => 'required|email|unique:users,email',
-        ]);
         $user = User::create($request->input());
         $user->password = bcrypt('iticparis');
         $user->save();

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -24,11 +24,11 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'teacher'], function () {
 	Route::resource('classes','GroupController');
 	Route::resource('users','UserController');
-	Route::post('classes/{class}/importerCsv','UserController@OdsImport');
+	Route::post('classes/{class}/importerOds','UserController@OdsImport');
 	Route::get('classes/{id}/datatables/users','DatatablesController@showGroupDatatables');
 	Route::get('classes/{id}/ajouterEleve', 'UserController@get_addUserInGroup');
 	Route::post('classes/{id}/ajouterEleve', 'UserController@post_addUserInGroup');
-
+	
 });
 //Middleware géré directement dans le constructeur de SituationController
 Route::resource('situation', 'SituationController');

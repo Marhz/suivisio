@@ -10,7 +10,8 @@ class SituationController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('student')->only('create','store');
+		$this->middleware('student')->only('create','edit');
+        $this->middleware('isOwnerOfSituation')->only('show');
 	}
     /**
      * Display a listing of the resource.
@@ -64,6 +65,10 @@ class SituationController extends Controller
     public function show($id)
     {
         $situation = Situation::find($id);
+        if(\Auth::user()->isTeacher()){
+            $situation->viewed = 1;
+            $situation->save();
+        }
         return view('situations.show',compact('situation'));
     }
 
@@ -91,12 +96,13 @@ class SituationController extends Controller
      */
     public function update(SituationRequest $request, $id)
     {
-        $situation = Situation::where('user_id','=',\Auth::user()->id)->find($id);
+        $situation = Situation::find($id);
         $situation->name = $request->input('name');
         $situation->description = $request->input('description');
         $situation->source_id = $request->input('source_id');
         $situation->begin_at = \Carbon::createFromFormat('d/m/Y',$request->input('begin_at'));
         $situation->end_at = \Carbon::createFromFormat('d/m/Y',$request->input('end_at'));
+        $situation->viewed = 0;
         $situation->save();
         $situation->activities()->sync($request->input('activity_list'));
         $this->addRephrasing($situation,$request->input('rephrasing'));
