@@ -64,11 +64,12 @@ class SituationController extends Controller
      */
     public function show($id)
     {
-        $situation = Situation::find($id);
+        $situation = Situation::with('comments.user')->find($id);
         if(\Auth::user()->isTeacher()){
             $situation->viewed = 1;
             $situation->save();
         }
+        $situation;
         return view('situations.show',compact('situation'));
     }
 

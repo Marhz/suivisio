@@ -44,4 +44,8 @@ class Situation extends Model
     {
     	return $this->belongsToMany(Activity::class)->withPivot('rephrasing');
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

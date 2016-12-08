@@ -6,3 +6,12 @@
 	display: inline-block;
 	margin-left:10px;
 }
+.comment{
+	margin: 30px 0px;
+}
+.x-delete{
+	display:inline;
+}
+.x-delete > input{
+	background-color: transparent;
+}

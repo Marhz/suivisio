@@ -20,8 +20,22 @@
                         <p>{{$activity->fullName()}}</p>
                         <p>{!!isset($activity->pivot->rephrasing) && $activity->pivot->rephrasing != '' ? $activity->pivot->rephrasing : '<i>Pas de reformulation</i>'!!}</p>
                     @endforeach
+                    @foreach($situation->comments as $comment)
+                        <div class="comment">
+                            <i>{{$comment->user->fullName()}}, le {{$comment->updated_at}}</i>
+                            {{Form::open([
+                                'method' => 'DELETE',
+                                'route' => ['comment.destroy',$comment->id],
+                                'class' => 'x-delete']
+                            )}}
+                                {{Form::submit('X',['class' => 'btn pull-right'])}}
+                            {{Form::close()}}
+                            <hr/>
+                            <p class="">{{$comment->comment}}</p>
+                        </div>
+                    @endforeach
                     @if(Auth::user()->level < 2)
-                        {{Form::open()}}
+                        {{Form::open(['route' => ['comment.store',$situation->id]])}}
                             <div class="form-group">
                                 {{Form::label('comment','Commentaire :')}}
                                 {{Form::textarea('comment',null,['class' => 'form-control'])}}
@@ -38,41 +52,5 @@
 @endsection
 
 @section('js')
-    <script src="{{url('js/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-    <script src="{{url('js/eternicode/bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="{{url('js/vue.js')}}"></script>
-    <script>
-        $('.datepicker').datepicker({
-            language : 'fr',
-            autoclose : true
-        });
-        $('#activity_list').select2({
-            closeOnSelect : false,
-        });
-        var activities = $('#activity_list').select2('data');
-        $("#activity_list").on("select2:unselect", function (e) { 
-                        tmp_activities = $(e.currentTarget).select2('data');
-                        $.grep(activities, function(el) {
-                            if($.inArray(el,tmp_activities) == -1)
-                                $('.rephrasing').find('.rephrasing-'+el.id).remove();
-                        })
-                        activities = tmp_activities;
-                    });
-        $("#activity_list").on("select2:select", function (e) { 
-                        tmp_activities = $(e.currentTarget).select2('data');
-                        $.grep(tmp_activities, function(el) {
-                            if($.inArray(el,activities) == -1){
-                                var addActivity = '<div class="form-group rephrasing-'+el.id+'"><label for="rephrasing-'+el.id+'">'+el.text+'</label><br/><textarea id="rephrasing-'+el.id+'" name="rephrasing['+el.id+']" class="form-control"></textarea></div>';
-                                $('.rephrasing').append(addActivity);
-                            }
-                        })
-                        activities = tmp_activities;
-                    });
-        // activities.forEach(function(data){
-        //     var activityForm = '<div class="form-group rephrasing-'+data.id+'"><label for="rephrasing-'+data.id+'">'+data.text+'</label><br/><textarea name="rephrasing[]" class="form-control"></textarea></div>';
-        //     $('.rephrasing').append(activityForm);
-        // })
 
-    </script>
 @endsection
