@@ -1,0 +1,64 @@
+@extends('layouts.app')
+
+@section('css')
+    <link rel="stylesheet" href="{{url('js/eternicode/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css')}}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+@endsection
+
+@section('content')
+	
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endforeach
+            <div class="panel panel-default">
+                <div class="panel-heading">{{isset($category) ? 'Modification' : 'Création'}} d'une categorie</div>
+                <div class="panel-body">
+                    @if(isset($category))
+                        {{Form::model($category,[
+                            'method' => 'PUT',
+                            'route' => ['categories.update',$category->id]
+                        ])}}
+                    @else
+                        {{Form::open(['route' => 'categories.store'])}}
+                    @endif
+                        <div class="form-group">
+                            {{Form::label('nomenclature','Nomenclature :')}}
+                            {{Form::text('nomenclature',null,['class' => 'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('label','Libellé :')}}
+                            {{Form::text('label',null,['class' => 'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('source_id','Source :')}}
+                            {{Form::select('source_id',
+                            [
+                                'null' => 'indiferencié',
+                                2 => 'SLAM',
+                                3 => 'SISR'
+                            ],
+                            null,['class' =>'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::submit(isset($category) ? 'Modifier' : 'Créer',['class' => 'btn btn-primary form-control'])}}
+                        </div>
+                    {{Form::close()}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script>
+        $('#activity_list').select2({
+            closeOnSelect : false,
+        });
+    </script>
+@endsection

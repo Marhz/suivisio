@@ -13,13 +13,13 @@ class Activity extends Model
 	{
 		return $this->nomenclature.' - '.$this->label;
 	}
-	public function test()
-	{
-		var_dump('yolo');
-	}
     public function situations()
     {
     	return $this->belongsToMany(Situation::class);
+    }
+    public function category()
+    {
+    	return $this->belongsTo(Category::class);
     }
    
 }
