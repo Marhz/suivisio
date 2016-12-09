@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('nomenclature')->get();
+        $categories = Category::with('course')->orderBy('nomenclature')->get();
         return view('categories.list',compact('categories'));
     }
 
@@ -25,7 +25,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $activities = \App\Activity::all();
+        $activities = $this->prepareForSelect($activities);
+        return view('categories.create-edit',compact('activities'));
     }
 
     /**
@@ -36,7 +38,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->prepareData($request->except('activity_list'));
+        $category = Category::create($data);
+        $category->activities()->sync($request->input('activity_list'));
+        return redirect()->route('categories.index')->with('success', 'Catégorie crée avec succès');
     }
 
     /**
@@ -59,7 +64,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        return view('categories.create-edit',compact('category'));
+        $activities = \App\Activity::all();
+        $activities = $this->prepareForSelect($activities);
+        return view('categories.create-edit',compact('category','activities'));
+
     }
 
     /**
@@ -71,10 +79,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->input();
-        if($data['course_id'] == 0) $data['course_id'] = null;
-        Category::find($id)->update(['course_id' => null]);
-        return redirect()->back()->with('success', 'Catégorie mise à jour avec succès');
+        $data = $this->prepareData($request->except('activity_list'));
+        $category = Category::find($id);
+        $category->update($data);
+        $category->activities()->sync($request->input('activity_list'));
+
+        return redirect()->route('categories.index')->with('success', 'Catégorie mise à jour avec succès');
     }
 
     /**
@@ -85,6 +95,23 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->activities()->sync([]);
+        $category->delete();
+        return redirect()->route('categories.index')->with('success', 'Catégorie effacée avec succès');
+
+    }
+    protected function prepareForSelect($activities)
+    {
+        foreach($activities as $activity)
+            $activity->nomenclature = $activity->fullName();
+        $activities = $activities->pluck('nomenclature', 'id');
+        return $activities;
+    }
+    protected function prepareData($data)
+    {
+        if($data['course_id'] == 0)
+            $data['course_id'] = null;
+        return $data;
     }
 }

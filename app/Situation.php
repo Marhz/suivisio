@@ -10,7 +10,7 @@ class Situation extends Model
 {
     use SoftDeletes;
 
-	protected $fillable =['name','description','begin_at','end_at','source_id'];
+	protected $fillable =['name','description','begin_at','end_at','source_id','user_id','viewed'];
 
     protected $dates = ['begin_at','end_at','deleted_at'];
 

@@ -45,11 +45,8 @@ class SituationController extends Controller
      */
     public function store(SituationRequest $request)
     {
-        $situation = new Situation($request->except('begin_at','end_at','_token','rephrasing'));
-        $situation->user_id = \Auth::user()->id;
-        $situation->begin_at = \Carbon::createFromFormat('d/m/Y', $request->input('begin_at'));
-        $situation->end_at = \Carbon::createFromFormat('d/m/Y',$request->input('end_at'));
-        $situation->save();
+        $data = $this->prepareData($request->except('_token','rephrasing'));
+        $situation = Situation::create($data);
         $situation->activities()->sync($request->input('activity_list'));
         $this->addRephrasing($situation,$request->input('rephrasing'));
         return redirect()->action('SituationController@index')
@@ -97,17 +94,13 @@ class SituationController extends Controller
      */
     public function update(SituationRequest $request, $id)
     {
+        $data = $this->prepareData($request->except('_token','rephrasing'));
         $situation = Situation::find($id);
-        $situation->name = $request->input('name');
-        $situation->description = $request->input('description');
-        $situation->source_id = $request->input('source_id');
-        $situation->begin_at = \Carbon::createFromFormat('d/m/Y',$request->input('begin_at'));
-        $situation->end_at = \Carbon::createFromFormat('d/m/Y',$request->input('end_at'));
-        $situation->viewed = 0;
-        $situation->save();
+        $situation->update($data);
         $situation->activities()->sync($request->input('activity_list'));
         $this->addRephrasing($situation,$request->input('rephrasing'));
-        return redirect()->action('SituationController@index')->with('success','Situation '.$situation->name.' modifiée avec succès');
+        return redirect()->action('SituationController@index')
+            ->with('success','Situation '.$situation->name.' modifiée avec succès');
     }
 
     /**
@@ -136,5 +129,13 @@ class SituationController extends Controller
             $activity->pivot->rephrasing = $rephrasing[$activity->id];
             $activity->pivot->save();
         }
+    }
+    protected function prepareData($data)
+    {
+        $data['user_id'] = \Auth::user()->id;
+        $data['begin_at'] = \Carbon::createFromFormat('d/m/Y', $data['begin_at']);
+        $data['end_at'] = \Carbon::createFromFormat('d/m/Y',$data['end_at']);
+        $data['viewed'] = 0;
+        return $data;
     }
 }

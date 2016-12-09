@@ -23,13 +23,15 @@
                     @foreach($situation->comments as $comment)
                         <div class="comment">
                             <i>{{$comment->user->fullName()}}, le {{$comment->updated_at}}</i>
-                            {{Form::open([
-                                'method' => 'DELETE',
-                                'route' => ['comment.destroy',$comment->id],
-                                'class' => 'x-delete']
-                            )}}
-                                {{Form::submit('X',['class' => 'btn pull-right'])}}
-                            {{Form::close()}}
+                            @if($comment->user_id == Auth::user()->id || Auth::user()->level == 0)
+                                {{Form::open([
+                                    'method' => 'DELETE',
+                                    'route' => ['comment.destroy',$comment->id],
+                                    'class' => 'x-delete']
+                                )}}
+                                    {{Form::submit('X',['class' => 'btn pull-right'])}}
+                                {{Form::close()}}
+                            @endif
                             <hr/>
                             <p class="">{{$comment->comment}}</p>
                         </div>

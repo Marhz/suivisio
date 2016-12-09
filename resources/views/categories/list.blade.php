@@ -14,7 +14,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Liste des categories</div>
                 <div class="panel-body">
-                	<a href="categories/create"><button class="btn btn-primary pull-right">Ajouter une classe</button></a>
+                	<a href="categories/create"><button class="btn btn-primary pull-right">Ajouter une categorie</button></a>
                 	<table class="table table-striped">
                 		<thead>
                 			<tr>

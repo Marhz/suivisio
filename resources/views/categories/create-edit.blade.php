@@ -43,6 +43,10 @@
                             null,['class' =>'form-control'])}}
                         </div>
                         <div class="form-group">
+                            {{Form::label('activity_list','Activitées :')}}
+                            {{Form::select('activity_list[]',$activities,null,['id' => 'activity_list', 'class' => 'form-control','multiple'])}}
+                        </div>
+                        <div class="form-group">
                             {{Form::submit(isset($category) ? 'Modifier' : 'Créer',['class' => 'btn btn-primary form-control'])}}
                         </div>
                     {{Form::close()}}

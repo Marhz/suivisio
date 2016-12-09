@@ -11,14 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/home', 'HomeController@index');
 
 
 Route::group(['middleware' => 'teacher'], function () {
@@ -26,6 +23,8 @@ Route::group(['middleware' => 'teacher'], function () {
 	Route::resource('users','UserController');
 	Route::post('classes/{class}/importerOds','UserController@OdsImport');
 	Route::get('classes/{id}/datatables/users','DatatablesController@showGroupDatatables');
+	Route::get('activites/datatables','DatatablesController@showActivitiesDatatables');
+	
 	Route::get('classes/{id}/ajouterEleve', 'UserController@get_addUserInGroup');
 	Route::post('classes/{id}/ajouterEleve', 'UserController@post_addUserInGroup');
 	Route::post('situation/{id}/comment','CommentController@store')->name('comment.store');
@@ -36,5 +35,9 @@ Route::resource('situation', 'SituationController');
 
 Route::group(['middleware' => 'admin'], function () {
 	Route::resource('categories', 'CategoryController');
+	Route::resource('activites', 'ActivityController');
+	
 });
+
 });
+
