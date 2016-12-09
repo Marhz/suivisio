@@ -71,7 +71,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->input();
+        if($data['course_id'] == 0) $data['course_id'] = null;
+        Category::find($id)->update(['course_id' => null]);
+        return redirect()->back()->with('success', 'Catégorie mise à jour avec succès');
     }
 
     /**

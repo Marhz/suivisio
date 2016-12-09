@@ -33,10 +33,10 @@
                             {{Form::text('label',null,['class' => 'form-control'])}}
                         </div>
                         <div class="form-group">
-                            {{Form::label('source_id','Source :')}}
-                            {{Form::select('source_id',
+                            {{Form::label('course_id','Parcours :')}}
+                            {{Form::select('course_id',
                             [
-                                'null' => 'indiferencié',
+                                0 => 'indiferencié',
                                 2 => 'SLAM',
                                 3 => 'SISR'
                             ],

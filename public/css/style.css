@@ -9,9 +9,17 @@
 .comment{
 	margin: 30px 0px;
 }
+.comment > hr{
+	margin-top: 5px;
+}
 .x-delete{
 	display:inline;
 }
 .x-delete > input{
 	background-color: transparent;
+}
+.x-delete > input:hover{
+	color:red;
+	font-weight: bold;
+	transition: 0.3s;
 }
