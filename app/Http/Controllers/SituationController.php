@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Situation;
 use App\Http\Requests\SituationRequest;
+use App\Situation;
+use Illuminate\Http\Request;
 
 class SituationController extends Controller
 {
@@ -20,6 +20,8 @@ class SituationController extends Controller
      */
     public function index()
     {
+        if(\Auth::user()->isTeacher())
+            return $this->teacherIndex();
     	$situations = Situation::getUserSituations()->get();
     	return view('situations.list',compact('situations'));
     }
@@ -61,12 +63,12 @@ class SituationController extends Controller
      */
     public function show($id)
     {
-        $situation = Situation::with('comments.user')->find($id);
+        $situation = Situation::with('comments.user')->findOrFail($id);
         if(\Auth::user()->isTeacher()){
             $situation->viewed = 1;
+            $situation->timestamps = false;
             $situation->save();
         }
-        $situation;
         return view('situations.show',compact('situation'));
     }
 
@@ -137,5 +139,9 @@ class SituationController extends Controller
         $data['end_at'] = \Carbon::createFromFormat('d/m/Y',$data['end_at']);
         $data['viewed'] = 0;
         return $data;
+    }
+    protected function teacherIndex()
+    {
+        return view('situations.teacher-list',compact('situations'));
     }
 }

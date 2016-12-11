@@ -31,6 +31,10 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    //
+    //helpers
+    //
+
     public function isAdmin()
     {
         return $this->level == 0;
@@ -39,14 +43,44 @@ class User extends Authenticatable
     {
         return $this->level < 2;
     }
+    public function isStudent()
+    {
+        return $this->level == 2;
+    }
     public function fullName()
     {
         return $this->first_name.' '.$this->last_name;
     }
+    public function getActivitiesId()
+    {
+        $activities = $this->situations()->with('activities')->get();
+        return $this->extractActivitiesId($activities);
+    }
+    protected function newCommmentsCount()
+    {
+        return Comment::where('user_id', '=', $this->id)->where('viewed', '=', 0)->count();
+    }
+    protected function extractActivitiesId($situations)
+    {
+        $activities = [];
+        foreach($situations as $situation)
+            array_push($activities, ...$situation->getActivitiesId());
+        return array_unique($activities);
+    }
+
+    //
+    // scopes
+    //
+
     public function scopeStudent($query)
     {
         return $query->where('level', '=', 2); // Dans la BDD, level 0 = admin, 1 = prof, 2 = étudiant
     }
+
+    //
+    // relations
+    //
+    
     public function group()
     {
         return $this->belongsTo(Group::class);

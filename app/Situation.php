@@ -27,7 +27,15 @@ class Situation extends Model
     {
     	return \Carbon::createFromFormat('Y-m-d',$this->attributes['begin_at'])->format('d/m/Y');
     }
-
+    public function getActivitiesId()
+    {
+        return $this->activities->pluck('id')->toArray();
+    }
+    public function scopeGetTeacherSituations($query)
+    {
+        //yup
+        return $query->whereIn('user_id',\App\User::whereIn('group_id',\Auth::user()->teacherOf()->get()->pluck('id'))->get()->pluck('id'));
+    }
     public function scopeGetUserSituations($query)
     {
     	return $query->where('user_id', '=', \Auth::user()->id)->with('source');

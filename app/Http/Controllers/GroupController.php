@@ -50,7 +50,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        $group = Group::find($id);
+        $group = Group::findOrFail($id);
         return view('groups.show', compact('group'));
     }
 

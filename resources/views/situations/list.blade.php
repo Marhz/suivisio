@@ -3,11 +3,8 @@
 @section('css')
 @endsection
 
-@section('content')
+    @section('content')
 	
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
         @if(Session::has('success'))
             <div class="alert alert-success">{{Session::get('success')}}</div>
         @endif
@@ -46,7 +43,6 @@
                                                     'class' => 'deleteBtn'])}}
     										<button type="submit" class="btn btn-danger actionButton"><i class="fa fa-trash"></i></button>
     									{{Form::close()}}
-    									</a>
                                     </td>
 								</tr>
 	                 		@endforeach
@@ -54,8 +50,5 @@
                  	</table>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-@endsection
+    @endsection
