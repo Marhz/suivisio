@@ -53,8 +53,8 @@ class User extends Authenticatable
     }
     public function getActivitiesId()
     {
-        $activities = $this->situations()->with('activities')->get();
-        return $this->extractActivitiesId($activities);
+        $situations = $this->situations()->with('activities')->get();
+        return $this->extractActivitiesId($situations);
     }
     protected function newCommmentsCount()
     {
