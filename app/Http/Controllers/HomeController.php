@@ -25,6 +25,18 @@ class HomeController extends Controller
                     echo 'N - '.$activity->nomenclature.' ';
             }
         }*/
+        // $main_activities = \App\MainActivity::with('activities')->get();
+        // $userActivities = \Auth::user()->getActivitiesId();
+        // foreach($main_activities as $main_activity)
+        // {
+        //     $activitiesId = $main_activity->activities->pluck('id')->toArray();
+        //     if ((array_intersect($userActivities, $activitiesId)))
+        //         echo $main_activity->name.'Y';
+        //     else
+        //         echo $main_activity->name.'N';
+        //     echo '<br/>';
+        // }
+        // die();
         return view('home');
     }
 }

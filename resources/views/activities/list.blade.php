@@ -10,9 +10,6 @@
 @endsection
 
 @section('content')
-    @if(Session::has('success'))
-        <div class="alert alert-success">{{Session::get('success')}}</div>
-    @endif
     <div class="panel panel-default">
         <div class="panel-heading">Liste des activités</div>
         <div class="panel-body">

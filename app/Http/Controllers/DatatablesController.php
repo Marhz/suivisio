@@ -27,7 +27,9 @@ class DatatablesController extends Controller
             ->join('courses','courses.id','=','categories.course_id')->select('*');
 */        return Datatables::of($activities)
             ->editColumn('category.nomenclature',function($activity){
-                return $activity->category->first()->nomenclature;
+                if(isset($activity->category->first()->nomenclature))
+                    return $activity->category->first()->nomenclature;
+                return 'Aucune';
             })
             ->editColumn('category.course_id',function($activity){
                 $result = '';
@@ -40,9 +42,8 @@ class DatatablesController extends Controller
             })
             ->editColumn('Actions',function ($activity){
                 return 
-                    $this->showBtn('activities',$activity->id).
-                    $this->editBtn('activities',$activity->id).
-                    $this->deleteBtn('activities',$activity->id);
+                    $this->editBtn('activites',$activity->id).
+                    $this->deleteBtn('activites',$activity->id);
             })
             ->make(true);
     }
@@ -84,6 +85,6 @@ class DatatablesController extends Controller
     }
     protected function editBtn($name, $id, $prefix = null)
     {
-        return "<a href='".url('/'.$id.'/edit')."'><button class='btn btn-warning actionButton'><i class='fa fa-edit'></i></button></a>";
+        return "<a href='".url($prefix."/".$name."/".$id.'/edit')."'><button class='btn btn-warning actionButton'><i class='fa fa-edit'></i></button></a>";
     }
 }

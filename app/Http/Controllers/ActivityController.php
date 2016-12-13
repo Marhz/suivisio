@@ -25,7 +25,7 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        //
+        return view('activities.create-edit');
     }
 
     /**
@@ -36,7 +36,8 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Activity::create($request->input());
+        return redirect()->route('activites.index')->with('success', 'Activité crée avec succès');
     }
 
     /**
@@ -47,7 +48,7 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -57,8 +58,9 @@ class ActivityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $activity = Activity::findOrFail($id);
+        return view('activities.create-edit', compact('activity'));
     }
 
     /**
@@ -70,7 +72,8 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Activity::find($id)->update($request->input());
+        return redirect()->route('activites.index')->with('success', 'Activité modifiée avec succès');
     }
 
     /**
@@ -81,6 +84,7 @@ class ActivityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Activity::find($id)->delete();
+        return redirect()->route('activites.index')->with('success', 'Activité effacée avec succès');
     }
 }
