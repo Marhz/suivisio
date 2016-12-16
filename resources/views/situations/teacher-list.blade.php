@@ -13,7 +13,6 @@
     <div class="panel panel-default">
         <div class="panel-heading">Liste des situations</div>
         <div class="panel-body">
-        	<a href="situation/create"><button class="btn btn-primary pull-right">Ajouter une situation</button></a>
         	<table id='table' class="table table-striped">
         		<thead>
         			<tr>

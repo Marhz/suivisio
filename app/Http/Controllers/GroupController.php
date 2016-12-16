@@ -26,8 +26,9 @@ class GroupController extends Controller
      */
     public function create()
     {
+        $teachers = \App\User::teachers()->get()->pluck('last_name','id');
         $courses = \App\Course::all()->pluck('name','id');
-        return view('groups.create')->with('courses',$courses);
+        return view('groups.create-edit',compact('teachers','courses'));
     }
 
     /**
@@ -38,7 +39,9 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request)
     {
-        Group::create($request->input());
+        $group = Group::create($request->except('teacher_list'));
+        $teachers = ($request->input('teacher_list')) ? $request->input('teacher_list') : [];
+        $group->teachers()->sync($teachers);
         return redirect()->route('classes.index')->with('success','La classe a été crée avec succès');
     }
 
@@ -63,8 +66,9 @@ class GroupController extends Controller
     public function edit($id)
     {
         $group = Group::find($id);
+        $teachers = \App\User::where('level','<',2)->get()->pluck('last_name','id')->toArray();
         $courses = \App\Course::all()->pluck('name','id');
-        return view('groups.edit')->with(['group' => $group,'courses' => $courses]);
+        return view('groups.create-edit',compact('teachers','courses','group'));
     }
 
     /**
@@ -76,7 +80,10 @@ class GroupController extends Controller
      */
     public function update(GroupRequest $request, $id)
     {
-        Group::find($id)->update($request->input());
+        $group = Group::find($id);
+        $group->update($request->input());
+        $teachers = ($request->input('teacher_list')) ? $request->input('teacher_list') : [];
+        $group->teachers()->sync($teachers);
         return redirect()->route('classes.index')->with('success','La classe a été modifiée avec succès');
     }
 
@@ -86,7 +93,7 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(GroupRequest $request,$id)
     {
         $users = \App\User::where('group_id','=',$id)->get();
         foreach($users as $user)
@@ -95,6 +102,6 @@ class GroupController extends Controller
             $user->save();
         }
         Group::find($id)->delete();
-        return redirect()->route('groupes.index');
+        return redirect()->route('classes.index');
     }
 }

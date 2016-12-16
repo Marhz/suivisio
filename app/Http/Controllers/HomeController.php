@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \PDF;
+use App\Http\Requests\PasswordRequest;
 
 class HomeController extends Controller
 {
@@ -15,28 +17,24 @@ class HomeController extends Controller
     {
         if(\Auth::guest())
             return view('auth.login');
-/*        $categories = \Auth::user()->group->course->getCategories();
-        $userActivities = \Auth::user()->getActivitiesId();
-        foreach($categories as $category){
-            foreach ($category->activities as $activity){
-                if(in_array($activity->id, $userActivities))
-                    echo 'Y - '.$activity->nomenclature.' ';
-                else
-                    echo 'N - '.$activity->nomenclature.' ';
-            }
-        }*/
-        // $main_activities = \App\MainActivity::with('activities')->get();
-        // $userActivities = \Auth::user()->getActivitiesId();
-        // foreach($main_activities as $main_activity)
-        // {
-        //     $activitiesId = $main_activity->activities->pluck('id')->toArray();
-        //     if ((array_intersect($userActivities, $activitiesId)))
-        //         echo $main_activity->name.'Y';
-        //     else
-        //         echo $main_activity->name.'N';
-        //     echo '<br/>';
-        // }
-        // die();
-        return view('home');
+        if(\Auth::user()->level == 2)
+            return view('home.student');
+        return view('home.teacher');
+    }
+    public function admin()
+    {
+        return view('home.admin');
+    }
+    public function editPassword()
+    {
+        return view('edit-password');
+    }
+    public function updatePassword(PasswordRequest $request)
+    {
+        if (password_verify($request->input('old_password'),\Auth::user()->password)){
+           \App\User::find(\Auth::user()->id)->update(['password' => bcrypt($request->input('password'))]);
+            return redirect('/')->with('success', 'Mot de passe changé avec succès');
+        }
+        return redirect()->back()->with('error', 'L\ancien mot de passe ne correspond pas');
     }
 }

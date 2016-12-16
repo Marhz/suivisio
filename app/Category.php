@@ -9,7 +9,6 @@ class Category extends Model
     public $timestamps = false;
     protected $guarded = [];
 
-
     public function getActivityListAttribute()
     {
     	return $this->activities->pluck('id')->all();

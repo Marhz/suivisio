@@ -21,7 +21,7 @@
 					{{Form::email('email',null,['class' => 'form-control'])}}
 				</div>
 				<div class="form-group">
-					{{Form::label('group_id','Parcours :')}}
+					{{Form::label('group_id','Classe :')}}
 					{{Form::select('group_id',$groups,null,['class' => 'form-control'])}}
 				</div>
 				<div class="form-group">

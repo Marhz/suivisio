@@ -181,6 +181,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Anouar\Fpdf\FpdfServiceProvider::class,
 
     ],
 
@@ -234,6 +236,8 @@ return [
         'Carbon' => Carbon\Carbon::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        // 'PDF' => Barryvdh\DomPDF\Facade::class,
+        // 'Fpdf'    => Anouar\Fpdf\Facades\Fpdf::class,
     ],
 
 ];

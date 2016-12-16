@@ -34,7 +34,10 @@ class User extends Authenticatable
     //
     //helpers
     //
-
+    public function getGroupListAttribute()
+    {
+        return $this->teacherOf->pluck('id')->all();
+    }
     public function isAdmin()
     {
         return $this->level == 0;
@@ -56,6 +59,11 @@ class User extends Authenticatable
         $situations = $this->situations()->with('activities')->get();
         return $this->extractActivitiesId($situations);
     }
+    public function getActivitiesIdWhere($column,$operator,$search)
+    {
+        $situations = $this->situations()->with('activities')->where($column,$operator,$search)->get();
+        return $this->extractActivitiesId($situations);
+    }
     protected function newCommmentsCount()
     {
         return Comment::where('user_id', '=', $this->id)->where('viewed', '=', 0)->count();
@@ -75,6 +83,11 @@ class User extends Authenticatable
     public function scopeStudent($query)
     {
         return $query->where('level', '=', 2); // Dans la BDD, level 0 = admin, 1 = prof, 2 = étudiant
+    }
+
+    public function scopeTeachers($query)
+    {
+        return $query->where('level', '<', 2);
     }
 
     //

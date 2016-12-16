@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return \Auth::user()->isAdmin();
     }
 
     /**
@@ -38,11 +38,13 @@ class UserRequest extends FormRequest
             case 'PUT':
             {
                 return [
-                    'email' => 'required|email|max:255',Rule::unique('users')->ignore($id),
+                    'email' => 'required|email|max:255',
+                    Rule::unique('users')->ignore($this->route()->parameters['id']),
                     'last_name' => 'required|between:2,255|alpha',
                     'first_name' => 'required|between:2,255|alpha',
                 ];
             }
         }
+        return [];
     }
 }

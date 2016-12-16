@@ -111,7 +111,7 @@ class SituationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SituationRequest $request,$id)
     {
         $situation = Situation::find($id);
         $situation->delete();

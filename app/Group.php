@@ -11,7 +11,10 @@ class Group extends Model
     	'name', 'year', 'course_id'
     ];
 
-
+    public function getTeacherListAttribute()
+    {
+        return $this->teachers->pluck('id')->all();
+    }
     public function users()
     {
     	return $this->hasMany(User::class);
