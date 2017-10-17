@@ -127,7 +127,7 @@ class UserController extends Controller
                 $user->last_name = $value['nom'];
                 $user->first_name = $value['prenom'];
                 $user->email = $value['mail'];
-                $user->password = bcrypt('iticparis');
+                $user->password = bcrypt(config('app.defaultPassword'));
                 $user->group_id = $id;
                 $user->save();
             }
@@ -149,7 +149,7 @@ class UserController extends Controller
     public function post_addUserInGroup(UserRequest $request)
     {
         $user = User::create($request->input());
-        $user->password = bcrypt('iticparis');
+        $user->password = bcrypt(config('app.defaultPassword'));
         $user->save();
         $group = \App\Group::find($request->input('group_id'));
         return redirect()->action('GroupController@show',$request->input('group_id'))

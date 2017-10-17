@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    'defaultPassword' => env('DEFAULT_USER_PASSWORD', 'suivisio'),
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -183,6 +183,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Anouar\Fpdf\FpdfServiceProvider::class,
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
 
     ],
 

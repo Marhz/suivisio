@@ -28,13 +28,14 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 		Route::get('activites/datatables','DatatablesController@showActivitiesDatatables');
 		Route::get('classes/{id}/ajouterEleve', 'UserController@get_addUserInGroup');
 		Route::post('classes/{id}/ajouterEleve', 'UserController@post_addUserInGroup');
-		Route::post('situation/{id}/comment','CommentController@store')->name('comment.store');
-		Route::delete('comment/{id}','CommentController@destroy')->name('comment.destroy');
-		Route::get('situations/datatables','DatatablesController@showSituationsDatatables');	
+		Route::get('situations/datatables','DatatablesController@showSituationsDatatables');
 
 	});
 	//Middleware géré directement dans le constructeur de SituationController
-	Route::resource('situation', 'SituationController');	
+	Route::resource('situation', 'SituationController');
+
+	Route::post('situation/{situation}/comment','CommentController@store')->name('comment.store');
+	Route::delete('comment/{comment}','CommentController@destroy')->name('comment.destroy');
 
 	Route::group(['middleware' => 'admin'], function () {
 		Route::get('admin', 'HomeController@admin');
@@ -42,8 +43,7 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 		Route::resource('categories', 'CategoryController');
 		Route::resource('activites', 'ActivityController');
 		Route::resource('activites_principales', 'MainActivityController');
-		
-	});	
+	});
 
 });
 

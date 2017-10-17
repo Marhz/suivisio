@@ -29,4 +29,10 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function redirectPath()
+    {
+        return '/';
+    }
+
 }

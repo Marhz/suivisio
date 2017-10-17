@@ -7,6 +7,11 @@ use App\Comment;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('isOwnerOfSituation')->only('store');
+    }
+
     public function store(Request $request,$situationId)
     {
     	$comment = \Auth::user()->comments()->create($request->input());
@@ -14,9 +19,11 @@ class CommentController extends Controller
     	$comment->save();
     	return redirect()->back();
     }
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-    	Comment::find($id)->delete();
+        if(\Auth::user()->isAdmin() ||\Auth::user()->id == $comment->user_id) {
+            $comment->delete();
+        }
     	return redirect()->back();
     }
 }

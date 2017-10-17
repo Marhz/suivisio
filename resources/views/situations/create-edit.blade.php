@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-	
+
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">{{ $error }}</div>
     @endforeach
@@ -69,7 +69,6 @@
     <script src="{{url('js/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
     <script src="{{url('js/eternicode/bootstrap-datepicker/js/locales/bootstrap-datepicker.fr.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="{{url('js/vue.js')}}"></script>
     <script>
         $('.datepicker').datepicker({
             language : 'fr',
@@ -79,24 +78,24 @@
             closeOnSelect : false,
         });
         var activities = $('#activity_list').select2('data');
-        $("#activity_list").on("select2:unselect", function (e) { 
-                        tmp_activities = $(e.currentTarget).select2('data');
-                        $.grep(activities, function(el) {
-                            if($.inArray(el,tmp_activities) == -1)
-                                $('.rephrasing').find('.rephrasing-'+el.id).remove();
-                        })
-                        activities = tmp_activities;
-                    });
-        $("#activity_list").on("select2:select", function (e) { 
-                        tmp_activities = $(e.currentTarget).select2('data');
-                        $.grep(tmp_activities, function(el) {
-                            if($.inArray(el,activities) == -1){
-                                var addActivity = '<div class="form-group rephrasing-'+el.id+'"><label for="rephrasing-'+el.id+'">'+el.text+'</label><br/><textarea id="rephrasing-'+el.id+'" name="rephrasing['+el.id+']" class="form-control"></textarea></div>';
-                                $('.rephrasing').append(addActivity);
-                            }
-                        })
-                        activities = tmp_activities;
-                    });
+        $("#activity_list").on("select2:unselect", function (e) {
+            tmp_activities = $(e.currentTarget).select2('data');
+            $.grep(activities, function(el) {
+                if($.inArray(el,tmp_activities) == -1)
+                    $('.rephrasing').find('.rephrasing-'+el.id).remove();
+            })
+            activities = tmp_activities;
+        });
+        $("#activity_list").on("select2:select", function (e) {
+            tmp_activities = $(e.currentTarget).select2('data');
+            $.grep(tmp_activities, function(el) {
+                if($.inArray(el,activities) == -1){
+                    var addActivity = '<div class="form-group rephrasing-'+el.id+'"><label for="rephrasing-'+el.id+'">'+el.text+'</label><br/><textarea id="rephrasing-'+el.id+'" name="rephrasing['+el.id+']" class="form-control"></textarea></div>';
+                    $('.rephrasing').append(addActivity);
+                }
+            })
+            activities = tmp_activities;
+        });
         // activities.forEach(function(data){
         //     var activityForm = '<div class="form-group rephrasing-'+data.id+'"><label for="rephrasing-'+data.id+'">'+data.text+'</label><br/><textarea name="rephrasing[]" class="form-control"></textarea></div>';
         //     $('.rephrasing').append(activityForm);

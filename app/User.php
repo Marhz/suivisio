@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Situation;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 class User extends Authenticatable
@@ -76,6 +77,11 @@ class User extends Authenticatable
         return array_unique($activities);
     }
 
+    public function owns(Situation $situation)
+    {
+        return $situation->user_id === $this->id;
+    }
+
     //
     // scopes
     //
@@ -93,7 +99,7 @@ class User extends Authenticatable
     //
     // relations
     //
-    
+
     public function group()
     {
         return $this->belongsTo(Group::class);
