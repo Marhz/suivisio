@@ -14,19 +14,10 @@ class DatabaseSeeder extends Seeder
       DB::table('users')->insert([
           'last_name' => 'root',
           'first_name' => 'root',
-          'email' => 'your email',
+          'email' => 'youremail@domain.com',
           'password' => bcrypt('toor'),
           'level' => 0,
       ]);
-      DB::table('courses')->insert([
-          'id' => 1,
-          'name' => 'SLAM',
-          'label' => 'Solutions logicielles et applications métier',
-      ]);
-      DB::table('courses')->insert([
-          'id' => 2,
-          'name' => 'SISR',
-          'label' => "Systèmes d'infrastructures et Solutions Réseaux",
-      ]);
+      DB::unprepared(file_get_contents(app_path()."/database/seeds/suivisio_seeds.sql"));
     }
 }

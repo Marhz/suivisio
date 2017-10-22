@@ -12,10 +12,12 @@ class AddForeignKeysToSkillsTable extends Migration {
 	 */
 	public function up()
 	{
+		/*
 		Schema::table('skills', function(Blueprint $table)
 		{
 			$table->foreign('activity_id', 'skills_ibfk_1')->references('id')->on('activities')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
+		*/
 	}
 
 

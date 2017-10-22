@@ -12,6 +12,7 @@ class CreateSkillsTable extends Migration {
 	 */
 	public function up()
 	{
+		/*
 		Schema::create('skills', function(Blueprint $table)
 		{
 			$table->integer('id', true);
@@ -19,6 +20,7 @@ class CreateSkillsTable extends Migration {
 			$table->string('nomenclature', 50)->nullable();
 			$table->text('label', 65535)->nullable();
 		});
+		*/
 	}
 
 
