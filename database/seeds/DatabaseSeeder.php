@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
           'password' => bcrypt(env('ADMIN_PASSWORD', 'toor')),
           'level' => 0,
       ]);
-      DB::unprepared(file_get_contents(app_path()."/database/seeds/suivisio_seeds.sql"));
+      DB::unprepared(file_get_contents("database/seeds/suivisio_seeds.sql"));
     }
 }
