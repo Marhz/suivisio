@@ -60,7 +60,7 @@
 											<a href="{{url('admin')}}">Panneau d'administrateur</a>
 										</li>
 									@endif
-									@if(Auth::user()->level < 2)
+									@can('viewGroups', App\Group::class)
 										<li class="dropdown-submenu">
 											<a tabindex="-1" href="#"><span class="caret-left"></span>Classes</a>
 										  	<ul class="dropdown-menu">
@@ -75,7 +75,7 @@
 											  	@endif
 										  	</ul>
 										</li>
-									@endif
+									@endcan
 									<li>
 										<a href="{{url('situation')}}">Situations</a>
 									</li>
@@ -118,6 +118,11 @@
 					@if(Session::has('success'))
 						<div class="alert alert-success">{{Session::get('success')}}</div>
 					@endif
+					@can('viewGroups', App\Group::class)
+						Je peux voir les groupes !
+					@else
+						Je ne peux pas voir les groupes
+					@endcan
 					@yield('content')
 				</div>
 			</div>
