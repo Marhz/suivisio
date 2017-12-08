@@ -83,9 +83,11 @@
 										<li>
 											<a href="{{url('situation/create')}}">Ajouter une situation</a>
 										</li>
+										@if (\Auth::user()->situations()->count() > 0)
 										<li>
 											<a href="{{url('bilanPDF')}}">Bilan PDF</a>
 										</li>
+										@endif
 									@endif
 									<li class="divider"></li>
 									<li>
