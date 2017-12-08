@@ -57,7 +57,7 @@
 								<ul class="dropdown-menu multi-level" role="menu">
 									@if (Auth::user()->level == 0)
 										<li>
-											<a href="{{url('admin')}}">Panneau d'administrateur</a>
+											<a href="{{--url('admin')--}} {{url('')}}">Panneau d'administrateur</a>
 										</li>
 									@endif
 									@can('viewGroups', App\Group::class)
@@ -67,7 +67,7 @@
 										  		@if(Auth::user()->teacherOf->count() > 0)
 											  		@foreach (Auth::user()->teacherOf as $group)
 											  			<li>
-											  				<a href="classes/{{$group->id}}">{{$group->name}}</a>
+											  				<a href="{{ url('classes/'.$group->id) }}">{{$group->name}}</a>
 											  			</li>
 											  		@endforeach
 											  	@else
@@ -118,11 +118,13 @@
 					@if(Session::has('success'))
 						<div class="alert alert-success">{{Session::get('success')}}</div>
 					@endif
+					{{--
 					@can('viewGroups', App\Group::class)
 						Je peux voir les groupes !
 					@else
 						Je ne peux pas voir les groupes
 					@endcan
+					--}}
 					@yield('content')
 				</div>
 			</div>
