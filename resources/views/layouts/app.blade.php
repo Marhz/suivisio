@@ -59,6 +59,9 @@
 										<li>
 											<a href="{{--url('admin')--}} {{url('')}}">Panneau d'administrateur</a>
 										</li>
+										<li>
+											<a href="{{url('professeurs')}}">Professeurs</a>
+										</li>
 									@endif
 									@can('viewGroups', App\Group::class)
 										<li class="dropdown-submenu">
