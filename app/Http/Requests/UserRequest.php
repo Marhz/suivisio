@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::user()->isAdmin();
+        return \Auth::user()->isTeacher();
     }
 
     /**
