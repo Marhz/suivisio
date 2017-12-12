@@ -20,7 +20,7 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 	Route::get('/', 'HomeController@index');
 	Route::get('bilanPDF', 'PdfController@index');
 
-Route::group(['middleware' => 'teacher'], function () {
+	Route::group(['middleware' => 'teacher'], function () {
 		Route::resource('classes','GroupController');
 		Route::resource('users','UserController');
 		Route::post('classes/{class}/importerOds','UserController@OdsImport');

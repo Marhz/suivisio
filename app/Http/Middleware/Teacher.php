@@ -17,6 +17,7 @@ class Teacher
     {
         if(\Auth::guest() || \Auth::user()->level > 1)
             return redirect('/');
+
         return $next($request);
     }
 }

@@ -30,8 +30,8 @@ class UserRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'first_name' => 'required|between:2,255|alpha',
-                    'last_name' => 'required|between:2,255|alpha',
+                    'first_name' => 'required|between:2,255|',
+                    'last_name' => 'required|between:2,255|',
                     'email' => 'required|email|unique:users,email',
                 ];
             }
@@ -40,8 +40,8 @@ class UserRequest extends FormRequest
                 return [
                     'email' => 'required|email|max:255',
                     Rule::unique('users')->ignore($this->route()->parameters['id']),
-                    'last_name' => 'required|between:2,255|alpha',
-                    'first_name' => 'required|between:2,255|alpha',
+                    'last_name' => 'required|between:2,255|',
+                    'first_name' => 'required|between:2,255|',
                 ];
             }
         }
