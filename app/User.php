@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AccountCreated;
+use App\Mail\AccountCreatedMail;
 
 class User extends Authenticatable
 {
@@ -120,6 +120,6 @@ class User extends Authenticatable
 
     public function accountCreated()
     {
-        Mail::to($this)->send(new AccountCreated($this));
+        Mail::to($this)->send(new AccountCreatedMail($this));
     }
 }

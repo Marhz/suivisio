@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
 
-class AccountCreated extends Mailable
+class AccountCreatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,6 +31,6 @@ class AccountCreated extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.accountCreated');
+        return $this->view('emails.accountCreated')->with('user', $this->user);
     }
 }
