@@ -6,7 +6,8 @@ use App\Situation;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountCreated;
 
 class User extends Authenticatable
 {
@@ -115,5 +116,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function accountCreated()
+    {
+        Mail::to($this)->send(new AccountCreated($this));
     }
 }

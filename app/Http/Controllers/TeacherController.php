@@ -42,6 +42,7 @@ class TeacherController extends Controller
         $user = User::create($request->except('group_list'));
         $user->level = 1;
         $user->save();
+        $user->accountCreated();
         $groups = $request->input('group_list') ? $request->input('group_list') : [];
         $user->teacherOf()->sync($groups);
         return redirect()->route('professeurs.index')->with('success','Le professeur '.$user->fullName().' a été crée avec succès');

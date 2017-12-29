@@ -7,7 +7,6 @@ use App\User;
 use Excel;
 use App\Http\Requests\UserRequest;
 
-
 class UserController extends Controller
 {
     /**
@@ -130,6 +129,7 @@ class UserController extends Controller
                 $user->password = bcrypt(config('app.defaultPassword'));
                 $user->group_id = $id;
                 $user->save();
+                $user->accountCreated();
             }
         }
     }
@@ -146,11 +146,13 @@ class UserController extends Controller
         $group = \App\Group::find($id);
         return view('groups.addUser',compact('group'));
     }
+
     public function post_addUserInGroup(UserRequest $request)
     {
         $user = User::create($request->input());
         $user->password = bcrypt(config('app.defaultPassword'));
         $user->save();
+        $user->accountCreated();
         $group = \App\Group::find($request->input('group_id'));
         return redirect()->action('GroupController@show',$request->input('group_id'))
                          ->with('success','L\'utilsateur '.$user->email.' a été ajouté avec succès');
