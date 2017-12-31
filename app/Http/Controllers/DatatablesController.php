@@ -11,8 +11,8 @@ class DatatablesController extends Controller
         $group = \App\Group::find($id);
         return Datatables::of($group->users()->get())
         	->editColumn('actions',function ($user){
-        		return 
-                    $this->showBtn('users',$user->id).
+        		return
+                    /*$this->showBtn('users',$user->id).*/
                     $this->editBtn('users',$user->id).
                     $this->deleteBtn('users',$user->id);
         	})
@@ -37,11 +37,11 @@ class DatatablesController extends Controller
                 {
                     $result .= (isset($category->course_id) ? ' '.$category->course->name : 'indifférencié');
                     $result .='<br/>';
-                }                
+                }
                 return $result;
             })
             ->editColumn('Actions',function ($activity){
-                return 
+                return
                     $this->editBtn('activites',$activity->id).
                     $this->deleteBtn('activites',$activity->id);
             })
@@ -67,7 +67,7 @@ class DatatablesController extends Controller
                 return "<span class='fa-color'><span class='hidden'>{$viewed[0]}</span><i class='fa fa-{$viewed[1]}'></i></span>";
             })
             ->editColumn('Actions',function ($situation){
-                return $this->showBtn('situation',$situation->id);
+                  return $this->showBtn('situation',$situation->id);
             })
             ->make(true);
     }

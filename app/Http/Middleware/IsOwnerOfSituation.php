@@ -18,10 +18,10 @@ class IsOwnerOfSituation
 /*
         if(\Auth::user()->isTeacher())
             return $next($request);
-        $situation = \App\Situation::find($request->route()->parameters()['situation']);
         return ($situation->user_id == \Auth::user()->id) ? $next($request) : redirect()->back();
 */
-        return (\Auth::user()->can('view', $situation)
+        $situation = \App\Situation::find($request->route()->parameters()['situation']);
+        return (\Auth::user()->can('view', $situation))
           ? $next($request)
           : redirect()->back();
     }

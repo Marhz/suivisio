@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Group;
+use App\Situation;
+use App\User;
 use App\Policies\GroupPolicy;
+use App\Policies\SituationPolicy;
+use App\Policies\UserPolicy;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider ;
