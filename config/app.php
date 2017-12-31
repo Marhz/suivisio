@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'defaultPassword' => env('DEFAULT_USER_PASSWORD', 'suivisio'),
     /*
     |--------------------------------------------------------------------------
     | Application Name

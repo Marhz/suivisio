@@ -31,10 +31,15 @@ class HomeController extends Controller
     }
     public function updatePassword(PasswordRequest $request)
     {
-        if (password_verify($request->input('old_password'),\Auth::user()->password)){
-           \App\User::find(\Auth::user()->id)->update(['password' => bcrypt($request->input('password'))]);
+      $user = \Auth::user();
+        if (!$user->passwordConfirmed)
+        //if(password_verify($request->input('old_password'), \Auth::user()->password)){
+        {
+            $user->password = bcrypt($request->input('password'));
+            $user->passwordChanged = true;
+            $user->save();
             return redirect('/')->with('success', 'Mot de passe changé avec succès');
         }
-        return redirect()->back()->with('error', 'L\ancien mot de passe ne correspond pas');
+        return redirect()->back()->with('error', 'Le mot de passe a déjà été changé');
     }
 }

@@ -15,7 +15,7 @@ class CheckPassword
      */
     public function handle($request, Closure $next)
     {
-        if(!\Auth::guest() && password_verify(config('app.defaultPassword'),\Auth::user()->password))
+        if(!\Auth::guest() && !\Auth::user()->passwordChanged)
             return redirect('changerMdp')->with('error','Vous devez changer le mot de passe par défault');
         return $next($request);
     }

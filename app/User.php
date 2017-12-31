@@ -120,6 +120,10 @@ class User extends Authenticatable
 
     public function accountCreated()
     {
-        Mail::to($this)->send(new AccountCreatedMail($this));
+        $this->passwordChanged = 0;
+        $password = str_random(10);
+        $this->password = bcrypt($password);
+        $this->save();
+        Mail::to($this)->send(new AccountCreatedMail($this, $password));
     }
 }
