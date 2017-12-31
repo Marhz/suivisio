@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use App\User;
 
 class UserRequest extends FormRequest
 {
@@ -15,8 +15,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-
-        return \Auth::user()->can('create', \User::class());
+      return $this->user()->can('create', $this->user());
     }
 
     /**

@@ -31,20 +31,21 @@
 						<td>Actions</td>
 				</thead>
 				<tbody>
-					
+
 				</tbody>
 			</table>
 		</div>
-		<a href="{{$group->id}}/ajouterEleve">
-			<button class="btn btn-warning pull-right">Ajouter un élève</button>
-		</a>
-		{{Form::open(['action' => ['UserController@OdsImport',$group->id],'files' => true])}}
-			<div class="form-group">
-				{{Form::file('ods')}}
-				{{Form::submit('Ajouter via ODS', ['class' => 'btn btn-primary'])}}
-			</div>
-		{{Form::close()}}
-	
+		@can('create', App\User::class)
+			<a href="{{$group->id}}/ajouterEleve">
+				<button class="btn btn-warning pull-right">Ajouter un élève</button>
+			</a>
+			{{Form::open(['action' => ['UserController@OdsImport',$group->id],'files' => true])}}
+				<div class="form-group">
+					{{Form::file('ods')}}
+					{{Form::submit('Ajouter via ODS', ['class' => 'btn btn-primary'])}}
+				</div>
+			{{Form::close()}}
+		@endcan
 	</div>
 
 @endsection
