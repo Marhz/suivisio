@@ -55,7 +55,7 @@
 									{{Auth::user()->fullName()}} <span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu multi-level" role="menu">
-									@if (Auth::user()->level == 0)
+									@if (Auth::user()->isAdmin())
 										<li>
 											<a href="{{--url('admin')--}} {{url('')}}">Panneau d'administrateur</a>
 										</li>
@@ -63,7 +63,7 @@
 											<a href="{{url('professeurs')}}">Professeurs</a>
 										</li>
 									@endif
-									@can('viewGroups', App\Group::class)
+									@can('view', App\Group::class)
 										<li class="dropdown-submenu">
 											<a tabindex="-1" href="#"><span class="caret-left"></span>Classes</a>
 										  	<ul class="dropdown-menu">
@@ -82,11 +82,11 @@
 									<li>
 										<a href="{{url('situation')}}">Situations</a>
 									</li>
-									@if(Auth::user()->level == 2)
+									@if(Auth::user()->isStudent())
 										<li>
 											<a href="{{url('situation/create')}}">Ajouter une situation</a>
 										</li>
-										@if (\Auth::user()->situations()->count() > 0)
+										@if (\Auth::user()->hasSituations())
 										<li>
 											<a href="{{url('bilanPDF')}}">Bilan PDF</a>
 										</li>
@@ -100,7 +100,7 @@
 										<a href="{{ url('/logout') }}"
 											onclick="event.preventDefault();
 													 document.getElementById('logout-form').submit();">
-											Logout
+											Déconnexion
 										</a>
 
 										<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -123,13 +123,6 @@
 					@if(Session::has('success'))
 						<div class="alert alert-success">{{Session::get('success')}}</div>
 					@endif
-					{{--
-					@can('viewGroups', App\Group::class)
-						Je peux voir les groupes !
-					@else
-						Je ne peux pas voir les groupes
-					@endcan
-					--}}
 					@yield('content')
 				</div>
 			</div>

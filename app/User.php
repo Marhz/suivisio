@@ -40,36 +40,59 @@ class User extends Authenticatable
     {
         return $this->teacherOf->pluck('id')->all();
     }
+
     public function isAdmin()
     {
         return $this->level == 0;
     }
+
+    public function setAdmin()
+    {
+      $this->level = 0;
+    }
+
     public function isTeacher()
     {
         return $this->level < 2;
     }
+
+    public function setTeacher()
+    {
+      $this->level = 1;
+    }
+
     public function isStudent()
     {
         return $this->level == 2;
     }
+
+    public function setStudent()
+    {
+      $this->level = 2;
+    }
+
     public function fullName()
     {
         return $this->first_name.' '.$this->last_name;
     }
+
     public function getActivitiesId()
     {
         $situations = $this->situations()->with('activities')->get();
         return $this->extractActivitiesId($situations);
     }
+
     public function getActivitiesIdWhere($column,$operator,$search)
     {
         $situations = $this->situations()->with('activities')->where($column,$operator,$search)->get();
         return $this->extractActivitiesId($situations);
     }
+
     protected function newCommmentsCount()
     {
         return Comment::where('user_id', '=', $this->id)->where('viewed', '=', 0)->count();
     }
+
     protected function extractActivitiesId($situations)
     {
         $activities = [];
@@ -81,6 +104,11 @@ class User extends Authenticatable
     public function owns(Situation $situation)
     {
         return $situation->user_id === $this->id;
+    }
+
+    public function hasSituations()
+    {
+      return $this->situations()->count() > 0;
     }
 
     //

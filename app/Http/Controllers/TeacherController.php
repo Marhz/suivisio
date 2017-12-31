@@ -40,7 +40,7 @@ class TeacherController extends Controller
     public function store(UserRequest $request)
     {
         $user = User::create($request->except('group_list'));
-        $user->level = 1;
+        $user->setTeacher();
         $user->save();
         $user->accountCreated();
         $groups = $request->input('group_list') ? $request->input('group_list') : [];

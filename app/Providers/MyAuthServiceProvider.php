@@ -17,6 +17,8 @@ class MyAuthServiceProvider extends AuthServiceProvider
      */
     protected $policies = [
         Group::class => GroupPolicy::class,
+        User::class => UserPolicy::class,
+        Situation::class => SituationPolicy::class,
     ];
 
     /**

@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        echo "cr";
+        dd('cr');
         //return view('users.create');
     }
 

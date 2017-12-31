@@ -15,7 +15,8 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::user()->isTeacher();
+
+        return \Auth::user()->can('create', \User::class());
     }
 
     /**

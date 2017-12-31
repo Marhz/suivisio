@@ -13,7 +13,7 @@ class PasswordRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return !\Auth::guest();
     }
 
     /**

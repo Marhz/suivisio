@@ -18,10 +18,9 @@ class SituationRequest extends FormRequest
             case 'DELETE':
             case 'PUT':
             {
-                if(\Auth::user()->isAdmin())
-                    return true;
                 $situation = \App\Situation::findOrFail($this->route()->parameters()['situation']);
-                return $situation->user_id == \Auth::user()->id;
+                return \Auth::user()->can('edit', $situation);
+//                return $situation->user_id == \Auth::user()->id;
             }
             default:
             {
@@ -44,6 +43,6 @@ class SituationRequest extends FormRequest
             'activity_list' => 'required|array',
             'begin_at' => 'required|date_format:d/m/Y',
             'end_at' => 'required|date_format:d/m/Y|after:begin_at',
-        ];        
+        ];
     }
 }

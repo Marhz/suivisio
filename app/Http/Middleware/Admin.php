@@ -15,7 +15,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if(\Auth::guest() || \Auth::user()->level > 0)
+        if(\Auth::guest() || !\Auth::user()->isAdmin())
             return redirect('/');
         return $next($request);
     }

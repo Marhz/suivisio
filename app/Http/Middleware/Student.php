@@ -15,10 +15,8 @@ class Student
      */
     public function handle($request, Closure $next)
     {
-    	if(\Auth::guest() || \Auth::user()->level != 2)
-    	{
+    	if(\Auth::guest() || !\Auth::user()->isStudent())
     		return redirect('/');
-    	}
-        return $next($request);
+      return $next($request);
     }
 }

@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         if(\Auth::guest())
             return view('auth.login');
-        if(\Auth::user()->level == 2)
+        if(\Auth::user()->isStudent())
             return view('home.student');
         return view('home.teacher');
     }
@@ -25,13 +25,15 @@ class HomeController extends Controller
     {
         return view('home.admin');
     }
+
     public function editPassword()
     {
         return view('edit-password');
     }
+
     public function updatePassword(PasswordRequest $request)
     {
-      $user = \Auth::user();
+        $user = \Auth::user();
         if (!$user->passwordConfirmed)
         //if(password_verify($request->input('old_password'), \Auth::user()->password)){
         {
