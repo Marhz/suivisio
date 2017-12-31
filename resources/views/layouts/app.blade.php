@@ -63,6 +63,9 @@
 														<a href="{{url('professeurs')}}">Professeurs</a>
 													</li>
 													<li>
+														<a href="{{url('classes')}}">Classes</a>
+													</li>
+													<li>
 														<a href="{{url('categories')}}">Categories</a>
 													</li>
 													<li>
