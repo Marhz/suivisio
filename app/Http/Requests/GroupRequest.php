@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use App\Group;
 
 class GroupRequest extends FormRequest
 {
@@ -15,7 +15,8 @@ class GroupRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::user()->isAdmin();
+        return $this->user()->can('create', Group::class);
+        // return \Auth::user()->isAdmin();
     }
 
     /**

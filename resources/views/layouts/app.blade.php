@@ -77,7 +77,7 @@
 												</ul>
 											</li>
 									@endif
-									@can('view', App\Group::class)
+									@if (Auth::user()->isTeacher())
 										<li class="dropdown-submenu">
 											<a tabindex="-1" href="#"><span class="caret-left"></span>Classes</a>
 										  	<ul class="dropdown-menu">
@@ -92,7 +92,7 @@
 											  	@endif
 										  	</ul>
 										</li>
-									@endcan
+									@endif
 									<li>
 										<a href="{{url('situation')}}">Situations</a>
 									</li>

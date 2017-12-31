@@ -14,13 +14,23 @@ class GroupPolicy
     {
     }
 
-    public function view(User $user)
+/*    public function viewGroups(User $user)
+    {
+        return $user->isTeacher();
+    }
+*/
+    public function create(User $user)
+    {
+        return $user->isAdmin();
+    }
+
+    public function view(User $user, Group $group)
     {
         return $user->isTeacher();
     }
 
     public function edit(User $user, Group $group)
     {
-        return $this->view();
+        return $this->view() && $user->teacherOf()->contains($group);
     }
 }
