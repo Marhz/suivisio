@@ -56,7 +56,9 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        //
+      $user = User::findOrFail($id);
+      $groups = Group::all()->pluck('name','id');
+      return view('users.teacher-view',compact('groups', 'user'));
     }
 
     /**

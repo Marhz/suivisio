@@ -33,8 +33,8 @@
 							<a href="professeurs/{{$teacher->id}}/edit">
 								<button class="btn btn-warning actionButton"><i class="fa fa-edit"></i></button>
 							</a>
-							{{Form::open(['method' => 'delete', 
-										'url' => 'professeurs/'.$teacher->id, 
+							{{Form::open(['method' => 'delete',
+										'url' => 'professeurs/'.$teacher->id,
 										'class' => 'deleteBtn'])}}
 								<button type="submit" class="btn btn-danger actionButton">
 									<i class="fa fa-trash"></i>

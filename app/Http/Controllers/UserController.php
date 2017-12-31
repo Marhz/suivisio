@@ -51,7 +51,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        echo "sh";
+        $groups = \App\Group::all()->pluck('name','id');
+        $user = User::find($id);
+        return view('users.view',compact('groups','user'));
     }
 
     /**
