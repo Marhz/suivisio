@@ -14,12 +14,12 @@ class GroupPolicy
     {
     }
 
-/*    public function viewGroups(User $user)
-    {
-        return $user->isTeacher();
-    }
-*/
     public function create(User $user)
+    {
+        return $user->isAdmin();
+    }
+
+    public function delete(User $user)
     {
         return $user->isAdmin();
     }

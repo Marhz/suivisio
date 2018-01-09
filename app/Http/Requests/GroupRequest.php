@@ -16,7 +16,6 @@ class GroupRequest extends FormRequest
     public function authorize()
     {
         return $this->user()->can('create', Group::class);
-        // return \Auth::user()->isAdmin();
     }
 
     /**
