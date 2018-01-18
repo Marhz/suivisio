@@ -46,7 +46,7 @@
                     {{Form::select('activity_list[]',$activities,null,['id' => 'activity_list', 'class' => 'form-control','multiple'])}}
                 </div>
                 <div class="rephrasing">
-                    <h3>Reformulation des activitées(optionnel)</h3>
+                    <h3>Reformulation des activitées (optionnel)</h3>
                     @if(isset($situation))
                         @foreach($situation->activities as $activity)
                             <div class="form-group rephrasing-{{$activity->pivot->activity_id}}">

@@ -106,7 +106,7 @@ class SituationController extends Controller
         $situation->update($data);
         $situation->activities()->sync($request->input('activity_list'));
         $this->addRephrasing($situation,$request->input('rephrasing'));
-        return redirect()->action('SituationController@index')
+        return redirect()->action('SuiviSio\SituationController@index')
             ->with('success','Situation '.$situation->name.' modifiée avec succès');
     }
 
@@ -120,7 +120,7 @@ class SituationController extends Controller
     {
         $situation = Situation::find($id);
         $situation->delete();
-        return redirect()->action('SituationController@index')->with('success','Situation '.$situation->name.' éffacée avec succès');
+        return redirect()->action('SuiviSio\SituationController@index')->with('success','Situation '.$situation->name.' éffacée avec succès');
     }
     protected function prepareForSelect($activities)
     {
