@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
 use Datatables;
+use App\Models\Group;
+use App\Models\Activity;
+use App\Models\Situation;
+use App\Http\Controllers\Controller;
+
+
 class DatatablesController extends Controller
 {
     public function showGroupDatatables($id)
     {
-        $group = \App\Group::find($id);
+        $group = Group::find($id);
         return Datatables::of($group->users()->get())
         	->editColumn('actions',function ($user){
         		return
@@ -20,7 +26,7 @@ class DatatablesController extends Controller
     }
     public function showActivitiesDatatables()
     {
-        $activities = \App\Activity::with('category.course')->select('activities.*');
+        $activities = Activity::with('category.course')->select('activities.*');
 /*        $activities = \App\Activity::
             join('activity_category','activities.id','=','activity_category.activity_id')
             ->join('categories','categories.id','=','activity_category.category_id')
@@ -49,7 +55,7 @@ class DatatablesController extends Controller
     }
      public function showSituationsDatatables()
     {
-        $situations = \App\Situation::getTeacherSituations()->get();
+        $situations = Situation::getTeacherSituations()->get();
             return Datatables::of($situations)
             ->editColumn('user.name',function($situation){
                 return $situation->user->fullName();

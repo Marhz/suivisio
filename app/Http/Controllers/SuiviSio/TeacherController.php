@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Group;
+use App\Models\User;
+use App\Models\Group;
 use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
+
 
 class TeacherController extends Controller
 {

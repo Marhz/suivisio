@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
 use \App\Http\Controllers\fpdf\passfpdf;
 use Anouar\Fpdf\Fpdf;
+use Auth;
+use App\Models\MainActivity;
+use App\Models\Source;
+use App\Http\Controllers\Controller;
 
 class PdfController extends Controller
 {
     public function index()
     {
-    	$user = \Auth::user()->load('situations.activities');
+    	$user = Auth::user()->load('situations.activities');
     	$categories = $user->group->course->getCategories();
-    	$mainActivities = \App\MainActivity::with('activities')->get();
-    	$sources = \App\Source::all();
+    	$mainActivities = MainActivity::with('activities')->get();
+    	$sources = Source::all();
     	$userActivitiesCount = 0;
     	foreach($categories as $category)
     	{
@@ -43,7 +47,7 @@ class PdfController extends Controller
 		$pdf = new PassFpdf('L','mm','A3');
 		$pdf->SetTitle(utf8_decode("Tableau de synthèse"));
 		$pdf->SetAuthor('BTS SIO');
-		$pdf->AddPage();		
+		$pdf->AddPage();
 		$pdf->SetFont($police,'B',$potitre);
 
 		$txt="BTS SERVICES INFORMATIQUES AUX ORGANISATIONS - TABLEAU DE SYNTHÈSE";
@@ -58,7 +62,7 @@ class PdfController extends Controller
 		$pdf->Cell(0,$hvt,utf8_decode($txt),0,1);
 
 		$pdf->SetFont($police,'B',$polibelle);
-		$pdf->Ln(5);		
+		$pdf->Ln(5);
 
 		//situ oblig
 		$pdf->Cell($mainActivities->count()*$lgoblig,$hvp,"Situation obligatoire",1,0,"C");
@@ -83,13 +87,13 @@ class PdfController extends Controller
 		$x=$x0+$lgoblig/2;;
 		$y0=$pdf->getY();
 		$y1=$y0+$hv;//hauteur texte à 90°
-		$pdf->SetFillColor($grisclairfond);		
+		$pdf->SetFillColor($grisclairfond);
 		foreach($mainActivities as $mainActivity){
 			$pdf->TourneTexte(90,$x+$lg/2,$y1,utf8_decode("  ".$mainActivity->name));
 		    $pdf->SetXY($x,$y0);
 		  	$pdf->Cell($lg,$hv,"",1,0);//hauteur case verticale
 		    $x+=$lg;
-		}		
+		}
 
 		$x0=$mgs+4*$lgoblig+$margeinterne+$offset;
 		$x=$x0+$lg/2;;
@@ -121,13 +125,13 @@ class PdfController extends Controller
 				foreach ($mainActivities as $mainActivity) $pdf->Cell($lgoblig,$hvs,"","LR",0);
 				$pdf->Cell($mgs+$margeinterne,$hvs,"",0,0);
 				$ysrc=$pdf->getY();
-				$xsrc=$pdf->getX();			
+				$xsrc=$pdf->getX();
 
 				for ($i=0;$i<$userActivitiesCount ; $i++) $pdf->Cell($lg,$hvs,"","LR",0);//que gauche et droite en clair
 				$pdf->SetXY($xsrc,$ysrc);
 				$pdf->SetFont($police,'B',$potexte);
 				//$pdf->Cell(0,$hvs,$leslibs[$src],0,1,"C");
-				$pdf->Cell(0,$hvs,utf8_decode($source->description),0,1,"C");			
+				$pdf->Cell(0,$hvs,utf8_decode($source->description),0,1,"C");
 
 				$pdf->SetDrawColor(0); //noir
 				$pdf->SetFillColor($grisclairfond);
@@ -148,7 +152,7 @@ class PdfController extends Controller
 				  $dts=$situation->begin_at.' - '.$situation->end_at;
 				  $pdf->MultiCell($mgs,5,utf8_decode($situation->name)."\n".$dts,0);
 				  $pdf->setXY($x0,$y0);
-				  $pdf->Cell($mgs,$hvs,"",1,0);				
+				  $pdf->Cell($mgs,$hvs,"",1,0);
 
 				  //affichage des X pour les activites citées
 				  $pdf->SetFont($police,'B',$pocroix);
@@ -160,7 +164,7 @@ class PdfController extends Controller
 				  		$pdf->Cell($lg,$hvs,$check,1,0,"C",$fill);
 				  		$i++;
 					}
-				}			
+				}
 
 				  $pdf->Ln($hvs);
 				}

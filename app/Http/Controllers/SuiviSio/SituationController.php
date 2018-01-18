@@ -1,9 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use App\Http\Requests\SituationRequest;
-use App\Situation;
+use App\Models\Situation;
+use App\Models\Source;
+use App\Models\Activity;
+use App\Http\Controllers\Controller;
+use Auth;
+use Carbon;
 use Illuminate\Http\Request;
 
 class SituationController extends Controller
@@ -20,7 +25,7 @@ class SituationController extends Controller
      */
     public function index()
     {
-        if(\Auth::user()->isTeacher())
+        if(Auth::user()->isTeacher())
             return $this->teacherIndex();
     	$situations = Situation::getUserSituations()->get();
     	return view('situations.list',compact('situations'));
@@ -33,9 +38,9 @@ class SituationController extends Controller
      */
     public function create()
     {
-        $activities = \App\Activity::all();
+        $activities = Activity::all();
         $activities = $this->prepareForSelect($activities);
-    	$sources = \App\Source::all()->pluck('label','id');
+    	$sources = Source::all()->pluck('label','id');
         return view('situations.create-edit',compact('activities','sources'));
     }
 
@@ -64,7 +69,7 @@ class SituationController extends Controller
     public function show($id)
     {
         $situation = Situation::with('comments.user')->findOrFail($id);
-        if(\Auth::user()->isTeacher()){
+        if(Auth::user()->isTeacher()){
             $situation->viewed = 1;
             $situation->timestamps = false;
             $situation->save();
@@ -80,10 +85,10 @@ class SituationController extends Controller
      */
     public function edit($id)
     {
-        $situation = Situation::where('user_id','=',\Auth::user()->id)->find($id);
-        $activities = \App\Activity::all();
+        $situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
+        $activities = Activity::all();
         $activities = $this->prepareForSelect($activities);
-    	$sources = \App\Source::all()->pluck('label','id');
+    	$sources = Source::all()->pluck('label','id');
         return view('situations.create-edit',compact('situation','activities','sources'));
     }
 
@@ -134,9 +139,9 @@ class SituationController extends Controller
     }
     protected function prepareData($data)
     {
-        $data['user_id'] = \Auth::user()->id;
-        $data['begin_at'] = \Carbon::createFromFormat('d/m/Y', $data['begin_at']);
-        $data['end_at'] = \Carbon::createFromFormat('d/m/Y',$data['end_at']);
+        $data['user_id'] = Auth::user()->id;
+        $data['begin_at'] = Carbon::createFromFormat('d/m/Y', $data['begin_at']);
+        $data['end_at'] = Carbon::createFromFormat('d/m/Y',$data['end_at']);
         $data['viewed'] = 0;
         return $data;
     }

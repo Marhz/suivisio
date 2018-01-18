@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \PDF;
 use App\Http\Requests\PasswordRequest;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -15,9 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(\Auth::guest())
+        if(Auth::guest())
             return view('auth.login');
-        if(\Auth::user()->isStudent())
+        if(Auth::user()->isStudent())
             return view('home.student');
         return view('home.teacher');
     }
@@ -33,7 +34,7 @@ class HomeController extends Controller
 
     public function updatePassword(PasswordRequest $request)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         if (!$user->passwordConfirmed)
         //if(password_verify($request->input('old_password'), \Auth::user()->password)){
         {

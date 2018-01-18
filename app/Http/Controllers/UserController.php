@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
+use App\Models\Group;
 use Excel;
 use App\Http\Requests\UserRequest;
 
@@ -51,7 +52,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $groups = \App\Group::all()->pluck('name','id');
+        $groups = Group::all()->pluck('name','id');
         $user = User::find($id);
         return view('users.view',compact('groups','user'));
     }
@@ -145,7 +146,7 @@ class UserController extends Controller
 
     public function get_addUserInGroup($id)
     {
-        $group = \App\Group::find($id);
+        $group = Group::find($id);
         return view('groups.addUser',compact('group'));
     }
 
@@ -155,8 +156,8 @@ class UserController extends Controller
         //$user->password = bcrypt(config('app.defaultPassword'));
         $user->save();
         $user->accountCreated();
-        $group = \App\Group::find($request->input('group_id'));
-        return redirect()->action('GroupController@show',$request->input('group_id'))
+        $group = Group::find($request->input('group_id'));
+        return redirect()->action('SuiviSio\GroupController@show',$request->input('group_id'))
                          ->with('success','L\'utilsateur '.$user->email.' a été ajouté avec succès');
     }
 }

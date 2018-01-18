@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\Situation;
+use App\Models\User;
+use App\Models\Situation;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SituationPolicy

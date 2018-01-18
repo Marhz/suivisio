@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Situation;
+use Auth;
 
 class SituationRequest extends FormRequest
 {
@@ -18,8 +20,8 @@ class SituationRequest extends FormRequest
             case 'DELETE':
             case 'PUT':
             {
-                $situation = \App\Situation::findOrFail($this->route()->parameters()['situation']);
-                return \Auth::user()->can('edit', $situation);
+                $situation = Situation::findOrFail($this->route()->parameters()['situation']);
+                return Auth::user()->can('edit', $situation);
 //                return $situation->user_id == \Auth::user()->id;
             }
             default:

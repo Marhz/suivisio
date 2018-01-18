@@ -35,7 +35,7 @@
 				</tbody>
 			</table>
 		</div>
-		@can('create', App\User::class)
+		@can('create', \Auth::User())
 			<a href="{{$group->id}}/ajouterEleve">
 				<button class="btn btn-warning pull-right">Ajouter un élève</button>
 			</a>

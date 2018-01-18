@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
-use App\MainActivity;
-use App\Activity;
+use App\Models\MainActivity;
+use App\Models\Activity;
+use App\Http\Controllers\Controller;
+
 
 class MainActivityController extends Controller
 {

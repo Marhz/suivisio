@@ -1,9 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
+use Carbon;
 
 
 class Situation extends Model
@@ -21,11 +23,11 @@ class Situation extends Model
     }
     public function getEndAtAttribute()
     {
-    	return \Carbon::createFromFormat('Y-m-d',$this->attributes['end_at'])->format('d/m/Y');
+    	return Carbon::createFromFormat('Y-m-d',$this->attributes['end_at'])->format('d/m/Y');
     }
     public function getbeginAtAttribute()
     {
-    	return \Carbon::createFromFormat('Y-m-d',$this->attributes['begin_at'])->format('d/m/Y');
+    	return Carbon::createFromFormat('Y-m-d',$this->attributes['begin_at'])->format('d/m/Y');
     }
     public function getActivitiesId()
     {
@@ -34,11 +36,11 @@ class Situation extends Model
     public function scopeGetTeacherSituations($query)
     {
         //yup
-        return $query->whereIn('user_id',\App\User::whereIn('group_id',\Auth::user()->teacherOf()->get()->pluck('id'))->get()->pluck('id'));
+        return $query->whereIn('user_id',User::whereIn('group_id',Auth::user()->teacherOf()->get()->pluck('id'))->get()->pluck('id'));
     }
     public function scopeGetUserSituations($query)
     {
-    	return $query->where('user_id', '=', \Auth::user()->id)->with('source');
+    	return $query->where('user_id', '=', Auth::user()->id)->with('source');
     }
     public function user()
     {

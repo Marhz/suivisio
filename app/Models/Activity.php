@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Activity extends Model
 {
     use SoftDeletes;
-    
+
     public $timestamps = false;
     protected $guarded = [];
 
@@ -25,5 +25,5 @@ class Activity extends Model
     {
     	return $this->belongsToMany(Category::class);
     }
-   
+
 }

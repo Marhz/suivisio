@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Models\Category;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {

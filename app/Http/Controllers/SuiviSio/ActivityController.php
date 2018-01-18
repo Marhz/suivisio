@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
-use App\Activity;
+use App\Models\Activity;
+use App\Http\Controllers\Controller;
 
 class ActivityController extends Controller
 {
@@ -58,7 +59,7 @@ class ActivityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $activity = Activity::findOrFail($id);
         return view('activities.create-edit', compact('activity'));
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
-use App\Comment;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {

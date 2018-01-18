@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
-use App\Group;
+use App\Models\Group;
+use App\Models\User;
+use App\Models\Course;
 use App\Http\Requests\GroupRequest;
+use App\Http\Controllers\Controller;
+
 
 class GroupController extends Controller
 {
@@ -26,8 +30,8 @@ class GroupController extends Controller
      */
     public function create()
     {
-        $teachers = \App\User::teachers()->get()->pluck('last_name','id');
-        $courses = \App\Course::all()->pluck('name','id');
+        $teachers = User::teachers()->get()->pluck('last_name','id');
+        $courses = Course::all()->pluck('name','id');
         return view('groups.create-edit',compact('teachers','courses'));
     }
 
@@ -66,8 +70,8 @@ class GroupController extends Controller
     public function edit($id)
     {
         $group = Group::find($id);
-        $teachers = \App\User::where('level','<',2)->get()->pluck('last_name','id')->toArray();
-        $courses = \App\Course::all()->pluck('name','id');
+        $teachers = User::where('level','<',2)->get()->pluck('last_name','id')->toArray();
+        $courses = Course::all()->pluck('name','id');
         return view('groups.create-edit',compact('teachers','courses','group'));
     }
 
@@ -95,7 +99,7 @@ class GroupController extends Controller
      */
     public function destroy(GroupRequest $request,$id)
     {
-        $users = \App\User::where('group_id','=',$id)->get();
+        $users = User::where('group_id','=',$id)->get();
         foreach($users as $user)
         {
             $user->group_id = null;
