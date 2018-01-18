@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\Situation;
+use Auth;
 
 class IsOwnerOfSituation
 {
@@ -23,8 +24,8 @@ class IsOwnerOfSituation
 */
 
         $situation = Situation::find($request->route()->parameters()['situation']);
-        return /*(\Auth::user()->can('view', $situation))
-          ? */$next($request)
-          /*: redirect()->back()*/;
+        return (Auth::user()->can('view', $situation))
+          ? $next($request)
+          : redirect()->back();
     }
 }

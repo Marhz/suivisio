@@ -22,6 +22,7 @@ class HomeController extends Controller
             return view('home.student');
         return view('home.teacher');
     }
+
     public function admin()
     {
         return view('home.admin');
@@ -36,7 +37,6 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if (!$user->passwordConfirmed)
-        //if(password_verify($request->input('old_password'), \Auth::user()->password)){
         {
             $user->password = bcrypt($request->input('password'));
             $user->passwordChanged = true;

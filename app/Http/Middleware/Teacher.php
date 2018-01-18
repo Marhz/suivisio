@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Auth;
 class Teacher
 {
     /**
@@ -15,7 +15,7 @@ class Teacher
      */
     public function handle($request, Closure $next)
     {
-        if(\Auth::guest() || !\Auth::user()->isTeacher())
+        if(Auth::guest() || !Auth::user()->isTeacher())
             return redirect('/');
         return $next($request);
     }

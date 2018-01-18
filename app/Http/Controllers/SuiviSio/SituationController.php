@@ -56,7 +56,7 @@ class SituationController extends Controller
         $situation = Situation::create($data);
         $situation->activities()->sync($request->input('activity_list'));
         $this->addRephrasing($situation,$request->input('rephrasing'));
-        return redirect()->action('SituationController@index')
+        return redirect()->action('SuiviSio\SituationController@index')
         				 ->with('success','Situation '.$situation->name.' ajoutée avec succès');
     }
 

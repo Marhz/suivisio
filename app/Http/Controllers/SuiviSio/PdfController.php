@@ -57,7 +57,7 @@ class PdfController extends Controller
 		$pdf->Cell(60, $hvt,"",0,0);
 		$pdf->Cell(160,$hvt,utf8_decode($txt),0,0);
 		$txt="Parcours : ".$user->group->course->name;
-		$pdf->Cell(60,$hvt,$txt,0,0);
+		$pdf->Cell(60,$hvt,utf8_decode($txt),0,0);
 		$txt="Numéro du candidat : ";
 		$pdf->Cell(0,$hvt,utf8_decode($txt),0,1);
 

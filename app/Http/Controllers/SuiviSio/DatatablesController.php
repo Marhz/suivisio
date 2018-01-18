@@ -24,6 +24,7 @@ class DatatablesController extends Controller
         	})
             ->make(true);
     }
+
     public function showActivitiesDatatables()
     {
         $activities = Activity::with('category.course')->select('activities.*');
@@ -53,6 +54,7 @@ class DatatablesController extends Controller
             })
             ->make(true);
     }
+
      public function showSituationsDatatables()
     {
         $situations = Situation::getTeacherSituations()->get();
@@ -77,10 +79,12 @@ class DatatablesController extends Controller
             })
             ->make(true);
     }
+
     protected function showBtn($name, $id, $prefix = null)
     {
         return "<a href='".url($prefix."/".$name."/".$id)."'><button class='btn btn-primary actionButton'><i class='fa fa-eye'></i></button></a>";
     }
+
     protected function deleteBtn($name, $id, $prefix = null)
     {
        return '<form method="post" action="'.url($prefix.'/'.$name.'/'.$id).'" class="deleteBtn">
@@ -89,6 +93,7 @@ class DatatablesController extends Controller
                <button type="submit" class="btn btn-danger actionButton"><i class="fa fa-trash"></i></button>
            </form>';
     }
+    
     protected function editBtn($name, $id, $prefix = null)
     {
         return "<a href='".url($prefix."/".$name."/".$id.'/edit')."'><button class='btn btn-warning actionButton'><i class='fa fa-edit'></i></button></a>";

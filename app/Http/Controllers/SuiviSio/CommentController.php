@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -19,6 +20,7 @@ class CommentController extends Controller
     	$comment->save();
     	return redirect()->back();
     }
+
     public function destroy(Comment $comment)
     {
         if(\Auth::user()->isAdmin() ||\Auth::user()->id == $comment->user_id) {
