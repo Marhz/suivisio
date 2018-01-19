@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AccountCreatedMail;
+//use Illuminate\Support\Facades\Mail;
+//use App\Mail\AccountCreatedMail;
+use App\Notifications\AccountCreatedNotification;
 
 class User extends Authenticatable
 {
@@ -132,14 +133,17 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Group::class);
     }
+
     public function teacherOf()
     {
         return $this->belongsToMany(Group::class);
     }
+
     public function situations()
     {
         return $this->hasMany(Situation::class);
     }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
@@ -151,6 +155,6 @@ class User extends Authenticatable
         $password = str_random(10);
         $this->password = bcrypt($password);
         $this->save();
-        Mail::to($this)->send(new AccountCreatedMail($this, $password));
+        $this->notify(new AccountCreatedNotification($this, $password));
     }
 }
