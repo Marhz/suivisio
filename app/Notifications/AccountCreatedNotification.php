@@ -11,7 +11,6 @@ use App\Mail\AccountCreatedMail;
 class AccountCreatedNotification extends Notification
 {
     use Queueable;
-    private $user;
     private $password;
 
     /**
@@ -19,9 +18,8 @@ class AccountCreatedNotification extends Notification
      *
      * @return void
      */
-     public function __construct($user, $password)
+     public function __construct($password)
      {
-         $this->user = $user;
          $this->password = $password;
      }
 
@@ -42,11 +40,11 @@ class AccountCreatedNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($user)
     {
         return (new AccountCreatedMail(
-          $this->user,
-          $this->password))->to($this->user);
+          $user,
+          $this->password))->to($user);
     }
 
     /**
