@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Activity;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
@@ -26,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $activities = \App\Activity::all();
+        $activities = Activity::all();
         $activities = $this->prepareForSelect($activities);
         return view('categories.create-edit',compact('activities'));
     }
@@ -65,7 +66,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::find($id);
-        $activities = \App\Activity::all();
+        $activities = Activity::all();
         $activities = $this->prepareForSelect($activities);
         return view('categories.create-edit',compact('category','activities'));
 
