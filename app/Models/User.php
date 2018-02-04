@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Illuminate\Support\Facades\Mail;
-//use App\Mail\AccountCreatedMail;
+use App\Events\Users\UserCreatedEvent;
 use App\Notifications\AccountCreatedNotification;
 
 class User extends Authenticatable
@@ -29,6 +28,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    protected $events = [
+            'created' => UserCreatedEvent::class
     ];
 
     protected $dates = ['deleted_at'];
@@ -147,14 +150,5 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-
-    public function accountCreated()
-    {
-        $this->passwordChanged = 0;
-        $password = str_random(10);
-        $this->password = bcrypt($password);
-        $this->save();
-        $this->notify(new AccountCreatedNotification($this, $password));
     }
 }

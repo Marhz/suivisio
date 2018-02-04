@@ -131,7 +131,6 @@ class UserController extends Controller
                 $user->email = $value['mail'];
                 $user->group_id = $id;
                 $user->save();
-                $user->accountCreated();
             }
         }
     }
@@ -153,7 +152,6 @@ class UserController extends Controller
     {
         $user = User::create($request->input());
         $user->save();
-        $user->accountCreated();
         $group = Group::find($request->input('group_id'));
         return redirect()->action('SuiviSio\GroupController@show',$request->input('group_id'))
                          ->with('success','L\'utilsateur '.$user->email.' a été ajouté avec succès');
