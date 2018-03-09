@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNumeroCandidat extends Migration
+class CreateDeadline extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateNumeroCandidat extends Migration
      */
     public function up()
     {
-      Schema::table('users', function (Blueprint $table) {
-          $table->string('numeroCandidat')->nullable();
+      Schema::table('groups', function (Blueprint $table) {
+          $table->datetime('deadline')->nullable();
       });
     }
 
@@ -25,8 +25,8 @@ class CreateNumeroCandidat extends Migration
      */
     public function down()
     {
-      Schema::table('users', function (Blueprint $table) {
-          $table->dropColumn('numeroCandidat');
+      Schema::table('groups', function (Blueprint $table) {
+          $table->dropColumn('deadline');
       });
     }
 }
