@@ -25,10 +25,11 @@ class SituationController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->isTeacher())
-            return $this->teacherIndex();
+			$user = Auth::user();
+      if($user->isTeacher())
+      	return $this->teacherIndex();
     	$situations = Situation::getUserSituations()->get();
-    	return view('situations.list',compact('situations'));
+    	return view('situations.list',compact('situations', 'user'));
     }
 
     /**
@@ -38,10 +39,16 @@ class SituationController extends Controller
      */
     public function create()
     {
-        $activities = Activity::all();
-        $activities = $this->prepareForSelect($activities);
-    	$sources = Source::all()->pluck('label','id');
-        return view('situations.create-edit',compact('activities','sources'));
+			$user = Auth::user();
+			if ($user->can('addSituation', $user))
+			{
+	        $activities = Activity::all();
+	        $activities = $this->prepareForSelect($activities);
+	    		$sources = Source::all()->pluck('label','id');
+	        return view('situations.create-edit',compact('activities','sources'));
+			}
+			else
+					return $this->index();
     }
 
     /**
@@ -52,12 +59,18 @@ class SituationController extends Controller
      */
     public function store(SituationRequest $request)
     {
-        $data = $this->prepareData($request->except('_token','rephrasing'));
-        $situation = Situation::create($data);
-        $situation->activities()->sync($request->input('activity_list'));
-        $this->addRephrasing($situation,$request->input('rephrasing'));
-        return redirect()->action('SuiviSio\SituationController@index')
-        				 ->with('success','Situation '.$situation->name.' ajoutée avec succès');
+			$user = Auth::user();
+			if ($user->can('addSituation', $user))
+			{
+	        $data = $this->prepareData($request->except('_token','rephrasing'));
+	        $situation = Situation::create($data);
+	        $situation->activities()->sync($request->input('activity_list'));
+	        $this->addRephrasing($situation,$request->input('rephrasing'));
+	        return redirect()->action('SuiviSio\SituationController@index')
+	        				 ->with('success','Situation '.$situation->name.' ajoutée avec succès');
+			 }
+ 			else
+ 					return $this->index();
     }
 
     /**
@@ -68,13 +81,19 @@ class SituationController extends Controller
      */
     public function show($id)
     {
-        $situation = Situation::with('comments.user')->findOrFail($id);
-        if(Auth::user()->isTeacher()){
-            $situation->viewed = 1;
-            $situation->timestamps = false;
-            $situation->save();
-        }
-        return view('situations.show',compact('situation'));
+			$user = Auth::user();
+			$situation = Situation::with('comments.user')->findOrFail($id);
+			if ($user->can('view', $situation))
+			{
+		      if(Auth::user()->isTeacher()){
+		          $situation->viewed = 1;
+		          $situation->timestamps = false;
+		          $situation->save();
+		      }
+		      return view('situations.show',compact('situation'));
+			}
+		 else
+				 return $this->index();
     }
 
     /**
@@ -85,11 +104,17 @@ class SituationController extends Controller
      */
     public function edit($id)
     {
-        $situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
-        $activities = Activity::all();
-        $activities = $this->prepareForSelect($activities);
-    	$sources = Source::all()->pluck('label','id');
-        return view('situations.create-edit',compact('situation','activities','sources'));
+			$user = Auth::user();
+			$situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
+			if ($user->can('edit', $situation))
+			{
+	        $activities = Activity::all();
+	        $activities = $this->prepareForSelect($activities);
+	    		$sources = Source::all()->pluck('label','id');
+	        return view('situations.create-edit',compact('situation','activities','sources'));
+				}
+  			else
+  					return $this->index();
     }
 
     /**
@@ -101,13 +126,19 @@ class SituationController extends Controller
      */
     public function update(SituationRequest $request, $id)
     {
-        $data = $this->prepareData($request->except('_token','rephrasing'));
-        $situation = Situation::find($id);
-        $situation->update($data);
-        $situation->activities()->sync($request->input('activity_list'));
-        $this->addRephrasing($situation,$request->input('rephrasing'));
-        return redirect()->action('SuiviSio\SituationController@index')
-            ->with('success','Situation '.$situation->name.' modifiée avec succès');
+			$user = Auth::user();
+			$situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
+			if ($user->can('edit', $situation))
+			{
+	        $data = $this->prepareData($request->except('_token','rephrasing'));
+	        $situation->update($data);
+	        $situation->activities()->sync($request->input('activity_list'));
+	        $this->addRephrasing($situation,$request->input('rephrasing'));
+	        return redirect()->action('SuiviSio\SituationController@index')
+	            ->with('success','Situation '.$situation->name.' modifiée avec succès');
+			}
+			else
+					return $this->index();
     }
 
     /**
@@ -118,10 +149,18 @@ class SituationController extends Controller
      */
     public function destroy(SituationRequest $request,$id)
     {
-        $situation = Situation::find($id);
-        $situation->delete();
-        return redirect()->action('SuiviSio\SituationController@index')->with('success','Situation '.$situation->name.' éffacée avec succès');
+				$user = Auth::user();
+				$situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
+				if ($user->can('delete', $situation))
+				{
+	        $situation = Situation::find($id);
+	        $situation->delete();
+	        return redirect()->action('SuiviSio\SituationController@index')->with('success','Situation '.$situation->name.' éffacée avec succès');
+				}
+				else
+						return $this->index();
     }
+
     protected function prepareForSelect($activities)
     {
     	foreach($activities as $activity)
@@ -129,6 +168,7 @@ class SituationController extends Controller
         $activities = $activities->pluck('nomenclature', 'id');
         return $activities;
     }
+
     protected function addRephrasing($situation,$rephrasing)
     {
         foreach($situation->activities as $activity)
@@ -145,6 +185,7 @@ class SituationController extends Controller
         $data['viewed'] = 0;
         return $data;
     }
+
     protected function teacherIndex()
     {
         return view('situations.teacher-list',compact('situations'));

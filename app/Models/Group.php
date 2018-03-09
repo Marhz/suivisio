@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Datatables;
+use Carbon;
 
 class Group extends Model
 {
     protected $fillable = [
-    	'name', 'year', 'course_id'
+    	'name', 'year', 'course_id', 'deadline'
     ];
 
     public function getTeacherListAttribute()
@@ -28,5 +29,10 @@ class Group extends Model
     public function course()
     {
     	return $this->belongsTo(Course::class);
+    }
+
+    public function isOpened()
+    {
+      return Carbon::now()->lessThan(new Carbon($this->deadline));
     }
 }

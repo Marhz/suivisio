@@ -9,13 +9,18 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function __construct()
-    {
-        //
-    }
-
     public function create(User $user)
     {
         return $user->isTeacher();
+    }
+
+    public function addSituation(User $user)
+    {
+        return $user->isOpened();
+    }
+
+    public function changerNumeroCandidat(User $user)
+    {
+        return $user->isOpened();
     }
 }

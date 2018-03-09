@@ -10,18 +10,18 @@ class SituationPolicy
 {
     use HandlesAuthorization;
 
-    public function __construct()
-    {
-        //
-    }
-
     public function view(User $user, Situation $situation)
     {
-        return true;//$user->isTeacher() || $user->owns($situation);
+        return $user->isTeacher() || $user->owns($situation);
     }
 
     public function edit(User $user, Situation $situation)
     {
-        return $user->owns($situation);
+        return $user->owns($situation) && $user->isOpened();
+    }
+
+    public function delete(User $user, Situation $situation)
+    {
+        return $user->owns($situation) && $user->isOpened();
     }
 }

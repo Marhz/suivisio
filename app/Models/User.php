@@ -74,6 +74,16 @@ class User extends Authenticatable
         return $this->first_name.' '.$this->last_name;
     }
 
+    public function isOpened()
+    {
+      return $this->group->isOpened();
+    }
+
+    public function isLocked()
+    {
+      return !$this->isOpened();
+    }
+
     public function getActivitiesId()
     {
         $situations = $this->situations()->with('activities')->get();

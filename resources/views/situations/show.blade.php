@@ -7,7 +7,10 @@
 
 @section('content')
     <div class="panel panel-default">
-        <div class="panel-heading">Situation de {{$situation->user->fullName()}}</div>
+        <div class="panel-heading">
+          Situation de {{$situation->user->fullName()}}
+          @include('groups.partials.lock', ['group' => $situation->user->group])
+        </div>
         <div class="panel-body">
             <p>
                 <b>Nom: </b>{{$situation->name}}
