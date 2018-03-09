@@ -32,6 +32,7 @@ class UserRequest extends FormRequest
                 return [
                     'first_name' => 'required|between:2,255|',
                     'last_name' => 'required|between:2,255|',
+                    'numeroCandidat' => 'numeric',
                     'email' => 'required|email|unique:users,email',
                 ];
             }

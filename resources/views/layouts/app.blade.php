@@ -100,13 +100,22 @@
 										<li>
 											<a href="{{url('situation/create')}}">Ajouter une situation</a>
 										</li>
-										@if (\Auth::user()->hasSituations())
-										<li>
+										<li
+										@if (!\Auth::user()->hasSituations() || \Auth::user()->numeroCandidat == null)
+											class="disabled"
+										@endif
+										>
 											<a href="{{url('bilanPDF')}}">Bilan PDF</a>
 										</li>
-										@endif
 									@endif
 									<li class="divider"></li>
+									<li
+									@if (\Auth::user()->numeroCandidat == null)
+										style="background: red"
+									@endif
+									>
+										<a href="{{url('changerNumeroCandidat')}}">Renseigner mon numéro de candidat</a>
+									</li>
 									<li>
 										<a href="{{url('changerMdp')}}">Changer de mot de passe</a>
 									</li>

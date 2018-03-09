@@ -58,7 +58,7 @@ class PdfController extends Controller
 		$pdf->Cell(160,$hvt,utf8_decode($txt),0,0);
 		$txt="Parcours : ".$user->group->course->name;
 		$pdf->Cell(60,$hvt,utf8_decode($txt),0,0);
-		$txt="Numéro du candidat : ";
+		$txt="Numéro du candidat : ".$user->numeroCandidat;
 		$pdf->Cell(0,$hvt,utf8_decode($txt),0,1);
 
 		$pdf->SetFont($police,'B',$polibelle);
