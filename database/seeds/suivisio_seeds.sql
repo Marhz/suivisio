@@ -31,8 +31,8 @@ INSERT INTO `courses` (`id`, `name`, `label`) VALUES
 INSERT INTO `sources` (`id`, `label`, `description`) VALUES
 (1, 'Stage 1', 'SITUATIONS VECUES EN STAGE DE PREMIERE ANNEE DANS L''ORGANISATION'),
 (2, 'Stage 2', 'SITUATIONS VECUES EN STAGE DE DEUXIEME ANNEE DANS L''ORGANISATION'),
-(3, 'TP', 'SITUATIONS VECUES EN FORMATION(TP)'),
-(4, 'PPE', 'SITUATIONS VECUES EN FORMATION(PPE)');
+(3, 'TP', 'SITUATIONS VECUES EN FORMATION (TP)'),
+(4, 'PPE', 'SITUATIONS VECUES EN FORMATION (PPE)');
 
 INSERT INTO `main_activities` (`id`, `name`) VALUES
 (6, 'Production d''une solution logicielle et d''infrastructure'),

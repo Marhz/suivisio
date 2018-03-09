@@ -20,7 +20,8 @@ class DatatablesController extends Controller
         		return
                     /*$this->showBtn('users',$user->id).*/
                     $this->editBtn('users',$user->id).
-                    $this->deleteBtn('users',$user->id);
+                    $this->deleteBtn('users',$user->id).
+                    (($user->hasSituations()) ? $this->pdfBtn('users',$user->id) : '');
         	})
             ->make(true);
     }
@@ -93,9 +94,14 @@ class DatatablesController extends Controller
                <button type="submit" class="btn btn-danger actionButton"><i class="fa fa-trash"></i></button>
            </form>';
     }
-    
+
     protected function editBtn($name, $id, $prefix = null)
     {
         return "<a href='".url($prefix."/".$name."/".$id.'/edit')."'><button class='btn btn-warning actionButton'><i class='fa fa-edit'></i></button></a>";
+    }
+
+    protected function pdfBtn($name, $id, $prefix = null)
+    {
+        return "<a href='".url($prefix."/bilanPDF/".$id)."'><button class='btn btn-info actionButton'><i class='fa fa-file-pdf-o'></i></button></a>";
     }
 }

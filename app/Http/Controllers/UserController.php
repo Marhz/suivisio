@@ -160,19 +160,27 @@ class UserController extends Controller
 
     public function editNumeroCandidat(Request $resquest)
     {
-        return view('users.changerNumeroCandidat', ['user' => Auth::user()]);
+        $user = Auth::user();
+        if ($user->can('changerNumeroCandidat', $user))
+          return view('users.changerNumeroCandidat', ['user' => $user]);
+        return redirect()->back();
     }
 
     public function storeNumeroCandidat(Request $request)
     {
-      $this->validate($request,
-        ['numeroCandidat' => 'numeric'],
-        ['numeroCandidat.numeric' => 'Votre numéro de candidat doit être uniquement composé de chiffres.']
-      );
       $user = Auth::user();
-      $user->update($request->input());
-      return redirect()->back()
-                       ->with('success','Votre numéro de candidat a été mis à jour.');
+      if ($user->can('changerNumeroCandidat', $user))
+      {
+          $this->validate($request,
+          ['numeroCandidat' => 'numeric'],
+          ['numeroCandidat.numeric' => 'Votre numéro de candidat doit être uniquement composé de chiffres.']
+        );
+        $user->update($request->input());
+        return redirect()->back()
+                         ->with('success','Votre numéro de candidat a été mis à jour.');
+      }
+      else
+        return redirect()->back();
     }
 
 }

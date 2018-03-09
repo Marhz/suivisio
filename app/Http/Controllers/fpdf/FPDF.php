@@ -294,7 +294,7 @@ function Close()
 		$this->AddPage();
 	// Page footer
 	$this->InFooter = true;
-	$this->Footer();
+	//$this->Footer();
 	$this->InFooter = false;
 	// Close page
 	$this->_endpage();
@@ -1832,7 +1832,7 @@ function RotatedImage($file, $x, $y, $w, $h, $angle)
     $this->Image($file, $x, $y, $w, $h);
     $this->Rotate(0);
 }
-//EOE ROTATION 
+//EOE ROTATION
 
 }
 
