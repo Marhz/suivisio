@@ -147,7 +147,7 @@ class SituationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SituationRequest $request,$id)
+    public function destroy(Request $request,$id)
     {
 				$user = Auth::user();
 				$situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
