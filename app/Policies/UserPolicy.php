@@ -23,4 +23,11 @@ class UserPolicy
     {
         return $user->isOpened();
     }
+
+    public function viewPDF(User $authUser, User $otherUser)
+    {
+        return $authUser->isAdmin()
+          || $authUser->id == $otherUser->id;
+    }
+
 }

@@ -14,7 +14,11 @@
 
 @section('content')
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3>@include('groups.partials.name')</h3></div>
+		<div class="panel-heading"><h3>@include('groups.partials.name')</h3>
+		@can('viewPDF', $group)
+			<a href="{{ url('classes/'.$group->id.'/bilanPDF')}}" ><button class="btn btn-primary">Bilan PDF</button></a>
+		@endcan
+		</div>
 		<div class="panel-body">
 			<p>
 				<bold>Professeur(s) :</bold>

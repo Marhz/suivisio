@@ -10,10 +10,6 @@ class GroupPolicy
 {
     use HandlesAuthorization;
 
-    public function __construct()
-    {
-    }
-
     public function create(User $user)
     {
         return $user->isAdmin();
@@ -24,13 +20,24 @@ class GroupPolicy
         return $user->isAdmin();
     }
 
+    private function owns($user, $group)
+    {
+        return $user->teacherOf->contains($group);
+    }
+
     public function view(User $user, Group $group)
     {
-        return $user->isTeacher();
+        return $this->owns($user, $group);
     }
 
     public function edit(User $user, Group $group)
     {
-        return $this->view() && $user->teacherOf()->contains($group);
+      return $this->owns($user, $group);
     }
+
+    public function viewPDF(User $user, Group $group)
+    {
+      return $this->owns($user, $group);
+    }
+
 }
