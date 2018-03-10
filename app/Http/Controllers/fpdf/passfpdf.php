@@ -8,7 +8,7 @@ class PassFPDF extends FPDF
   var $angle=0;
   var $x;
   var $y;
-  
+
   function CellRadio($wt,$wr,$h,$txt,$typ,$border,$valide,$por)
   {
     $b1="";
@@ -25,7 +25,7 @@ class PassFPDF extends FPDF
     $this->Cell($wr,$h,$v,$b2,$ln,"L");
     $this->SetPasGras($por);
   }
-  
+
   function Puce($numero,$position,$taille, $police)
   {
     $puces="à+-";
@@ -35,30 +35,30 @@ class PassFPDF extends FPDF
     $this->Cell($position,7,$txt,0,0,"R");
     $this->SetFont($police,'',$taille);
   }
-  
+
   function SetGras($p){
     $this->SetFont('Arial','B',$p);
   }
-  
+
   function SetPasGras($p){
     $this->SetFont('Arial','',$p);
   }
-  
+
   function Header()
   {
     //$this->Image("images/logoFiligrane.png",120,10,70);
     //$this->Image("images/bandeau.png",30,7,15);
   }
-  
+
   function Footer()
   {
       //Pied de page
       $this->SetY(-15);
       $this->SetFont('Arial','I',8);
       $this->SetTextColor(128);
-      $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
+      //$this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
   }
-  
+
   function Rotate($angle,$x=-1,$y=-1){
     if($x==-1)
         $x=$this->x;

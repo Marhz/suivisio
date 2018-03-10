@@ -107,14 +107,14 @@
 										@endif
 										<li
 										@if (!\Auth::user()->hasSituations() || \Auth::user()->numeroCandidat == null)
-											class="disabled"
+											class="disabled" onclick='return false;'
 										@endif
 										>
-											<a href="{{url('bilanPDF')}}">Bilan PDF</a>
+											<a href="{{url('bilanPDF/'.Auth::id())}}">Bilan PDF</a>
 										</li>
 										<li
 										@cannot('changerNumeroCandidat', Auth::user())
-											class="disabled"
+											class="disabled" onclick='return false;'
 										@endcan
 										>
 											<a href="{{url('changerNumeroCandidat')}}">Mon numéro de candidat

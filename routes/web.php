@@ -18,7 +18,7 @@ Route::put('changerMdp','HomeController@updatePassword')->middleware('auth');
 
 Route::group(['middleware' => ['auth','checkPassword']], function () {
 	Route::get('/', 'HomeController@index');
-	Route::get('bilanPDF', 'SuiviSio\PdfController@index');
+	Route::get('bilanPDF/{id}', 'SuiviSio\PdfController@index');
 	Route::get('changerNumeroCandidat', 'UserController@editNumeroCandidat');
 	Route::post('changerNumeroCandidat', 'UserController@storeNumeroCandidat');
 
@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 		Route::get('classes/{id}/ajouterEleve', 'UserController@get_addUserInGroup');
 		Route::post('classes/{id}/ajouterEleve', 'UserController@post_addUserInGroup');
 		Route::get('situations/datatables','SuiviSio\DatatablesController@showSituationsDatatables');
+		Route::get('classes/{id}/bilanPDF', 'SuiviSio\PdfController@group');
+
 
 	});
 	//Middleware géré directement dans le constructeur de SituationController

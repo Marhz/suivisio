@@ -115,7 +115,7 @@ class User extends Authenticatable
 
     public function owns(Situation $situation)
     {
-        return $situation->user_id === $this->id;
+        return $situation->user_id == $this->id;
     }
 
     public function hasSituations()
