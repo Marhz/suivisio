@@ -5,7 +5,7 @@
 @section('content')
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">{{ $error }}</div>
-    @endforeach  
+    @endforeach
     <div class="panel panel-default">
         <div class="panel-heading">{{isset($group) ? 'Modification' : 'Création'}} d'une classe</div>
 
@@ -26,6 +26,10 @@
                     {{-- selection entre l'année en cours -1 an et +4 ans, année en cours par défault  --}}
                 </div>
                 <div class="form-group">
+                  {{Form::label('deadline','Date limite pour les étudiants :')}}
+                  {{Form::date('deadline',new Carbon($group->deadline),['class' => 'form-control'])}}
+                </div>
+                <div class="form-group">
                     {{Form::label('course_id','Parcours :')}}
                     {{Form::select('course_id',$courses,null,['class' => 'form-control'])}}
                 </div>
@@ -36,7 +40,7 @@
                 <div class="form-group">
                     {{Form::submit(isset($group) ? 'Modifier' : 'Créer' ,['class' => 'btn btn-primary form-control'])}}
                 </div>
-            {{Form::close()}} 
+            {{Form::close()}}
         </div>
     </div>
 @endsection

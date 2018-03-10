@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Events\Users\UserCreatedEvent;
 use App\Notifications\AccountCreatedNotification;
 
 class User extends Authenticatable
@@ -18,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'group_id'
+        'first_name', 'last_name', 'numeroCandidat', 'email', 'password', 'group_id'
     ];
 
     /**
@@ -77,6 +76,16 @@ class User extends Authenticatable
     public function fullName()
     {
         return $this->first_name.' '.$this->last_name;
+    }
+
+    public function isOpened()
+    {
+      return $this->group->isOpened();
+    }
+
+    public function isLocked()
+    {
+      return !$this->isOpened();
     }
 
     public function getActivitiesId()

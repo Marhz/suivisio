@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Group;
+use Auth;
 use Excel;
 use App\Http\Requests\UserRequest;
 
@@ -154,6 +155,24 @@ class UserController extends Controller
         $user->save();
         $group = Group::find($request->input('group_id'));
         return redirect()->action('SuiviSio\GroupController@show',$request->input('group_id'))
-                         ->with('success','L\'utilsateur '.$user->email.' a été ajouté avec succès');
+                         ->with('success','L\'utilisateur '.$user->email.' a été ajouté avec succès');
     }
+
+    public function editNumeroCandidat(Request $resquest)
+    {
+        return view('users.changerNumeroCandidat', ['user' => Auth::user()]);
+    }
+
+    public function storeNumeroCandidat(Request $request)
+    {
+      $this->validate($request,
+        ['numeroCandidat' => 'numeric'],
+        ['numeroCandidat.numeric' => 'Votre numéro de candidat doit être uniquement composé de chiffres.']
+      );
+      $user = Auth::user();
+      $user->update($request->input());
+      return redirect()->back()
+                       ->with('success','Votre numéro de candidat a été mis à jour.');
+    }
+
 }

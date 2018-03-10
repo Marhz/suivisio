@@ -239,6 +239,7 @@ return [
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
         // 'Fpdf'    => Anouar\Fpdf\Facades\Fpdf::class,
+        'User' => App\Models\User::class,
     ],
 
 ];

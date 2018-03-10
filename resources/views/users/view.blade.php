@@ -16,7 +16,11 @@
 					{{Form::label('first_name','Prénom :')}}
 					{{Form::text('first_name',null,['class' => 'form-control', 'readonly'])}}
 				</div>
-				<div class="form-group">
+        <div class="form-group">
+					{{Form::label('numeroCandidat','Numéro de candidat :')}}
+					{{Form::text('numeroCandidat',null,['class' => 'form-control', 'readonly'])}}
+				</div>
+        <div class="form-group">
 					{{Form::label('email','Mail :')}}
 					{{Form::email('email',null,['class' => 'form-control', 'readonly'])}}
 				</div>

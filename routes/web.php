@@ -19,6 +19,8 @@ Route::put('changerMdp','HomeController@updatePassword')->middleware('auth');
 Route::group(['middleware' => ['auth','checkPassword']], function () {
 	Route::get('/', 'HomeController@index');
 	Route::get('bilanPDF', 'SuiviSio\PdfController@index');
+	Route::get('changerNumeroCandidat', 'UserController@editNumeroCandidat');
+	Route::post('changerNumeroCandidat', 'UserController@storeNumeroCandidat');
 
 	Route::group(['middleware' => 'teacher'], function () {
 		Route::resource('classes','SuiviSio\GroupController');

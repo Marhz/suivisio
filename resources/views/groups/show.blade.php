@@ -14,13 +14,16 @@
 
 @section('content')
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3>Classe {{$group->name}}</h3></div>
+		<div class="panel-heading"><h3>@include('groups.partials.name')</h3></div>
 		<div class="panel-body">
 			<p>
 				<bold>Professeur(s) :</bold>
 				@foreach($group->teachers as $teacher)
 					{{$teacher->first_name}} {{$teacher->last_name}}
 				@endforeach
+			</p>
+			<p>
+				<bold>Date limite : {{ (new Carbon($group->deadline))->diffForHumans() }}</bold>
 			</p>
 			<table id="table" class="table datatable" style="width:100%;">
 				<thead>

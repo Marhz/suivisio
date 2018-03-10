@@ -84,7 +84,7 @@
 										  		@if(Auth::user()->teacherOf->count() > 0)
 											  		@foreach (Auth::user()->teacherOf as $group)
 											  			<li>
-											  				<a href="{{ url('classes/'.$group->id) }}">{{$group->name}}</a>
+											  				<a href="{{ url('classes/'.$group->id) }}">@include('groups.partials.name')</a>
 											  			</li>
 											  		@endforeach
 											  	@else
@@ -92,19 +92,40 @@
 											  	@endif
 										  	</ul>
 										</li>
+										<li>
+											<a href="{{url('situation')}}">Situations</a>
+										</li>
 									@endif
-									<li>
-										<a href="{{url('situation')}}">Situations</a>
-									</li>
 									@if(Auth::user()->isStudent())
 										<li>
-											<a href="{{url('situation/create')}}">Ajouter une situation</a>
+											<a href="{{url('situation')}}">Situations @include('groups.partials.lock', ['group' => Auth::user()->group])</a>
 										</li>
-										@if (\Auth::user()->hasSituations())
-										<li>
+										@if(Auth::user()->isOpened())
+											<li>
+												<a href="{{url('situation/create')}}">Ajouter une situation</a>
+											</li>
+										@endif
+										<li
+										@if (!\Auth::user()->hasSituations() || \Auth::user()->numeroCandidat == null)
+											class="disabled"
+										@endif
+										>
 											<a href="{{url('bilanPDF')}}">Bilan PDF</a>
 										</li>
-										@endif
+										<li
+										@cannot('changerNumeroCandidat', Auth::user())
+											class="disabled"
+										@endcan
+										>
+											<a href="{{url('changerNumeroCandidat')}}">Mon numéro de candidat
+											@cannot('changerNumeroCandidat', Auth::user())
+												<i class="fa fa-lock"></i>
+											@endcan
+											@if (\Auth::user()->numeroCandidat == null)
+												<i class="fa fa-warning"></i>
+											@endif
+											</a>
+										</li>
 									@endif
 									<li class="divider"></li>
 									<li>
