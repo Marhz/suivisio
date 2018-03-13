@@ -13,6 +13,7 @@
 		</div>
 		<div class="panel-body">
 			@can('addSituation', $user)
+				<div class="pull-left">Verrouillage {{ (new Carbon($user->group->deadline))->diffForHumans()}}</div>
 				<a href="situation/create"><button class="btn btn-primary pull-right">Ajouter une situation</button></a>
 			@endcan
 			<table class="table table-striped">
