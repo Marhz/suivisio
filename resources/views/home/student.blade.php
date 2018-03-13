@@ -10,8 +10,8 @@
 						Nouvelle situation
 					</a>
 					--}}
-					@if (\Auth::user()->situations()->count() > 0)
-					<a href="{{url('bilanPDF')}}" class="box box-red">
+					@if (\Auth::user()->hasSituations())
+					<a href="{{url('bilanPDF/'.Auth::id())}}" class="box box-red">
 						Bilan PDF
 					</a>
 				@endif

@@ -6,6 +6,10 @@
 @endsection
 
 @section('content')
+    <div>
+    <a href={{ url('/situation')}}><button class="btn btn-default">Retour</button></a>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
           Situation de {{$situation->user->fullName()}}
