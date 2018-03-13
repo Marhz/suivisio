@@ -106,7 +106,7 @@
 											</li>
 										@endif
 										<li
-										@if (!\Auth::user()->hasSituations() || \Auth::user()->numeroCandidat == null)
+										@if (!\Auth::user()->hasSituations())
 											class="disabled" onclick='return false;'
 										@endif
 										>

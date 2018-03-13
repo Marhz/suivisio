@@ -19,8 +19,8 @@ class HomeController extends Controller
         if(Auth::guest())
             return view('auth.login');
         if(Auth::user()->isStudent())
-            return view('home.student');
-        return view('home.teacher');
+            return redirect('situation');
+        return redirect('situation');
     }
 
     public function admin()

@@ -98,6 +98,7 @@ class MainActivityController extends Controller
         Activity::where('main_activity_id', $main_activity->id)->update(['main_activity_id' => null]);
         $main_activity->delete();
     }
+
     protected function prepareForSelect($activities)
     {
         foreach($activities as $activity)
@@ -105,6 +106,7 @@ class MainActivityController extends Controller
         $activities = $activities->pluck('nomenclature', 'id');
         return $activities;
     }
+
     protected function syncActivities($activitiesId, $main_id, $update = false)
     {
     	foreach($activitiesId as $id)
