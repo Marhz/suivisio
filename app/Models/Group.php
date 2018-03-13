@@ -16,6 +16,7 @@ class Group extends Model
     {
         return $this->teachers->pluck('id')->all();
     }
+    
     public function users()
     {
     	return $this->hasMany(User::class);

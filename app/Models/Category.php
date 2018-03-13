@@ -13,6 +13,7 @@ class Category extends Model
     {
     	return $this->activities->pluck('id')->all();
     }
+    
     public function activities()
     {
     	return $this->belongsToMany(Activity::class);

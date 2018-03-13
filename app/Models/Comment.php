@@ -12,6 +12,7 @@ class Comment extends Model
     {
     	return $this->belongsTo(User::class);
     }
+    
     public function situation()
     {
     	return $this->belongsTo(Situation::class);
