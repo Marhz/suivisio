@@ -7,6 +7,10 @@
 
 @section('content')
 
+  <div>
+  <a href={{ url('/situation')}}><button class="btn btn-default">Retour</button></a>
+  </div>
+
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">{{ $error }}</div>
     @endforeach
