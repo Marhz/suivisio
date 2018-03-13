@@ -80,7 +80,7 @@ class User extends Authenticatable
 
     public function isOpened()
     {
-      return $this->group->isOpened();
+      return $this->group != null && $this->group->isOpened();
     }
 
     public function isLocked()

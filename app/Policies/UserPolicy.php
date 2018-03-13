@@ -14,9 +14,9 @@ class UserPolicy
         return $user->isTeacher();
     }
 
-    public function addSituation(User $user)
+    public function addSituation(User $authUser, User $otherUser)
     {
-        return $user->isOpened();
+        return $authUser->id == $otherUser->id && $otherUser->isOpened();
     }
 
     public function changerNumeroCandidat(User $user)

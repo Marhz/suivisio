@@ -18,9 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        dd('yolo');
-        // $users = User::student()->get();
-        // return view('users.list')->with('users', $users);
+        return redirect('/');
     }
 
     /**
@@ -30,8 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        dd('cr');
-        //return view('users.create');
+      return redirect('/');
     }
 
     /**
@@ -42,7 +39,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        echo "sto";
+      return redirect('/');
     }
 
     /**
@@ -53,9 +50,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        return redirect('/');
+        /*
         $groups = Group::all()->pluck('name','id');
         $user = User::find($id);
         return view('users.view',compact('groups','user'));
+        */
     }
 
     /**
@@ -118,6 +118,7 @@ class UserController extends Controller
         }
         return back()->with('error', 'Un problème est survenu durant l\'upload du fichier');
     }
+
     protected function addFromOds($values,$id)
     {
         foreach($values as $value)
@@ -135,6 +136,7 @@ class UserController extends Controller
             }
         }
     }
+
     protected function updateFromOds($user,$value,$id)
     {
         $user->last_name = $value['nom'];
@@ -172,8 +174,8 @@ class UserController extends Controller
       if ($user->can('changerNumeroCandidat', $user))
       {
           $this->validate($request,
-          ['numeroCandidat' => 'numeric'],
-          ['numeroCandidat.numeric' => 'Votre numéro de candidat doit être uniquement composé de chiffres.']
+          ['numeroCandidat' => 'digits:10'],
+          ['numeroCandidat.digits' => 'Votre numéro de candidat doit être composé de 10 chiffres.']
         );
         $user->update($request->input());
         return redirect()->back()

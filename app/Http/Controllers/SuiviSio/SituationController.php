@@ -8,6 +8,7 @@ use App\Models\Source;
 use App\Models\Activity;
 use App\Http\Controllers\Controller;
 use Auth;
+use User;
 use Carbon;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,7 @@ class SituationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
 			$user = Auth::user();
@@ -30,6 +32,14 @@ class SituationController extends Controller
       	return $this->teacherIndex();
     	$situations = Situation::getUserSituations()->get();
     	return view('situations.list',compact('situations', 'user'));
+    }
+
+		public function forUser(Request $request, $user_id)
+    {
+			$user = User::findOrFail($user_id);
+			//dd($user);
+    	$situations = $user->situations;
+    	return view('situations.list', compact('situations', 'user'));
     }
 
     /**
