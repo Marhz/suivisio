@@ -83,7 +83,7 @@ class PdfController extends Controller
   		$txt="BTS SERVICES INFORMATIQUES AUX ORGANISATIONS - TABLEAU DE SYNTHÈSE";
   		$this->pdf->Cell(0,$hvt,utf8_decode($txt),0,1,"C");
   		$this->pdf->SetFont($police,'B',$potexte);
-  		$txt="Nom et prénom du candidat : ".utf8_decode($user->last_name)." ".utf8_decode($user->first_name);
+  		$txt="Nom et prénom du candidat : ".$user->last_name." ".$user->first_name;
   		$this->pdf->Cell(60, $hvt,"",0,0);
   		$this->pdf->Cell(160,$hvt,utf8_decode($txt),0,0);
   		$txt="Parcours : ".$user->group->course->name;
