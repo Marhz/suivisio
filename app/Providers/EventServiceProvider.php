@@ -8,6 +8,9 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use App\Models\User;
 use App\Listeners\Users\UserObserver;
 
+use App\Models\Comment;
+use App\Listeners\Comments\CommentObserver;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -27,5 +30,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
         User::observe(UserObserver::class);
+        Comment::observe(CommentObserver::class);
     }
 }
