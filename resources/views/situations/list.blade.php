@@ -47,6 +47,11 @@
 								</a>
 							@endcan
 							@can('edit', $situation)
+								<a href={{ url('/situation/'.$situation->id.'/duplicate')}}>
+									<button class="btn btn-warning actionButton"><i class="fa fa-copy"></i></button>
+								</a>
+							@endcan
+							@can('edit', $situation)
 								{{Form::open(['method' => 'delete',
 											'url' => '/situation/'.$situation->id,
 											'class' => 'deleteBtn'])}}

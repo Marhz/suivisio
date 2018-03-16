@@ -47,6 +47,7 @@ class SituationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
 			$user = Auth::user();
@@ -59,6 +60,23 @@ class SituationController extends Controller
 			}
 			else
 					return $this->index();
+    }
+
+		public function duplicate($id)
+    {
+			$user = Auth::user();
+			$situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
+			if ($user->can('edit', $situation))
+			{
+	        $activities = Activity::all();
+	        $activities = $this->prepareForSelect($activities);
+	    		$sources = Source::all()->pluck('label','id');
+					$situation = $situation->replicate();
+					$situation->push();
+	        return view('situations.create-edit',compact('situation','activities','sources'));
+				}
+  			else
+  					return $this->index();
     }
 
     /**

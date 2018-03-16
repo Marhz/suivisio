@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 	});
 	//Middleware géré directement dans le constructeur de SituationController
 	Route::resource('situation', 'SuiviSio\SituationController');
+	Route::get('situation/{id}/duplicate', 'SuiviSio\SituationController@duplicate');
 
 	Route::post('situation/{situation}/comment','SuiviSio\CommentController@store')->name('comment.store');
 	Route::delete('comment/{comment}','SuiviSio\CommentController@destroy')->name('comment.destroy');

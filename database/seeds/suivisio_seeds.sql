@@ -33,6 +33,7 @@ INSERT INTO `sources` (`id`, `label`, `description`) VALUES
 (2, 'Stage 2', 'SITUATIONS VECUES EN STAGE DE DEUXIEME ANNEE DANS L''ORGANISATION'),
 (3, 'TP', 'SITUATIONS VECUES EN FORMATION (TP)'),
 (4, 'PPE', 'SITUATIONS VECUES EN FORMATION (PPE)');
+(5, 'Alternance', 'SITUATIONS VECUES EN ALTERNANCE');
 
 INSERT INTO `main_activities` (`id`, `name`) VALUES
 (6, 'Production d''une solution logicielle et d''infrastructure'),
@@ -83,7 +84,7 @@ INSERT INTO `activities` (`id`, `domain_id`, `nomenclature`, `label`, `lngutile`
 (40, 11, 'A4.1.7', 'Développement, utilisation ou adaptation de composants logiciels', 54, NULL, NULL),
 (41, 11, 'A4.1.8', 'Réalisation des tests nécessaires à la validation d''éléments adaptés ou développés', 49, NULL, NULL),
 (42, 11, 'A4.1.9', 'Rédaction d''une documentation technique', 40, NULL, NULL),
-(43, 11, 'A4.1.1', 'Rédaction d''une documentation d''utilisation', 45, NULL, NULL),
+(43, 11, 'A4.1.10', 'Rédaction d''une documentation d''utilisation', 45, NULL, NULL),
 (44, 12, 'A4.2.1', 'Analyse et correction d''un dysfonctionnement, d''un problème de qualité de service ou de sécurité', 44, NULL, NULL),
 (45, 12, 'A4.2.2', 'Adaptation d''une solution applicative aux évolutions de ses composants', 52, NULL, NULL),
 (46, 12, 'A4.2.3', 'Réalisation des tests nécessaires à la mise en production d''éléments mis à jour', 57, NULL, NULL),
