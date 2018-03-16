@@ -54,7 +54,7 @@ class PdfController extends Controller
   		$hvt=15; //hauteur texte
   		$hvp=15; //hauteur ligne processus
   		$hv=60;//hauteur texte écrit verticalement;
-  		$hvs=15;//hauteur pour une situ, fixe puisque seul libcourt<=64car
+  		$hvs=12;//hauteur pour une situ, fixe puisque seul libcourt<=64car
   		$margeinterne=4;//marge entre 4 col. oblig et les 57 autres ( 1 <= $margeinterne <= 6)
   		$lg=6;
   		$lgoblig=6;
@@ -180,7 +180,7 @@ class PdfController extends Controller
   				  $x0=$this->pdf->getX();
   				  $y0=$this->pdf->getY();
   				  $dts=$situation->begin_at.' - '.$situation->end_at;
-  				  $this->pdf->MultiCell($mgs,5,utf8_decode($situation->name)."\n".$dts,0);
+  				  $this->pdf->MultiCell($mgs,5,utf8_decode($situation->name) /*."\n".$dts*/ ,0);
   				  $this->pdf->setXY($x0,$y0);
   				  $this->pdf->Cell($mgs,$hvs,"",1,0);
 
