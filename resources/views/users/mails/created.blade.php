@@ -1,10 +1,9 @@
-<P>Bonjour {{ User::find($notification->data['user'])->fullName() }},</P>
+@extends('layouts.mail')
 
-<P>Votre compte sur <a href="{{ config('app.url') }}">{{ config('app.name') }}</a> a bien été créé.
-Connectez-vous avec le mot de passe par défaut <CODE>{{ $notification->data['password'] }}</CODE>
-(il vous sera demandé de le modifier à la première connexion).
+@section('body')
+<P>
+  Votre compte sur <a href="{{ config('app.url') }}">{{ config('app.name') }}</a> a bien été créé.
+  Connectez-vous avec le mot de passe par défaut <CODE>{{ $notification->data['password'] }}</CODE>
+  (il vous sera demandé de le modifier à la première connexion).
 </P>
-
-<P>A bientôt,<BR>
-Les Admins.
-</P>
+@stop
