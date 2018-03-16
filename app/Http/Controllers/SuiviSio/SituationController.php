@@ -65,14 +65,18 @@ class SituationController extends Controller
 		public function duplicate($id)
     {
 			$user = Auth::user();
-			$situation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
-			if ($user->can('edit', $situation))
+			$oldsituation = Situation::where('user_id', '=', Auth::user()->id)->find($id);
+			if ($user->can('edit', $oldsituation))
 			{
+					$situation = $oldsituation->replicate();
+					$situation->push();
+					foreach ($oldsituation->activities as $activity)
+					{
+						$situation->activities()->attach($activity, ['rephrasing' => $activity->pivot->rephrasing]);
+					}
 	        $activities = Activity::all();
 	        $activities = $this->prepareForSelect($activities);
 	    		$sources = Source::all()->pluck('label','id');
-					$situation = $situation->replicate();
-					$situation->push();
 	        return view('situations.create-edit',compact('situation','activities','sources'));
 				}
   			else
