@@ -79,7 +79,7 @@
 									@endif
 									@if (Auth::user()->isTeacher())
 										<li class="dropdown-submenu">
-											<a tabindex="-1" href="#"><span class="caret-left"></span>Classes</a>
+											<a tabindex="-1" href="#"><span class="caret-left"></span>Mes classes</a>
 										  	<ul class="dropdown-menu">
 										  		@if(Auth::user()->teacherOf->count() > 0)
 											  		@foreach (Auth::user()->teacherOf as $group)

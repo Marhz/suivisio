@@ -15,11 +15,6 @@ class GroupPolicy
         return $user->isAdmin();
     }
 
-    public function delete(User $user)
-    {
-        return $user->isAdmin();
-    }
-
     private function owns($user, $group)
     {
         return $user->teacherOf->contains($group);
@@ -28,6 +23,11 @@ class GroupPolicy
     public function view(User $user, Group $group)
     {
         return $this->owns($user, $group);
+    }
+
+    public function delete(User $user, Group $group)
+    {
+        return $user->isAdmin();
     }
 
     public function edit(User $user, Group $group)

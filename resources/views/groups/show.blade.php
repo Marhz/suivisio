@@ -14,10 +14,14 @@
 
 @section('content')
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3>@include('groups.partials.name')</h3>
-		@can('viewPDF', $group)
-			<a href="{{ url('classes/'.$group->id.'/bilanPDF')}}" ><button class="btn btn-primary">Bilan PDF</button></a>
+		<div class="panel-heading"><h3>@include('groups.partials.name')
+		@can('edit', $group)
+			<a href="{{ url('classes/'.$group->id.'/edit')}}" ><button class="btn btn-warning"><i class='fa fa-edit'></i></button></a>
 		@endcan
+		@can('viewPDF', $group)
+			<a href="{{ url('classes/'.$group->id.'/bilanPDF')}}" ><button class="btn btn-info"><i class='fa fa-file-pdf-o'></i></button></a>
+		@endcan
+		</h3>
 		</div>
 		<div class="panel-body">
 			<p>

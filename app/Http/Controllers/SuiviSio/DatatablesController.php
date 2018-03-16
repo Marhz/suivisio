@@ -18,9 +18,9 @@ class DatatablesController extends Controller
         return Datatables::of($group->users()->get())
         	->editColumn('actions',function ($user){
         		return
-                    /*$this->showBtn('users',$user->id).*/
+                    $this->showBtn('users',$user->id).
                     $this->editBtn('users',$user->id).
-                    $this->SituationsBtn('users',$user->id).
+                    /*$this->SituationsBtn('users',$user->id).*/
                     $this->deleteBtn('users',$user->id).
                     (($user->hasSituations()) ? $this->pdfBtn('users',$user->id) : '');
         	})
@@ -103,7 +103,7 @@ class DatatablesController extends Controller
 
     protected function situationsBtn($name, $id, $prefix = null)
     {
-        return "<a href='".url($prefix."/".$name."/".$id.'/situations')."'><button class='btn btn-warning actionButton'><i class='fa fa-list'></i></button></a>";
+        return "<a href='".url($prefix."/".$name."/".$id.'/situations')."'><button class='btn btn-primary actionButton'><i class='fa fa-list'></i></button></a>";
     }
 
     protected function pdfBtn($name, $id, $prefix = null)
