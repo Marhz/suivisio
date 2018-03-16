@@ -180,7 +180,7 @@ class PdfController extends Controller
   				  $x0=$this->pdf->getX();
   				  $y0=$this->pdf->getY();
   				  $dts=$situation->begin_at.' - '.$situation->end_at;
-  				  $this->pdf->MultiCell($mgs,5,utf8_decode($situation->name) /*."\n".$dts*/ ,0);
+  				  $this->pdf->MultiCell($mgs,4,utf8_decode($situation->name) /*."\n".$dts*/ ,0, 'L');
   				  $this->pdf->setXY($x0,$y0);
   				  $this->pdf->Cell($mgs,$hvs,"",1,0);
 
