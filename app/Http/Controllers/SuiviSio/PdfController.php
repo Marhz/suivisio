@@ -165,7 +165,7 @@ class PdfController extends Controller
 
   				$this->pdf->SetDrawColor(0); //noir
   				$this->pdf->SetFillColor($grisclairfond);
-  				foreach($user->situations->where('source_id', $source->id) as $situation){
+  				foreach($user->situations->where('source_id', $source->id)->sortBy('begin_at') as $situation){
   				  // $typo=$situ["typo"];
   				  $userActivities = $situation->getActivitiesId();
   				  $this->pdf->SetFont($police,'B',$pocroix);
