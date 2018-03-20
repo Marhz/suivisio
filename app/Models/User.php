@@ -29,10 +29,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $events = [
-            'created' => UserCreatedEvent::class
-    ];
-
     protected $dates = ['deleted_at'];
 
     //
