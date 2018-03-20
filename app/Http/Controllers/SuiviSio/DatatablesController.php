@@ -18,7 +18,7 @@ class DatatablesController extends Controller
         return Datatables::of($group->users()->get())
         	->editColumn('actions',function ($user){
         		return
-                    $this->showBtn('users',$user->id).
+                    $this->showBtn('users',$user->id, null, '/situations').
                     $this->editBtn('users',$user->id).
                     $this->deleteBtn('users',$user->id).
                     $this->pdfBtn('users',$user);
@@ -68,9 +68,9 @@ class DatatablesController extends Controller
             ->make(true);
     }
 
-    protected function showBtn($name, $id, $prefix = null)
+    protected function showBtn($name, $id, $prefix = null, $suffix = null)
     {
-        return view('datatables.show')->with(compact('name', 'id', 'prefix'))->render();
+        return view('datatables.show')->with(compact('name', 'id', 'prefix', 'suffix'))->render();
     }
 
     protected function deleteBtn($name, $id, $prefix = null)

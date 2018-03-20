@@ -22,17 +22,17 @@ class GroupPolicy
 
     public function view(User $user, Group $group)
     {
-        return $this->owns($user, $group);
+        return $user->isAdmin() || $this->owns($user, $group);
     }
 
     public function delete(User $user, Group $group)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isAdmin();
     }
 
     public function edit(User $user, Group $group)
     {
-      return $this->owns($user, $group);
+      return $user->isAdmin() || $this->owns($user, $group);
     }
 
     public function viewPDF(User $user, Group $group)
