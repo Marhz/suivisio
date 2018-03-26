@@ -31,7 +31,7 @@
 				@endforeach
 			</p>
 			<p>
-				<bold>Date limite : {{ (new Carbon($group->deadline))->diffForHumans() }}</bold>
+				<bold>Date limite : {{ (new Carbon($group->deadline))->formatLocalized('%d/%m/%Y à %H heures') }}</bold>
 			</p>
 			<table id="table" class="table datatable" style="width:100%;">
 				<thead>
