@@ -59,7 +59,7 @@ class PdfController extends Controller
   		$lg=6;
   		$lgoblig=6;
   		$offset=7;
-  		$mgs=85;//largeur colonne de gauche pour situs (libcourt)
+  		$mgs=80;//largeur colonne de gauche pour situs (libcourt)
   		//en points :
   		$potitre=14;
   		$potexte=12;
