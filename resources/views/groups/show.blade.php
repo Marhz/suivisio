@@ -27,7 +27,7 @@
 			<p>
 				<bold>Professeur(s) :</bold>
 				@foreach($group->teachers as $teacher)
-					{{$teacher->first_name}} {{$teacher->last_name}}
+					{{$teacher->fullName()}}@if(!$loop->last){{ ", "}}@endif
 				@endforeach
 			</p>
 			<p>

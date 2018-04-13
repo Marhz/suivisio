@@ -71,7 +71,7 @@ class User extends Authenticatable
 
     public function fullName()
     {
-        return $this->last_name.' '.$this->first_name;
+        return $this->first_name.' '.$this->last_name;
     }
 
     public function isOpened()
