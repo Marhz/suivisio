@@ -37,6 +37,10 @@
                     {{Form::label('source_id','Source :')}}
                     {{Form::select('source_id',$sources,null,['class' =>'form-control'])}}
                 </div>
+                <div class="form-group">
+                    {{Form::label('show','Afficher/masquer :')}}
+                    {{Form::select('show',[1 => 'Afficher dans le tableau de synthèse', 0 => 'Ne pas afficher dans le tableau de synthèse'],$situation->show, ['id' => 'show', 'class' =>'form-control'])}}
+                </div>
                 <div class="form-group col-md-6">
                     {{Form::label('begin_at','Debut :')}}
                     {{Form::text('begin_at',null,['class' => 'form-control datepicker'])}}
