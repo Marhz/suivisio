@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                   {{Form::label('deadline','Date limite pour les étudiants :')}}
-                  {{Form::date('deadline',new Carbon($group->deadline),['class' => 'form-control'])}}
+                  {{Form::date('deadline', isset($group) ? new Carbon($group->deadline) : null,['class' => 'form-control'])}}
                 </div>
                 <div class="form-group">
                     {{Form::label('course_id','Parcours :')}}
