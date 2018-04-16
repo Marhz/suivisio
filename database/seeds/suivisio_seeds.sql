@@ -16,7 +16,7 @@ INSERT INTO `sources` (`id`, `label`, `description`) VALUES
 (1, 'Stage 1', 'SITUATIONS VECUES EN STAGE DE PREMIERE ANNEE DANS L''ORGANISATION'),
 (2, 'Stage 2', 'SITUATIONS VECUES EN STAGE DE DEUXIEME ANNEE DANS L''ORGANISATION'),
 (3, 'TP', 'SITUATIONS VECUES EN FORMATION (TP)'),
-(4, 'PPE', 'SITUATIONS VECUES EN FORMATION (PPE)');
+(4, 'PPE', 'SITUATIONS VECUES EN FORMATION (PPE)'),
 (5, 'Alternance', 'SITUATIONS VECUES EN ALTERNANCE');
 
 INSERT INTO `main_activities` (`id`, `name`) VALUES
@@ -25,7 +25,7 @@ INSERT INTO `main_activities` (`id`, `name`) VALUES
 (10, 'Élaboration de documents relatifs à la production'),
 (11, 'Mise en place d’un dispositif de veille technologique');
 
-INSERT INTO `activities` (`id`, `domain_id`, `nomenclature`, `label`, `lngutile`, `main_activity_id`, `deleted_at`) VALUES
+INSERT INTO `activities` (`id`, `nomenclature`, `label`, `lngutile`, `main_activity_id`, `deleted_at`) VALUES
 (1, 'A1.1.1', 'Analyse du cahier des charges d''un service à produire', 54, 6, NULL),
 (2, 'A1.1.2', 'Étude de l''impact de l''intégration d''un service sur le système informatique', 47, 6, NULL),
 (3, 'A1.1.3', 'Étude des exigences liées à la qualité attendue d''un service', 47, 6, NULL),
