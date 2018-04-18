@@ -127,6 +127,11 @@
 											</a>
 										</li>
 									@endif
+									@can('editMacAddress', Auth::user())
+									<li>
+										<a href="{{url('macAddress')}}">Saisir mon adresse MAC</a>
+									</li>
+									@endcan
 									<li class="divider"></li>
 									<li>
 										<a href="{{url('changerMdp')}}">Changer de mot de passe</a>

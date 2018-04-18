@@ -152,6 +152,11 @@ class User extends Authenticatable
         return $this->hasMany(Situation::class);
     }
 
+    public function macAddresses()
+    {
+        return $this->hasMany(MacAddress::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

@@ -50,7 +50,7 @@
                     {{Form::text('end_at',null,['class' => 'form-control datepicker'])}}
                 </div>
                 <div class="form-group">
-                    {{Form::label('activity_list','Activitées :')}}
+                    {{Form::label('activity_list','Activités :')}}
                     {{Form::select('activity_list[]',$activities,null,['id' => 'activity_list', 'class' => 'form-control','multiple'])}}
                 </div>
                 <div class="rephrasing">
