@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 use App\Models\User;
-use App\Listeners\Users\UserObserver;
+use App\Observers\Users\UserObserver;
 
 use App\Models\Comment;
-use App\Listeners\Comments\CommentObserver;
+use App\Observers\Comments\CommentObserver;
 
 class EventServiceProvider extends ServiceProvider
 {

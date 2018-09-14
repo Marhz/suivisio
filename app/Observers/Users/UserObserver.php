@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Users;
+namespace App\Observers\Users;
 
 use App\Models\User;
 use Auth;

@@ -23,6 +23,14 @@
                 <b>Vécue en: </b>{{$situation->source->label}}
             </p>
             <p>
+                <span class='fa-color'>
+                  @if($situation->show)
+                    <i class='fa fa-eye'></i> (Visible dans le tableau de synthèse)
+                  @else
+                    <i class='fa fa-eye-slash'></i> (N'apparaît pas dans le tableau de synthèse)
+                  @endif
+                </span>
+            <p>
                 <b>Dates: </b>du {{$situation->begin_at}} au {{$situation->end_at}}
             </p>
             <p>

@@ -164,8 +164,11 @@ class SituationController extends Controller
 			{
 	        $data = $this->prepareData($request->except('_token','rephrasing'));
 	        $situation->update($data);
+					$situation->show = $request->input('show');
+
 	        $situation->activities()->sync($request->input('activity_list'));
 	        $this->addRephrasing($situation,$request->input('rephrasing'));
+					$situation->save();
 	        return redirect()->action('SuiviSio\SituationController@index')
 	            ->with('success','Situation '.$situation->name.' modifiée avec succès');
 			}
