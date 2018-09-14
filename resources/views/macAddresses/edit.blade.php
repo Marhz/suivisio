@@ -18,10 +18,12 @@
 			{{Form::model($user,['method' => 'post','url' => 'macAddress'])}}
         <input name="_token" type="hidden" id="_token" value="{{ csrf_token() }}" />
         <div class="form-group">
-					{{Form::label('address','Adresse MAC :')}}
-					{{Form::text('address',$address, null,['id' => 'address', 'class' => 'form-control', /*'multiple'*/])}}
+            {{Form::label('address','Adresse MAC :')}}
+            {{Form::text('address',$address, null,['id' => 'address', 'class' => 'form-control',''])}}
 				</div>
+        @can('editMacAddress', Auth::user())
 					{{Form::submit('Enregistrer',['class' => 'btn btn-primary form-control'])}}
+        @endcan
 			{{Form::close()}}
 		</div>
 	</div>

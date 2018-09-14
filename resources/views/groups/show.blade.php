@@ -23,7 +23,7 @@
 		@endcan
 		@if(config('app.collect_mac_addresses'))
 		@can('viewMacAddresses', $group)
-			<a href="{{ url('classes/'.$group->id.'/macAddresses')}}" ><button class="btn btn-info"><i class='fa fa-wifi'></i></button></a>
+			<a href="{{ url('macAddress/'.$group->id)}}" ><button class="btn btn-info"><i class='fa fa-wifi'></i></button></a>
 		@endcan
 		@endif
 		</h3>

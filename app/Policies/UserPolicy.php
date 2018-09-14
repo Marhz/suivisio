@@ -24,6 +24,11 @@ class UserPolicy
         return true;
     }
 
+    public function haveMultipleMacAddresses(User $authUser)
+    {
+        return $authUser->isTeacher();
+    }
+
     public function changerNumeroCandidat(User $user)
     {
         return $user->isOpened();

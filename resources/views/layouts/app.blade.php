@@ -130,7 +130,7 @@
 									@if(config('app.collect_mac_addresses'))
 									@can('editMacAddress', Auth::user())
 									<li>
-										<a href="{{url('macAddress')}}">Saisir mon adresse MAC</a>
+										<a href="{{url('macAddress/'.Auth::user()->id.'/edit')}}">Saisir mon adresse MAC</a>
 									</li>
 									@endcan
 									@endif
