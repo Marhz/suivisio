@@ -189,7 +189,7 @@ class UserController extends Controller
     public function editMacAddress(Request $request)
     {
       $user = Auth::user();
-      if ($user->can('editMacAddress', $user))
+      if (config('app.collect_mac_addresses') && $user->can('editMacAddress', $user))
       {
           $macAddresses = $user->macAddresses;
           $address = null;
@@ -203,7 +203,7 @@ class UserController extends Controller
     public function storeMacAddress(Request $request)
     {
       $user = Auth::user();
-      if ($user->can('editMacAddress', $user))
+      if (config('app.collect_mac_addresses') && $user->can('editMacAddress', $user))
       {
         $this->validate($request,
           ['address' => 'required|regex:/([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/'],

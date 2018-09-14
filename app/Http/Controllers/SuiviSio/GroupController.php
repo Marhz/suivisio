@@ -138,7 +138,7 @@ class GroupController extends Controller
     public function macAddresses($id)
     {
       $group = Group::findOrFail($id);
-      if (Auth::user()->can('viewMacAddresses', $group))
+      if (config('app.collect_mac_addresses') && Auth::user()->can('viewMacAddresses', $group))
         return view('groups.macAddresses', compact('group'));
       else
         return redirect()->back();
