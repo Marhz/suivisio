@@ -7,6 +7,7 @@ use Datatables;
 use App\Models\Group;
 use App\Models\Activity;
 use App\Models\Situation;
+use App\Models\MacAddress;
 use App\Http\Controllers\Controller;
 
 
@@ -66,6 +67,18 @@ class DatatablesController extends Controller
                   return $this->showBtn('situation', $situation->id);
             })
             ->make(true);
+    }
+
+    public function showMacAddressesDatatables($id)
+    {
+        $group = Group::find($id);
+        return Datatables::of($group->getUsersAndMacAddresses())
+          ->addColumn('Utilisateur',
+          function (MacAddress $macAddress)
+          {
+            return $macAddress->user->FullName();
+          })
+          ->make(true);
     }
 
     protected function showBtn($name, $id, $prefix = null, $suffix = null)
