@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Group;
-use App\Models\MacAddress;
 use Auth;
 use Excel;
 use App\Http\Requests\UserRequest;
@@ -186,38 +185,4 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function editMacAddress(Request $request)
-    {
-      $user = Auth::user();
-      if (config('app.collect_mac_addresses') && $user->can('editMacAddress', $user))
-      {
-          $macAddresses = $user->macAddresses;
-          $address = null;
-          if ($macAddresses->first() != null)
-            $address = $user->macAddresses->first()->address;
-          return view('users.macAddress', compact('user', 'address'));
-      }
-      return redirect()->back();
-    }
-
-    public function storeMacAddress(Request $request)
-    {
-      $user = Auth::user();
-      if (config('app.collect_mac_addresses') && $user->can('editMacAddress', $user))
-      {
-        $this->validate($request,
-          ['address' => 'required|regex:/([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/'],
-          ['address.regex' => 'L\'adresse doit être composée de 6 blocs de deux chiffres hexadécimaux séparés par des ":".']
-          );
-        $macAddress = $user->macAddresses->first();
-        if($macAddress == null)
-          $macAddress = new MacAddress();
-        $macAddress->address = $request->input('address');
-        $user->macAddresses()->save($macAddress);
-        return redirect()->back()
-                         ->with('success','Votre adresse MAC a été enregistrée.');
-      }
-      else
-        return redirect()->back();
-    }
 }

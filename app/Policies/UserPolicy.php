@@ -24,6 +24,11 @@ class UserPolicy
         return true;
     }
 
+    public function haveMultipleMacAddresses(User $authUser)
+    {
+        return $authUser->isTeacher();
+    }
+
     public function changerNumeroCandidat(User $user)
     {
         return $user->isOpened();
@@ -31,8 +36,7 @@ class UserPolicy
 
     public function viewPDF(User $authUser, User $otherUser)
     {
-        return $authUser->isAdmin()
-          || $authUser->isTeacher()
+        return $authUser->isTeacher()
           || $authUser->id == $otherUser->id;
     }
 
