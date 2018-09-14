@@ -134,4 +134,13 @@ class GroupController extends Controller
       else
         return redirect()->back();
     }
+
+    public function macAddresses($id)
+    {
+      $group = Group::findOrFail($id);
+      if (Auth::user()->can('viewMacAddresses', $group))
+        return view('groups.macAddresses', compact('group'));
+      else
+        return redirect()->back();
+    }
 }

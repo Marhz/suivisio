@@ -184,6 +184,7 @@ return [
         Anouar\Fpdf\FpdfServiceProvider::class,
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+        Appstract\Options\OptionsServiceProvider::class,
 
     ],
 

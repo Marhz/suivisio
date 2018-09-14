@@ -21,6 +21,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<td>Afficher/masquer</td>
 						<td>Libellé</td>
 						<td>Description</td>
 						<td>Source</td>
@@ -32,6 +33,7 @@
 				<tbody>
 					@foreach($situations as $situation)
 						<tr>
+							<td><span class='fa-color'><i class=@if($situation->show)"fa fa-eye"@else "fa fa-eye-slash"@endif></i></span></td>
 							<td>{{$situation->name}}</td>
 							<td>{{str_limit($situation->description,20,'...')}}</td>
 							<td>{{$situation->source->label}}</td>

@@ -21,13 +21,16 @@
 		@can('viewPDF', $group)
 			<a href="{{ url('classes/'.$group->id.'/bilanPDF')}}" ><button class="btn btn-info"><i class='fa fa-file-pdf-o'></i></button></a>
 		@endcan
+		@can('viewMacAddresses', $group)
+			<a href="{{ url('classes/'.$group->id.'/macAddresses')}}" ><button class="btn btn-info"><i class='fa fa-wifi'></i></button></a>
+		@endcan
 		</h3>
 		</div>
 		<div class="panel-body">
 			<p>
 				<bold>Professeur(s) :</bold>
 				@foreach($group->teachers as $teacher)
-					{{$teacher->first_name}} {{$teacher->last_name}}
+					{{$teacher->fullName()}}@if(!$loop->last){{ ", "}}@endif
 				@endforeach
 			</p>
 			<p>

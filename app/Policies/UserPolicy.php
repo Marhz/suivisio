@@ -19,6 +19,11 @@ class UserPolicy
         return $authUser->id == $otherUser->id && $otherUser->isOpened();
     }
 
+    public function editMacAddress(User $authUser)
+    {
+        return true;
+    }
+
     public function changerNumeroCandidat(User $user)
     {
         return $user->isOpened();

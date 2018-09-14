@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Comments;
+namespace App\Observers\Comments;
 
 use App\Notifications\Comments\TeacherCommentedNotification;
 use App\Notifications\Comments\StudentCommentedNotification;

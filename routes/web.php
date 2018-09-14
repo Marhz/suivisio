@@ -16,6 +16,9 @@ Auth::routes();
 Route::get('changerMdp','HomeController@editPassword')->middleware('auth');
 Route::put('changerMdp','HomeController@updatePassword')->middleware('auth');
 
+Route::get('macAddress','UserController@editMacAddress')->middleware('auth');
+Route::post('macAddress','UserController@storeMacAddress')->middleware('auth');
+
 Route::group(['middleware' => ['auth','checkPassword']], function () {
 	Route::get('/', 'HomeController@index');
 	Route::get('bilanPDF/{id}', 'SuiviSio\PdfController@index');
@@ -25,6 +28,7 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 	Route::group(['middleware' => 'teacher'], function () {
 		Route::resource('classes','SuiviSio\GroupController');
 		Route::resource('users','UserController');
+		Route::get('classes/{id}/macAddresses','SuiviSio\GroupController@macAddresses');
 		Route::get('users/{id}/situations','SuiviSio\SituationController@forUser');
 		Route::post('classes/{class}/importerOds','UserController@OdsImport');
 		Route::get('classes/{id}/datatables/users','SuiviSio\DatatablesController@showGroupDatatables');

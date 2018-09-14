@@ -27,7 +27,7 @@ class GroupPolicy
 
     public function delete(User $user, Group $group)
     {
-        return $user->isAdmin() || $user->isAdmin();
+        return $user->isAdmin();
     }
 
     public function edit(User $user, Group $group)
@@ -40,4 +40,8 @@ class GroupPolicy
       return $this->owns($user, $group);
     }
 
+    public function viewMacAddresses(User $user, Group $group)
+    {
+      return $user->isTeacher();
+    }
 }
