@@ -126,12 +126,14 @@
 											@endif
 											</a>
 										</li>
-									@endif
+										@endif
+									@if(config('app.collect_mac_addresses'))
 									@can('editMacAddress', Auth::user())
 									<li>
 										<a href="{{url('macAddress')}}">Saisir mon adresse MAC</a>
 									</li>
 									@endcan
+									@endif
 									<li class="divider"></li>
 									<li>
 										<a href="{{url('changerMdp')}}">Changer de mot de passe</a>
