@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 	Route::group(['middleware' => 'teacher'], function () {
 		Route::resource('classes','SuiviSio\GroupController');
 		Route::resource('users','UserController');
-		Route::get('classes/{id}/macAddresses','SuiviSio\GroupController@macAddresses');
+		Route::get('macAddress/{id}/datatables','SuiviSio\DatatablesController@showMacAddressesDatatables');
 		Route::get('users/{id}/situations','SuiviSio\SituationController@forUser');
 		Route::post('classes/{class}/importerOds','UserController@OdsImport');
 		Route::get('classes/{id}/datatables/users','SuiviSio\DatatablesController@showGroupDatatables');

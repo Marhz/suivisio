@@ -73,17 +73,8 @@ class MacAddressesController extends Controller
         $group = Group::findOrFail($id);
         if (config('app.collect_mac_addresses') && Auth::user()->can('viewMacAddresses', $group))
         {
-          \Illuminate\Support\Collection::macro('concat', function ($source) {
-              $result = new static($this);
-
-              foreach ($source as $item) {
-                  $result->push($item);
-              }
-
-              return $result;
-          });
-          $users = $group->users->concat($group->teachers);
-          return view('macAddresses.show', compact('users'));
+          $users = $group->getUsers();
+          return view('macAddresses.show', compact('group', 'users'));
         }
         else
           return redirect()->back();

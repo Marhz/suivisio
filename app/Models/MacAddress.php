@@ -10,6 +10,11 @@ class MacAddress extends Model
       'address'
   ];
 
+  public function user()
+  {
+      return $this->belongsTo(User::class);
+  }
+
   public function fullName()
   {
     return $this->address;
