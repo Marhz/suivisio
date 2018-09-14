@@ -14,8 +14,7 @@
         "barryvdh/laravel-debugbar": "^2.3",
         "codedge/laravel-fpdf": "^1.0",
         "barryvdh/laravel-dompdf": "^0.7.0",
-        "anouar/fpdf": "^1.0",
-        "appstract/laravel-options": "^1.0"
+        "anouar/fpdf": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
