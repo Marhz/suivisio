@@ -131,7 +131,7 @@
 									@can('editMacAddress', Auth::user())
 									<li>
 										<a href="{{url('macAddress/'.Auth::user()->id.'/edit')}}">
-											@can('haveMultipleMacAddresses', $user)
+											@can('haveMultipleMacAddresses', Auth::user())
 							          Mes addresses
 							        @else
 							          Mon adresse
