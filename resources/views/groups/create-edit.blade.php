@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     {{Form::label('teacher_list','Professeurs :')}}
-                    {{Form::select('teacher_list[]',$teachers,null,['id' => 'teacher_list', 'class' => 'form-control','multiple'])}}
+                    {{Form::select('teacher_list[]', $teachers, null, ['id' => 'teacher_list', 'class' => 'form-control','multiple'])}}
                 </div>
                 <div class="form-group">
                     {{Form::submit(isset($group) ? 'Modifier' : 'Créer' ,['class' => 'btn btn-primary form-control'])}}
