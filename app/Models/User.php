@@ -84,6 +84,12 @@ class User extends Authenticatable
       return !$this->isOpened();
     }
 
+    public function macAddressOpened()
+    {
+
+      return $this->group == null || $this->group->macAddressOpened();
+    }
+
     public function getActivitiesId()
     {
         $situations = $this->situations()->with('activities')->get();

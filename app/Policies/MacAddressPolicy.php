@@ -29,7 +29,7 @@ class MacAddressPolicy
 
     public function edit(User $user, MacAddress $macAddress)
     {
-        return $macAddress->user->id == $user->id;
+        return $macAddress->user->id == $user->id && $user->macAddressOpened();
     }
 
     public function destroy(User $user, MacAddress $macAddress)

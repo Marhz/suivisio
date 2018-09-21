@@ -35,9 +35,11 @@
 					{{$teacher->fullName()}}@if(!$loop->last){{ ", "}}@endif
 				@endforeach
 			</p>
-			<p>
-				<bold>Date limite : {{ (new Carbon($group->deadline))->formatLocalized('%d/%m/%Y à %H heures') }}</bold>
-			</p>
+			@if(isset($group->deadline))
+				<p>
+					<bold>Date limite : {{ (new Carbon($group->deadline))->formatLocalized('%d/%m/%Y à %H heures') }}</bold>
+				</p>
+			@endif
 			<table id="table" class="table datatable" style="width:100%;">
 				<thead>
 					<tr>
