@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Group;
 use App\Models\Situation;
 use App\Models\User;
+use App\Models\MacAddress;
 use App\Policies\GroupPolicy;
 use App\Policies\SituationPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\MacAddressPolicy;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider ;
@@ -23,6 +25,7 @@ class MyAuthServiceProvider extends AuthServiceProvider
         Group::class => GroupPolicy::class,
         User::class => UserPolicy::class,
         Situation::class => SituationPolicy::class,
+        MacAddress::class => MacAddressPolicy::class,
     ];
 
     /**

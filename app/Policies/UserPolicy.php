@@ -19,16 +19,6 @@ class UserPolicy
         return $authUser->id == $otherUser->id && $otherUser->isOpened();
     }
 
-    public function editMacAddress(User $authUser)
-    {
-        return true;
-    }
-
-    public function haveMultipleMacAddresses(User $authUser)
-    {
-        return $authUser->isTeacher();
-    }
-
     public function changerNumeroCandidat(User $user)
     {
         return $user->isOpened();

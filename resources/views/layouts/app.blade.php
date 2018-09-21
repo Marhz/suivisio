@@ -128,10 +128,10 @@
 										</li>
 										@endif
 									@if(config('app.collect_mac_addresses'))
-									@can('editMacAddress', Auth::user())
+									@can('view', \App\Models\MacAddress::class)
 									<li>
-										<a href="{{url('macAddress/'.Auth::user()->id.'/edit')}}">
-											@can('haveMultipleMacAddresses', Auth::user())
+										<a href="{{url('macAddress')}}">
+											@can('haveMany', \App\Models\MacAddress::class)
 							          Mes addresses
 							        @else
 							          Mon adresse

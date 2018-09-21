@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'student' => \App\Http\Middleware\Student::class,
         'isOwnerOfSituation' => \App\Http\Middleware\IsOwnerOfSituation::class,
         'checkPassword' => \App\Http\Middleware\CheckPassword::class,
+        'MacAddress' => \App\Http\Middleware\MacAddress::class,
 
     ];
 }
