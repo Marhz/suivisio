@@ -39,8 +39,9 @@ class MacAddressesController extends Controller
 
     public function create()
     {
-      if(Auth::user()->can('create', MacAddress::class))
-          return view('macAddresses.edit', compact('user', 'address'));
+      $user = Auth::user();
+      if($user->can('create', MacAddress::class))
+          return view('macAddresses.edit', compact('user'));
       else
           return redirect()->back();
     }

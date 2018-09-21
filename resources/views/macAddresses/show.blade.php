@@ -25,6 +25,12 @@
 					{{$teacher->fullName()}}@if(!$loop->last){{ ", "}}@endif
 				@endforeach
 			</p>
+			@if($group->mac_address_deadline != null)
+			  Verrouillage le
+			          {{ (new Carbon($group->mac_address_deadline))->formatLocalized('%d/%m/%Y à %H heures') }}
+			          ({{ (new Carbon($group->mac_address_deadline))->diffForHumans()}})
+			  <hr>
+			@endif
 			<table id="table" class="table datatable" style="width:100%;">
 				<thead>
 					<tr>

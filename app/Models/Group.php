@@ -9,7 +9,7 @@ use Carbon;
 class Group extends Model
 {
     protected $fillable = [
-    	'name', 'year', 'course_id', 'deadline'
+    	'name', 'year', 'course_id', 'deadline', 'mac_address_deadline'
     ];
 
     public function getTeacherListAttribute()
@@ -37,18 +37,17 @@ class Group extends Model
       return Carbon::now()->lessThan(new Carbon($this->deadline));
     }
 
+    public function macAddressOpened()
+    {
+      return Carbon::now()->lessThan(new Carbon($this->mac_address_deadline));
+    }
+
     public function getUsers()
     {
-      \Illuminate\Support\Collection::macro('concat', function ($source)
-      {
-          $result = new static($this);
-          foreach ($source as $item)
-          {
-              $result->push($item);
-          }
-          return $result;
-      });
-      return $this->users->concat($this->teachers);
+      $users = collect($this->users);
+      foreach ($this->teachers as $teacher)
+          $users->push($teacher);
+      return $users;
     }
 
     public function getUsersAndMacAddresses()
@@ -62,4 +61,17 @@ class Group extends Model
       }
       return $macAddresses;
     }
+
+    public function setDeadlineAttribute($deadline)
+    {
+      if ($deadline != null)
+        $this->attributes['deadline'] = $deadline;
+    }
+
+    public function setMacAddressDeadlineAttribute($deadline)
+    {
+      if ($deadline != null)
+        $this->attributes['mac_address_deadline'] = $deadline;
+    }
+
 }
