@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     {{Form::label('show','Afficher/masquer :')}}
-                    {{Form::select('show',[1 => 'Afficher dans le tableau de synthèse', 0 => 'Ne pas afficher dans le tableau de synthèse'],$situation->show, ['id' => 'show', 'class' =>'form-control'])}}
+                    {{Form::select('show',[1 => 'Afficher dans le tableau de synthèse', 0 => 'Ne pas afficher dans le tableau de synthèse'],(isset($situation) ? $situation->show : 1), ['id' => 'show', 'class' =>'form-control'])}}
                 </div>
                 <div class="form-group col-md-6">
                     {{Form::label('begin_at','Debut :')}}

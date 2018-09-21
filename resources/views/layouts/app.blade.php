@@ -106,9 +106,9 @@
 											</li>
 										@endif
 										<li
-										@if (!\Auth::user()->hasSituations())
+										@cannot ('viewPDF', \Auth::user())
 											class="disabled" onclick='return false;'
-										@endif
+										@endcan
 										>
 											<a href="{{url('bilanPDF/'.Auth::id())}}">Bilan PDF</a>
 										</li>

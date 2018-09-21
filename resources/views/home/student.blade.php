@@ -5,12 +5,7 @@
 					<a href="{{url('situation')}}" class="box box-blue">
 						Mes situations
 					</a>
-					{{--
-					<a href="{{url('situation/create')}}" class="box box-yellow">
-						Nouvelle situation
-					</a>
-					--}}
-					@if (\Auth::user()->hasSituations())
+					@can ('viewPdf', \Auth::user())
 					<a href="{{url('bilanPDF/'.Auth::id())}}" class="box box-red">
 						Bilan PDF
 					</a>

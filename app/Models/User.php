@@ -116,7 +116,9 @@ class User extends Authenticatable
 
     public function hasSituations()
     {
-      return $this->situations()->count() > 0;
+      return $this->situations()
+        ->where('show', 1)
+        ->count() > 0;
     }
 
     //
