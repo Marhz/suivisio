@@ -9,69 +9,26 @@ use App\Models\MacAddress;
 use App\Http\Controllers\Controller;
 use Auth;
 use Excel;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\MacAddressRequest;
 
 class MacAddressesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        dd('index-macaddress');
-        //return redirect('/');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      dd('create-macaddress');
-      //return redirect('/');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
       $user = Auth::user();
-      if (config('app.collect_mac_addresses') && $user->can('editMacAddress', $user))
+      if ($user->can('view', MacAddress::class))
       {
-        $this->validate($request,
-          ['address' => 'required|regex:/([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$/'],
-          ['address.regex' => 'L\'adresse doit être composée de 6 blocs de deux chiffres hexadécimaux séparés par des ":".']
-          );
-        $macAddress = $user->macAddresses->first();
-        if($macAddress == null)
-          $macAddress = new MacAddress();
-        $macAddress->address = $request->input('address');
-        $user->macAddresses()->save($macAddress);
-        return redirect()->back()
-                         ->with('success','Votre adresse MAC a été enregistrée.');
+          $addresses = $user->macAddresses;
+          return view('macAddresses.index', compact('user', 'addresses'));
       }
       else
-        return redirect()->back();
+          return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $group = Group::findOrFail($id);
-        if (config('app.collect_mac_addresses') && Auth::user()->can('viewMacAddresses', $group))
+        if (Auth::user()->can('viewMacAddresses', $group))
         {
           $users = $group->getUsers();
           return view('macAddresses.show', compact('group', 'users'));
@@ -80,48 +37,65 @@ class MacAddressesController extends Controller
           return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+      if(Auth::user()->can('create', MacAddress::class))
+          return view('macAddresses.edit', compact('user', 'address'));
+      else
+          return redirect()->back();
+    }
+
+    public function store(MacAddressRequest $request)
+    {
+      $user = Auth::user();
+      if(Auth::user()->can('create', MacAddress::class))
+      {
+        $macAddress = new MacAddress();
+        $macAddress->address = $request->input('address');
+        $user->macAddresses()->save($macAddress);
+        return redirect('macAddress')
+                         ->with('success','Votre adresse MAC a été ajoutée.');
+      }
+      else
+        return redirect()->back();
+    }
+
     public function edit($id)
     {
       $user = Auth::user();
-      if (config('app.collect_mac_addresses') && $user->can('editMacAddress', $user))
+      $address = MacAddress::findOrFail($id);
+      if ($user->can('edit', $address))
+        return view('macAddresses.edit', compact('user', 'address'));
+      else
+        return redirect()->back();
+    }
+
+    public function update(MacAddressRequest $request, $id)
+    {
+      $user = Auth::user();
+      $macAddress = MacAddress::findOrFail($id);
+      if ($user->can('edit', $macAddress))
       {
-          $addresses = $user->macAddresses;
-          $address = null;
-          if ($addresses->first() != null)
-            $address = $user->macAddresses->first()->address;
-          return view('macAddresses.edit', compact('user', 'address'));
+        $macAddress->address = $request->input('address');
+        $macAddress->save();
+        return redirect('macAddress')
+                         ->with('success','Votre adresse MAC a été mise à jour.');
       }
-      return redirect()->back();
+      else
+        return redirect()->back();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UserRequest $request, $id)
+    public function destroy(Request $request, $id)
     {
-      dd('update-macaddress');
-      //return redirect('/');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserRequest $request,$id)
-    {
-      dd('destroy-macaddress');
-      //return redirect('/');
+      $user = Auth::user();
+      $macAddress = MacAddress::findOrFail($id);
+      if ($user->can('destroy', $macAddress))
+      {
+        $macAddress->delete();
+        return redirect()->back()
+                         ->with('success','Cette adresse MAC a bien été supprimée.');
+      }
+      else
+        return redirect()->back();
     }
 }
