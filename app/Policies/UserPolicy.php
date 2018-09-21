@@ -26,8 +26,10 @@ class UserPolicy
 
     public function viewPDF(User $authUser, User $otherUser)
     {
-        return $authUser->isTeacher()
-          || $authUser->id == $otherUser->id;
+        return ($authUser->isAdmin()
+          || $authUser->isTeacher()
+          || $authUser->id == $otherUser->id)
+          && $otherUser->hasSituations();
     }
 
 }
