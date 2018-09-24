@@ -66,7 +66,7 @@ class User extends Authenticatable
 
     public function setStudent()
     {
-      $this->level = 2;
+        $this->level = 2;
     }
 
     public function fullName()
@@ -86,8 +86,17 @@ class User extends Authenticatable
 
     public function macAddressOpened()
     {
-
       return $this->group == null || $this->group->macAddressOpened();
+    }
+
+    public function pollOpened()
+    {
+      return $this->group == null || $this->group->pollOpened();
+    }
+
+    public function getPoll()
+    {
+        return $this->polls->intersect($this->group->course->polls)->first();
     }
 
     public function getActivitiesId()
@@ -168,5 +177,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function polls()
+    {
+        return $this->belongsToMany(Poll::class);
     }
 }

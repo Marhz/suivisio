@@ -4,8 +4,9 @@ namespace App\Http\Controllers\SuiviSio;
 
 use Illuminate\Http\Request;
 use Datatables;
-use App\Models\Group;
+use App\Models\User;
 use App\Models\Activity;
+use App\Models\Group;
 use App\Models\Situation;
 use App\Models\MacAddress;
 use App\Http\Controllers\Controller;
@@ -77,6 +78,22 @@ class DatatablesController extends Controller
           function (MacAddress $macAddress)
           {
             return $macAddress->user->FullName();
+          })
+          ->make(true);
+    }
+
+    public function showPollDatatables($id)
+    {
+        $group = Group::find($id);
+        return Datatables::of($group->users)
+          ->editColumn('first_name', function($user){
+            return $user->fullName();
+          })
+          ->addColumn('Voeux',
+          function (User $user)
+          {
+            $poll = $user->getPoll();
+            return ($poll != null)? $poll->name : "N'a pas répondu au sondage";
           })
           ->make(true);
     }

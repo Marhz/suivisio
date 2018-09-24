@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
           'level' => 0,
       ]);
       DB::unprepared(file_get_contents("database/seeds/suivisio_seeds.sql"));
+      $this->call(PollSeeder::class);
     }
 }

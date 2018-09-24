@@ -21,11 +21,12 @@
 		@can('viewPDF', $group)
 			<a href="{{ url('classes/'.$group->id.'/bilanPDF')}}" ><button class="btn btn-info"><i class='fa fa-file-pdf-o'></i></button></a>
 		@endcan
-		@if(config('app.collect_mac_addresses'))
 		@can('viewMacAddresses', $group)
 			<a href="{{ url('macAddress/'.$group->id)}}" ><button class="btn btn-info"><i class='fa fa-wifi'></i></button></a>
 		@endcan
-		@endif
+		@can('viewPoll', $group)
+			<a href="{{ url('poll/'.$group->id)}}" ><button class="btn btn-info"><i class='fa fa-wifi'></i></button></a>
+		@endcan
 		</h3>
 		</div>
 		<div class="panel-body">

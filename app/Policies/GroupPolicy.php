@@ -52,4 +52,17 @@ class GroupPolicy
       return config('app.collect_mac_addresses')
        && $user->isTeacher();
     }
+
+    public function viewPoll(User $user, Group $group)
+    {
+      return config('app.enable_poll')
+        && $user->isTeacher()
+        && $group->poll_deadline != null;
+    }
+
+    public function enableCoursesPoll(User $user, Group $group)
+    {
+      return config('app.enable_poll')
+       && $user->isTeacher();
+    }
 }

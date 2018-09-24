@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'isOwnerOfSituation' => \App\Http\Middleware\IsOwnerOfSituation::class,
         'checkPassword' => \App\Http\Middleware\CheckPassword::class,
         'MacAddress' => \App\Http\Middleware\MacAddress::class,
+        'Poll' => \App\Http\Middleware\Poll::class,
 
     ];
 }

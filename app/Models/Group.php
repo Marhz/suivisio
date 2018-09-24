@@ -9,7 +9,7 @@ use Carbon;
 class Group extends Model
 {
     protected $fillable = [
-    	'name', 'year', 'course_id', 'deadline', 'mac_address_deadline'
+    	'name', 'year', 'course_id', 'deadline', 'mac_address_deadline', 'poll_deadline'
     ];
 
     public function getTeacherListAttribute()
@@ -40,6 +40,11 @@ class Group extends Model
     public function macAddressOpened()
     {
       return Carbon::now()->lessThan(new Carbon($this->mac_address_deadline));
+    }
+
+    public function pollOpened()
+    {
+      return Carbon::now()->lessThan(new Carbon($this->poll_deadline));
     }
 
     public function getUsers()
@@ -74,4 +79,9 @@ class Group extends Model
         $this->attributes['mac_address_deadline'] = $deadline;
     }
 
+    public function setPollDeadlineAttribute($deadline)
+    {
+      if ($deadline != null)
+        $this->attributes['poll_deadline'] = $deadline;
+    }
 }
