@@ -42,6 +42,6 @@ class GroupPolicy
 
     public function viewMacAddresses(User $user, Group $group)
     {
-      return $user->isTeacher();
+      return $user->isTeacher() && $group->mac_address_deadline != null;
     }
 }

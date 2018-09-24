@@ -24,7 +24,8 @@ class MacAddressPolicy
 
     public function view(User $user)
     {
-        return true;
+      return $user->isTeacher()
+      || $user->group->mac_address_deadline != null;
     }
 
     public function edit(User $user, MacAddress $macAddress)
