@@ -42,6 +42,14 @@ class GroupPolicy
 
     public function viewMacAddresses(User $user, Group $group)
     {
-      return $user->isTeacher() && $group->mac_address_deadline != null;
+      return config('app.collect_mac_addresses')
+        && $user->isTeacher()
+        && $group->mac_address_deadline != null;
+    }
+
+    public function enableMacAddressesCollect(User $user, Group $group)
+    {
+      return config('app.collect_mac_addresses')
+       && $user->isTeacher();
     }
 }
