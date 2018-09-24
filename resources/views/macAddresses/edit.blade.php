@@ -28,11 +28,12 @@
       @endif
         <div class="form-group">
             {{Form::label('address','Adresse MAC :')}}
-            {{Form::text('address',$address, null,['id' => 'address', 'class' => 'form-control',''])}}
+            {{Form::text('address',isset($address)?$address->address:null, null,['id' => 'address', 'class' => 'form-control',''])}}
 				</div>
-        @can('editMacAddress', Auth::user())
+        @if(isset($address) && Auth::user()->can('edit',$address)
+          || Auth::user()->can('create',\App\Models\MacAddress::class))
 					{{Form::submit('Enregistrer',['class' => 'btn btn-primary form-control'])}}
-        @endcan
+        @endif
 			{{Form::close()}}
 		</div>
 	</div>
