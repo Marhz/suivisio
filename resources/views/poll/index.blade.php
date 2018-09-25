@@ -25,6 +25,8 @@
       @endif
       @can('edit', \App\Models\Poll::class)
         <a href="{{'/poll/'.(isset($poll)?$user->id.'/edit':'create')}}"><button class="btn btn-warning actionButton"><i class="fa fa-edit"></i></button></a>
+      @else
+        <i class="fa fa-lock"></i>
       @endcan
 		</div>
 	</div>
