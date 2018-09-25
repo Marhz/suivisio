@@ -86,7 +86,7 @@ class User extends Authenticatable
 
     public function macAddressOpened()
     {
-      return $this->group == null || $this->group->macAddressOpened();
+      return $this->isTeacher() || $this->group->macAddressOpened();
     }
 
     public function pollOpened()

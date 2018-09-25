@@ -55,9 +55,7 @@
 		ajax: '../macAddress/'+{{$group->id}}+'/datatables',
 		columns: [
 			{data: 'Utilisateur', name: 'Utilisateur'},
-			{data: 'address', name: 'Adresse Mac'}/*,
-			{data: 'email', name: 'email'}*/,
-			/*{data: 'actions', name: 'actions', orderable: false, searchable: false}*/
+			{data: 'address', name: 'Adresse Mac'},
 		]
 	});
 	</script>
