@@ -29,13 +29,13 @@
                   {{Form::label('deadline','Date limite pour les étudiants :')}}
                   {{Form::date('deadline', isset($group) && $group->deadline != null ? new Carbon($group->deadline) : null,['class' => 'form-control'])}}
                 </div>
-                @can('enableMacAddressesCollect', $group)
+                @can('enableMacAddressesCollect', \App\Models\Group::class)
                   <div class="form-group">
                     {{Form::label('mac_address_deadline','Date limite pour la saisie des adresses MAC :')}}
                     {{Form::date('mac_address_deadline', isset($group) && $group->mac_address_deadline != null? new Carbon($group->mac_address_deadline) : null,['class' => 'form-control'])}}
                   </div>
                 @endcan
-                @can('enableCoursesPoll', $group)
+                @can('enableCoursesPoll', \App\Models\Group::class)
                   <div class="form-group">
                     {{Form::label('poll_deadline','Date limite pour la saisie des voeux :')}}
                     {{Form::date('poll_deadline', isset($group) && $group->poll_deadline != null? new Carbon($group->poll_deadline) : null,['class' => 'form-control'])}}

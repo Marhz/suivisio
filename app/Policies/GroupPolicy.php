@@ -47,7 +47,7 @@ class GroupPolicy
         && $group->mac_address_deadline != null;
     }
 
-    public function enableMacAddressesCollect(User $user, Group $group)
+    public function enableMacAddressesCollect(User $user)
     {
       return config('app.collect_mac_addresses')
        && $user->isTeacher();
@@ -60,7 +60,7 @@ class GroupPolicy
         && $group->poll_deadline != null;
     }
 
-    public function enableCoursesPoll(User $user, Group $group)
+    public function enableCoursesPoll(User $user)
     {
       return config('app.enable_poll')
        && $user->isTeacher();
