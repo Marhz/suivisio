@@ -6,10 +6,12 @@ use App\Models\Group;
 use App\Models\Situation;
 use App\Models\User;
 use App\Models\MacAddress;
+use App\Models\Poll;
 use App\Policies\GroupPolicy;
 use App\Policies\SituationPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\MacAddressPolicy;
+use App\Policies\PollPolicy;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider ;
@@ -26,6 +28,7 @@ class MyAuthServiceProvider extends AuthServiceProvider
         User::class => UserPolicy::class,
         Situation::class => SituationPolicy::class,
         MacAddress::class => MacAddressPolicy::class,
+        Poll::class => PollPolicy::class,
     ];
 
     /**

@@ -25,6 +25,9 @@
 		@can('viewMacAddresses', $group)
 			<a href="{{ url('macAddress/'.$group->id)}}" ><button class="btn btn-info"><i class='fa fa-wifi'></i></button></a>
 		@endcan
+		@can('viewPoll', $group)
+			<a href="{{ url('poll/'.$group->id)}}" ><button class="btn btn-info"><i class='fa fa-question'></i></button></a>
+		@endcan
 		@endif
 		</h3>
 		</div>

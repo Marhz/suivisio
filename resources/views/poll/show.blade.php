@@ -14,7 +14,7 @@
 
 @section('content')
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3>Adresses MAC pour le groupe {{ $group->name }}
+		<div class="panel-heading"><h3>Voeux pour le groupe {{ $group->name }}
 			<a href="{{ url('classes/'.$group->id)}}" ><button class="btn btn-warning"><i class='fa fa-eye'></i></button></a>
 		</h3>
 		</div>
@@ -25,20 +25,19 @@
 					{{$teacher->fullName()}}@if(!$loop->last){{ ", "}}@endif
 				@endforeach
 			</p>
-			@if($group->mac_address_deadline != null)
+			@if($group->poll_deadline != null)
 			  Verrouillage le
-			          {{ (new Carbon($group->mac_address_deadline))->formatLocalized('%d/%m/%Y à %H heures') }}
-			          ({{ (new Carbon($group->mac_address_deadline))->diffForHumans()}})
+			          {{ (new Carbon($group->poll_deadline))->formatLocalized('%d/%m/%Y à %H heures') }}
+			          ({{ (new Carbon($group->poll_deadline))->diffForHumans()}})
 			  <hr>
 			@endif
 			<table id="table" class="table datatable" style="width:100%;">
 				<thead>
 					<tr>
 						<td>Utilisateur</td>
-						<td>Adresse MAC</td>
+						<td>Choix</td>
 				</thead>
 				<tbody>
-
 				</tbody>
 			</table>
 		</div>
@@ -52,10 +51,10 @@
 	$('#table').DataTable({
 		processing: true,
 		serverSide: true,
-		ajax: '../macAddress/'+{{$group->id}}+'/datatables',
+		ajax: '../poll/'+{{$group->id}}+'/datatables',
 		columns: [
-			{data: 'Utilisateur', name: 'Utilisateur'},
-			{data: 'address', name: 'Adresse Mac'},
+			{data: 'first_name', name: 'first_name'},
+			{data: 'Voeux', name: 'Voeux'},
 		]
 	});
 	</script>

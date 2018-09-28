@@ -42,6 +42,27 @@ class GroupPolicy
 
     public function viewMacAddresses(User $user, Group $group)
     {
-      return $user->isTeacher();
+      return config('app.collect_mac_addresses')
+        && $user->isTeacher()
+        && $group->mac_address_deadline != null;
+    }
+
+    public function enableMacAddressesCollect(User $user)
+    {
+      return config('app.collect_mac_addresses')
+       && $user->isTeacher();
+    }
+
+    public function viewPoll(User $user, Group $group)
+    {
+      return config('app.enable_poll')
+        && $user->isTeacher()
+        && $group->poll_deadline != null;
+    }
+
+    public function enableCoursesPoll(User $user)
+    {
+      return config('app.enable_poll')
+       && $user->isTeacher();
     }
 }

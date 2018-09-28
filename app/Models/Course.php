@@ -12,9 +12,15 @@ class Course extends Model
 	{
 		return Category::with('activities')->where('course_id', $this->id)->orWhere('course_id',null)->orderBy('nomenclature', 'asc')->get();
 	}
-	
+
 	public function categories()
 	{
-		return $this->hasMany(\App\Category::class);
+		return $this->hasMany(Category::class);
 	}
+
+	public function polls()
+	{
+		return $this->hasMany(Poll::class);
+	}
+
 }

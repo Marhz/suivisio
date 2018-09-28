@@ -46,13 +46,29 @@ class MacAddressesController extends Controller
           return redirect()->back();
     }
 
+
+    private function checkUnicity($user, $macAddress)
+    {
+      return ($user->macAddresses->filter(
+        function ($otherMacAddress) use ($macAddress)
+        {
+          return $macAddress->id != $otherMacAddress->id
+            && $macAddress->address == $otherMacAddress->address;
+        })->count() != 0) ?
+        redirect()->back()
+          ->with('error','cette adresse MAC est déjà enregistrée.')
+          ->withInput()
+        : null;
+    }
+
     public function store(MacAddressRequest $request)
     {
       $user = Auth::user();
-      if(Auth::user()->can('create', MacAddress::class))
+      if($user->can('create', MacAddress::class))
       {
         $macAddress = new MacAddress();
         $macAddress->address = $request->input('address');
+        if (($res = $this->checkUnicity($user, $macAddress)) != null) return $res;
         $user->macAddresses()->save($macAddress);
         return redirect('macAddress')
                          ->with('success','Votre adresse MAC a été ajoutée.');
@@ -78,6 +94,7 @@ class MacAddressesController extends Controller
       if ($user->can('edit', $macAddress))
       {
         $macAddress->address = $request->input('address');
+        if (($res = $this->checkUnicity($user, $macAddress)) != null) return $res;
         $macAddress->save();
         return redirect('macAddress')
                          ->with('success','Votre adresse MAC a été mise à jour.');

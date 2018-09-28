@@ -19,12 +19,15 @@ class MacAddressPolicy
     public function create(User $user)
     {
         return $user->isTeacher()
-        || $user->macAddresses->count() == 0;
+        || ($user->group->mac_address_deadline != null
+          && $user->macAddressOpened()
+          && $user->macAddresses->count() == 0);
     }
 
     public function view(User $user)
     {
-        return true;
+      return $user->isTeacher()
+      || $user->group->mac_address_deadline != null;
     }
 
     public function edit(User $user, MacAddress $macAddress)

@@ -127,7 +127,6 @@
 											</a>
 										</li>
 										@endif
-									@if(config('app.collect_mac_addresses'))
 									@can('view', \App\Models\MacAddress::class)
 									<li>
 										<a href="{{url('macAddress')}}">
@@ -137,6 +136,13 @@
 							          Mon adresse
 							        @endcan
 											MAC
+										</a>
+									</li>
+									@endcan
+									@can('view', \App\Models\Poll::class)
+									<li>
+										<a href="{{url('poll')}}">
+											Mes voeux pour le deuxième semestre
 										</a>
 									</li>
 									@endcan
