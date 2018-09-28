@@ -56,97 +56,16 @@
 								</a>
 								<ul class="dropdown-menu multi-level" role="menu">
 									@if (Auth::user()->isAdmin())
-										<li class="dropdown-submenu">
-											<a tabindex="-1" href="#"><span class="caret-left"></span>Administration</a>
-										  	<ul class="dropdown-menu">
-													<li>
-														<a href="{{url('professeurs')}}">Professeurs</a>
-													</li>
-													<li>
-														<a href="{{url('classes')}}">Classes</a>
-													</li>
-													<li>
-														<a href="{{url('categories')}}">Categories</a>
-													</li>
-													<li>
-														<a href="{{url('activites')}}">Activités</a>
-													</li>
-													<li>
-														<a href="{{url('activites_principales')}}">Activités obligatoires</a>
-													</li>
-												</ul>
-											</li>
+										@include('layouts.partials.admin')
 									@endif
 									@if (Auth::user()->isTeacher())
-										<li class="dropdown-submenu">
-											<a tabindex="-1" href="#"><span class="caret-left"></span>Mes classes</a>
-										  	<ul class="dropdown-menu">
-										  		@if(Auth::user()->teacherOf->count() > 0)
-											  		@foreach (Auth::user()->teacherOf as $group)
-											  			<li>
-											  				<a href="{{ url('classes/'.$group->id) }}">@include('groups.partials.name')</a>
-											  			</li>
-											  		@endforeach
-											  	@else
-											  		<li><a href="#">Aucune classe assignée</a></li>
-											  	@endif
-										  	</ul>
-										</li>
-										<li>
-											<a href="{{url('situation')}}">Situations</a>
-										</li>
+										@include('layouts.partials.teacher')
 									@endif
 									@if(Auth::user()->isStudent())
-										<li>
-											<a href="{{url('situation')}}">Situations @include('groups.partials.lock', ['group' => Auth::user()->group])</a>
-										</li>
-										@if(Auth::user()->isOpened())
-											<li>
-												<a href="{{url('situation/create')}}">Ajouter une situation</a>
-											</li>
-										@endif
-										<li
-										@cannot ('viewPDF', \Auth::user())
-											class="disabled" onclick='return false;'
-										@endcan
-										>
-											<a href="{{url('bilanPDF/'.Auth::id())}}">Bilan PDF</a>
-										</li>
-										<li
-										@cannot('changerNumeroCandidat', Auth::user())
-											class="disabled" onclick='return false;'
-										@endcan
-										>
-											<a href="{{url('changerNumeroCandidat')}}">Mon numéro de candidat
-											@cannot('changerNumeroCandidat', Auth::user())
-												<i class="fa fa-lock"></i>
-											@endcan
-											@if (\Auth::user()->numeroCandidat == null)
-												<i class="fa fa-warning"></i>
-											@endif
-											</a>
-										</li>
-										@endif
-									@can('view', \App\Models\MacAddress::class)
-									<li>
-										<a href="{{url('macAddress')}}">
-											@can('haveMany', \App\Models\MacAddress::class)
-							          Mes addresses
-							        @else
-							          Mon adresse
-							        @endcan
-											MAC
-										</a>
-									</li>
-									@endcan
-									@can('view', \App\Models\Poll::class)
-									<li>
-										<a href="{{url('poll')}}">
-											Mes voeux pour le deuxième semestre
-										</a>
-									</li>
-									@endcan
+										@include('layouts.partials.student')
 									@endif
+									@include('layouts.partials.common')
+									{{--@endif--}}
 									<li class="divider"></li>
 									<li>
 										<a href="{{url('changerMdp')}}">Changer de mot de passe</a>
@@ -157,7 +76,6 @@
 													 document.getElementById('logout-form').submit();">
 											Déconnexion
 										</a>
-
 										<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
 											{{ csrf_field() }}
 										</form>
