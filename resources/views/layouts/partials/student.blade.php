@@ -31,6 +31,9 @@
 <li>
   <a href="{{url('poll')}}">
     Mes voeux pour le deuxième semestre
+    @cannot('edit', \App\Models\Poll::class)
+      <i class="fa fa-lock"></i>
+    @endcan
   </a>
 </li>
 @endcan

@@ -48,7 +48,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<!-- Authentication Links -->
 						@if (Auth::guest())
-							<li><a href="{{ url('/login') }}">Login</a></li>
+							<li><a href="{{ url('/login') }}">Connexion</a></li>
 						@else
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -64,22 +64,8 @@
 									@if(Auth::user()->isStudent())
 										@include('layouts.partials.student')
 									@endif
-									@include('layouts.partials.common')
-									{{--@endif--}}
 									<li class="divider"></li>
-									<li>
-										<a href="{{url('changerMdp')}}">Changer de mot de passe</a>
-									</li>
-									<li>
-										<a href="{{ url('/logout') }}"
-											onclick="event.preventDefault();
-													 document.getElementById('logout-form').submit();">
-											Déconnexion
-										</a>
-										<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-											{{ csrf_field() }}
-										</form>
-									</li>
+									@include('layouts.partials.common')
 								</ul>
 							</li>
 						@endif

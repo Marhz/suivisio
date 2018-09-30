@@ -30,6 +30,12 @@ class MacAddressPolicy
       || $user->group->mac_address_deadline != null;
     }
 
+    public function opened(User $user)
+    {
+      return $user->isTeacher()
+      || $user->macAddressOpened();
+    }
+
     public function edit(User $user, MacAddress $macAddress)
     {
         return $macAddress->user->id == $user->id && $user->macAddressOpened();
