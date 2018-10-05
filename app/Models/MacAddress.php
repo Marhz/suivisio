@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MacAddress extends Model
 {
   protected $fillable = [
-      'address'
+      'label', 'address'
   ];
 
   public function user()

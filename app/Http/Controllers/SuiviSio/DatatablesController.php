@@ -77,7 +77,8 @@ class DatatablesController extends Controller
           ->addColumn('Utilisateur',
           function (MacAddress $macAddress)
           {
-            return $macAddress->user->FullName();
+            return $macAddress->user->FullName()
+             .((isset($macAddress->label) ? " (".$macAddress->label.")" : ""));
           })
           ->make(true);
     }

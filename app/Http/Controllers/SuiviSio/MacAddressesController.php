@@ -69,6 +69,8 @@ class MacAddressesController extends Controller
         $macAddress = new MacAddress();
         $macAddress->address = $request->input('address');
         if (($res = $this->checkUnicity($user, $macAddress)) != null) return $res;
+        if ($user->can('editLabel', $macAddress))
+          $macAddress->label = $request->input('label');
         $user->macAddresses()->save($macAddress);
         return redirect('macAddress')
                          ->with('success','Votre adresse MAC a été ajoutée.');
@@ -95,6 +97,8 @@ class MacAddressesController extends Controller
       {
         $macAddress->address = $request->input('address');
         if (($res = $this->checkUnicity($user, $macAddress)) != null) return $res;
+        if ($user->can('editLabel', $macAddress))
+          $macAddress->label = $request->input('label');
         $macAddress->save();
         return redirect('macAddress')
                          ->with('success','Votre adresse MAC a été mise à jour.');

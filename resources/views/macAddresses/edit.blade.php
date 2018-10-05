@@ -24,17 +24,23 @@
         <hr>
       @endif
       @if(isset($address))
-        {{Form::open(['method' => 'put','url' => 'macAddress/'.$address->id])}}
+        {{Form::open(['method' => 'put','url' => 'macAddress/'.$address->id, 'class' => 'form-horizontal'])}}
       @else
-        {{Form::open(['method' => 'post','url' => 'macAddress'])}}
+        {{Form::open(['method' => 'post','url' => 'macAddress', 'class' => 'form-horizontal'])}}
       @endif
-        <div class="form-group">
-            {{Form::label('address','Adresse MAC :')}}
-            {{Form::text('address',isset($address)?$address->address:null, null,['id' => 'address', 'class' => 'form-control',''])}}
-				</div>
+          @can('editLabel', \App\Models\MacAddress::class )
+            <div class="form-group">
+              {{Form::label('label','Label :', ['class' => 'col-md-4'])}}
+              {{Form::text('label',$value = isset($address)&&isset($address->label)?$address->label:null, ['id' => 'label', 'class' => 'col-md-6'])}}
+            </div>
+          @endcan
+          <div class="form-group">
+            {{Form::label('address','Adresse MAC :', ['class' => 'col-md-4'])}}
+            {{Form::text('address',isset($address)?$address->address:null, ['id' => 'address', 'class' => 'col-md-6' ])}}
+    			</div>
         @if(isset($address) && Auth::user()->can('edit',$address)
           || Auth::user()->can('create',\App\Models\MacAddress::class))
-					{{Form::submit('Enregistrer',['class' => 'btn btn-primary form-control'])}}
+					{{Form::submit('Enregistrer',['class' => 'btn btn-primary col-md-6 col-md-offset-4'])}}
         @endif
 			{{Form::close()}}
 		</div>

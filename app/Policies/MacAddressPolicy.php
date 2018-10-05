@@ -41,6 +41,11 @@ class MacAddressPolicy
         return $macAddress->user->id == $user->id && $user->macAddressOpened();
     }
 
+    public function editLabel(User $user)
+    {
+        return $this->haveMany($user);
+    }
+
     public function destroy(User $user, MacAddress $macAddress)
     {
         return $this->edit($user, $macAddress);

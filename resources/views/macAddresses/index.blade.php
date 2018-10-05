@@ -24,12 +24,19 @@
         <hr>
       @endif
       @foreach($addresses as $address)
+        <div class = "col-md-2 col-md-offset-2">
+          {{ ($address->label != null)? $address->label : "" }}
+        </div>
+        <div class = "col-md-3">
           {{ $address->address }}
-        @can('edit', $address)
-          <a href="/macAddress/{{ $address->id }}/edit"><button class="btn btn-warning actionButton"><i class="fa fa-edit"></i></button></a>
-        @else
-          <i class="fa fa-lock"></i>
-        @endcan
+        </div>
+        <div class = "col-md-1">
+          @can('edit', $address)
+            <a href="/macAddress/{{ $address->id }}/edit"><button class="btn btn-warning actionButton"><i class="fa fa-edit"></i></button></a>
+          @else
+            <i class="fa fa-lock"></i>
+          @endcan
+        </div>
         @can('destroy', $address)
           {{Form::open(['method' => 'delete',
                   'url' => '/macAddress/'.$address->id,
@@ -44,9 +51,15 @@
         <hr>
       @endforeach
       @can('create', \App\Models\MacAddress::class)
-        <a href="/macAddress/create"><button class="btn btn-primary actionButton"><i class="fa fa-plus"></i></button></a>
+        <div class="col-md-1 col-md-offset-11">
+          <a href="/macAddress/create"><button class="btn btn-primary actionButton">
+            <i class="fa fa-plus"></i></button>
+          </a>
+      </div>
       @else
-        (Vous ne pouvez pas ajouter d'adresse MAC)
+        <div class="col-md-4 col-md-offset-8">
+          (Vous ne pouvez pas ajouter d'adresse MAC)
+        </div>
       @endcan
 		</div>
 	</div>
