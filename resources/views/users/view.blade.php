@@ -9,6 +9,10 @@
 		<div class="panel-body">
 			{{Form::model($user,['url' => 'users/'.$user->id])}}
 				<div class="form-group">
+					{{Form::label('email','Mail :')}}
+					{{Form::email('email',null,['class' => 'form-control', 'readonly'])}}
+				</div>
+				<div class="form-group">
 					{{Form::label('last_name','Nom :')}}
 					{{Form::text('last_name',null,['class' => 'form-control', 'readonly'])}}
 				</div>
@@ -20,9 +24,9 @@
 					{{Form::label('numeroCandidat','Numéro de candidat :')}}
 					{{Form::text('numeroCandidat',null,['class' => 'form-control', 'readonly'])}}
 				</div>
-        <div class="form-group">
-					{{Form::label('email','Mail :')}}
-					{{Form::email('email',null,['class' => 'form-control', 'readonly'])}}
+				<div class="form-group">
+					{{Form::label('portefeuille','Portefeuille de compétences :')}}
+					{{Form::text('portefeuille',null,['class' => 'form-control', 'readonly'])}}
 				</div>
 				<div class="form-group">
 					{{Form::label('group_id','Classe :')}}

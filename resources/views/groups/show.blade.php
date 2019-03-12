@@ -49,6 +49,7 @@
 						<td>Nom</td>
 						<td>Prénom</td>
 						<td>Email</td>
+						<td>Statut</td>
 						<td>Actions</td>
 				</thead>
 				<tbody>
@@ -82,6 +83,7 @@
 			{data: 'last_name', name: 'last_name'},
 			{data: 'first_name', name: 'first_name'},
 			{data: 'email', name: 'email'},
+			{data: 'statut', name: 'statut'},
 			{data: 'actions', name: 'actions', orderable: false, searchable: false}
 		]
 	});

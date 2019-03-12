@@ -175,11 +175,13 @@ class UserController extends Controller
       {
           $this->validate($request,
           ['numeroCandidat' => 'digits:10'],
-          ['numeroCandidat.digits' => 'Votre numéro de candidat doit être composé de 10 chiffres.']
+          ['portefeuille' => 'url|active_url'],
+          ['numeroCandidat.digits' => 'Votre numéro de candidat doit être composé de 10 chiffres.'],
+          ['numeroCandidat.url' => 'L\'adresse de votre portefeuille est invalide.']
           );
         $user->update($request->input());
         return redirect()->back()
-                         ->with('success','Votre numéro de candidat a été mis à jour.');
+                         ->with('success','Vos données ont été mises à jour.');
       }
       else
         return redirect()->back();

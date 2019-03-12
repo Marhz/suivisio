@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'numeroCandidat', 'email', 'password', 'group_id'
+        'first_name', 'last_name', 'numeroCandidat', 'email', 'password', 'group_id', 'portefeuille'
     ];
 
     /**
@@ -82,6 +82,12 @@ class User extends Authenticatable
     public function isLocked()
     {
       return !$this->isOpened();
+    }
+
+    public function warning()
+    {
+      return $this->numeroCandidat == null
+        || $this->portefeuille == null;
     }
 
     public function macAddressOpened()

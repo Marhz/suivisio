@@ -29,6 +29,10 @@
 					{{Form::select('group_id',$groups,null,['class' => 'form-control'])}}
 				</div>
 				<div class="form-group">
+					{{Form::label('portefeuille','Portefeuille de compétences :')}}
+					{{Form::text('portefeuille',null,['class' => 'form-control'])}}
+				</div>
+				<div class="form-group">
 					{{Form::submit('Envoyer',['class' => 'btn btn-primary form-control'])}}
 				</div>
 			{{Form::close()}}

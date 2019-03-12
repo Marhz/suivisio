@@ -18,6 +18,11 @@ class DatatablesController extends Controller
     {
         $group = Group::find($id);
         return Datatables::of($group->users()->get())
+          ->addColumn('statut',
+            function (User $user)
+            {
+              return $this->statut($user);
+            })
         	->editColumn('actions',function ($user){
         		return
                     $this->showBtn('users',$user->id, null, '/situations').
@@ -97,6 +102,11 @@ class DatatablesController extends Controller
             return ($poll != null)? $poll->name : "N'a pas répondu au sondage";
           })
           ->make(true);
+    }
+
+    protected function statut($user)
+    {
+      return view('datatables.warning')->with(compact('user'))->render();
     }
 
     protected function showBtn($name, $id, $prefix = null, $suffix = null)

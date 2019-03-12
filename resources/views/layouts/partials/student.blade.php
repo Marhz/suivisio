@@ -18,11 +18,11 @@
   class="disabled" onclick='return false;'
 @endcan
 >
-<a href="{{url('changerNumeroCandidat')}}">Mon numéro de candidat
+<a href="{{url('changerNumeroCandidat')}}">Mes données
 @cannot('changerNumeroCandidat', Auth::user())
   <i class="fa fa-lock"></i>
 @endcan
-@if (\Auth::user()->numeroCandidat == null)
+@if (\Auth::user()->warning())
   <i class="fa fa-warning"></i>
 @endif
 </a>
