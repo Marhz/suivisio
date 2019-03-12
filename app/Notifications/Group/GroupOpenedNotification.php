@@ -2,19 +2,17 @@
 
 namespace App\Notifications\Group;
 
-use App\Mails\Groups\MacAddressOpenedMail;
+use App\Mails\Groups\GroupOpenedMail;
 use App\Notifications\MyNotification as Notification;
 
-class MacAddressOpenedNotification extends Notification
+class GroupOpenedNotification extends Notification
 {
-    private $group;
-
     public function __construct($group)
     {
-      parent::__construct('groups.notifications.macAddressOpened', '/macAddress');
+      parent::__construct('groups.notifications.opened', '/groups/'.$group->id);
       $this->data['group'] = $group->id;
-      $this->data['mac_address_deadline'] = $group->mac_address_deadline;
+      $this->data['deadline'] = $group->deadline;
     }
 
-    public function getMail($recipient){return new MacAddressOpenedMail($this, $recipient);}
+    public function getMail($recipient){return new GroupOpenedMail($this, $recipient);}
 }

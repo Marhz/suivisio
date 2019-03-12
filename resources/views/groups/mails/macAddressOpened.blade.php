@@ -4,9 +4,9 @@
 <P>
   La
   <a href="{{config('app.url').'/macAddress'}}">
-    saisie des situations professionnelles
+    saisie des adresses MAC
   </a>
     est ouverte, elle sera close
-    {{ (new Carbon($notification->data['deadline']))->diffForHumans() }}.
+    {{ (new Carbon($notification->data['mac_address_deadline']))->diffForHumans() }}.
 </P>
 @stop

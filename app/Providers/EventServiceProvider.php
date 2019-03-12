@@ -11,6 +11,10 @@ use App\Observers\Users\UserObserver;
 use App\Models\Comment;
 use App\Observers\Comments\CommentObserver;
 
+use App\Models\Group;
+use App\Observers\Group\GroupObserver;
+
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -31,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
         User::observe(UserObserver::class);
         Comment::observe(CommentObserver::class);
+        Group::observe(GroupObserver::class);
     }
 }

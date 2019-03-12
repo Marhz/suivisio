@@ -10,7 +10,6 @@ use App\Models\Course;
 use App\Http\Requests\GroupRequest;
 use App\Http\Controllers\Controller;
 
-
 class GroupController extends Controller
 {
     /**
