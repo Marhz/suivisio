@@ -141,16 +141,25 @@ return [
 
     'enable_poll' => env('ENABLE_POLL', false),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Autoloaded Service Providers
-    |--------------------------------------------------------------------------
-    |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
-    |
-    */
+  /*
+  |--------------------------------------------------------------------------
+  | Collecter les urls des portefeuilles de compétences
+  |--------------------------------------------------------------------------
+  |
+  */
+
+  'enable_portefolio' => env('ENABLE_PORTEFOLIO', false),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Autoloaded Service Providers
+  |--------------------------------------------------------------------------
+  |
+  | The service providers listed here will be automatically loaded on the
+  | request to your application. Feel free to add your own services to
+  | this array to grant expanded functionality to your applications.
+  |
+  */
 
     'providers' => [
 

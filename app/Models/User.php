@@ -87,7 +87,7 @@ class User extends Authenticatable
     public function warning()
     {
       return $this->numeroCandidat == null
-        || $this->portefeuille == null;
+        || $this->can('enablePorteFolioCollect', $this) && $this->portefeuille == null;
     }
 
     public function macAddressOpened()

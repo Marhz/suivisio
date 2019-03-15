@@ -24,7 +24,13 @@ class UserPolicy
         return $user->isOpened();
     }
 
-    public function viewPDF(User $authUser, User $otherUser)
+
+    public function enablePorteFolioCollect(User $user)
+    {
+      return config('app.enable_portefolio');
+    }
+
+  public function viewPDF(User $authUser, User $otherUser)
     {
         return ($authUser->isAdmin()
           || $authUser->isTeacher()
