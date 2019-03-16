@@ -43,6 +43,17 @@
 					<bold>Date limite : {{ (new Carbon($group->deadline))->formatLocalized('%d/%m/%Y à %H heures') }}</bold>
 				</p>
 			@endif
+			@can('enableDocuments', \App\Models\Group::class)
+				<p>
+					<bold>Documents(s) :</bold>
+					@foreach($group->documents as $document)
+						<br>
+						<a href="{{ url('/classes/'.$group->id.'/documents/'.$document->id) }}">
+							{{ $document->name }}
+						</a>
+					@endforeach
+				</p>
+			@endcan
 			<table id="table" class="table datatable" style="width:100%;">
 				<thead>
 					<tr>

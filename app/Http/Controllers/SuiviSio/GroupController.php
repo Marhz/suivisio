@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuiviSio;
 
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Group;
@@ -32,9 +33,10 @@ class GroupController extends Controller
     {
       if (Auth::user()->can('create', Group::class))
       {
+        $documents = Document::all()->pluck('name','id');
         $teachers = User::teachers()->get()->pluck('last_name','id');
         $courses = Course::all()->pluck('name','id');
-        return view('groups.create-edit',compact('teachers','courses'));
+        return view('groups.create-edit',compact('teachers','courses', 'documents'));
       }
       return redirect()->back();
     }
@@ -52,6 +54,8 @@ class GroupController extends Controller
         $group = Group::create($request->except('teacher_list'));
         $teachers = ($request->input('teacher_list')) ? $request->input('teacher_list') : [];
         $group->teachers()->sync($teachers);
+        $documents = ($request->input('document_list')) ? $request->input('document_list') : [];
+        $group->documents()->sync($documents);
         return redirect()->route('classes.index')->with('success','La classe a été crée avec succès');
       }
       return redirect()->back();
@@ -83,9 +87,10 @@ class GroupController extends Controller
       $group = Group::find($id);
       if (Auth::user()->can('edit', $group))
       {
+        $documents = Document::all()->pluck('name','id')->toArray();
         $teachers = User::where('level','<',2)->get()->pluck('last_name','id')->toArray();
         $courses = Course::all()->pluck('name','id');
-        return view('groups.create-edit',compact('teachers','courses','group'));
+        return view('groups.create-edit',compact('teachers','courses','group', 'documents'));
       }
       return redirect()->back();
     }
@@ -105,6 +110,8 @@ class GroupController extends Controller
         $group->update($request->input());
         $teachers = ($request->input('teacher_list')) ? $request->input('teacher_list') : [];
         $group->teachers()->sync($teachers);
+        $documents = ($request->input('document_list')) ? $request->input('document_list') : [];
+        $group->documents()->sync($documents);
         return redirect()->route('classes.index')->with('success','La classe a été modifiée avec succès');
       }
       return redirect()->back();

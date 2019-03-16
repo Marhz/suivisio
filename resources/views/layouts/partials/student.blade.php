@@ -37,3 +37,15 @@
   </a>
 </li>
 @endcan
+@if(config('app.enable_documents'))
+  @foreach(\Auth::user()->group->documents as $document)
+  <li>
+    <a href="{{url('/documents/'.$document->id)}}">
+      {{ $document->name }}
+      @if($document->users()->where('id', \Auth::id())->count() == 0)
+        <i class="fa fa-warning"></i>
+      @endif
+    </a>
+  </li>
+  @endforeach
+@endif

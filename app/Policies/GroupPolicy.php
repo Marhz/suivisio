@@ -50,7 +50,7 @@ class GroupPolicy
     public function enableMacAddressesCollect(User $user)
     {
       return config('app.collect_mac_addresses')
-       && $user->isTeacher();
+        && $user->isTeacher();
     }
 
     public function viewPoll(User $user, Group $group)
@@ -63,6 +63,12 @@ class GroupPolicy
     public function enableCoursesPoll(User $user)
     {
       return config('app.enable_poll')
-       && $user->isTeacher();
+        && $user->isTeacher();
+    }
+
+    public function enableDocuments(User $user)
+    {
+      return config('app.enable_documents')
+        && $user->isTeacher();
     }
 }

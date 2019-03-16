@@ -17,6 +17,11 @@ class Group extends Model
         return $this->teachers->pluck('id')->all();
     }
 
+    public function getDocumentListAttribute()
+    {
+      return $this->documents->pluck('id')->all();
+    }
+
     public function users()
     {
     	return $this->hasMany(User::class);
@@ -30,6 +35,11 @@ class Group extends Model
     public function course()
     {
     	return $this->belongsTo(Course::class);
+    }
+
+    public function documents()
+    {
+      return $this->belongsToMany(Document::class);
     }
 
     public function isOpened()

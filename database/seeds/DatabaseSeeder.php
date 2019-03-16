@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
       ]);
       DB::unprepared(file_get_contents("database/seeds/suivisio_seeds.sql"));
       $this->call(PollSeeder::class);
+      $this->call(DocumentSeeder::class);
     }
 }

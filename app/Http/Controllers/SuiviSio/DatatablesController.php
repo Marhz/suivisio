@@ -104,7 +104,27 @@ class DatatablesController extends Controller
           ->make(true);
     }
 
-    protected function statut($user)
+  public function showDocumentsDatatables($classid, $documentid)
+  {
+    $group = Group::find($classid);
+    $document = $group->documents()->where('id', $documentid)->first();
+    return Datatables::of($group->users)
+      ->editColumn('first_name', function($user){
+        return $user->fullName();
+      })
+      ->addColumn('file_name',
+        function (User $user) use ($document)
+        {
+          $doc = $user->documents()->where('document_id', $document->id)->first();
+          $file_name = ($doc!= null) ? $doc->pivot->file_name : null;
+          return view('documents.partials.link')
+            ->with(['file_name' => $file_name])
+            ->render();
+        })
+      ->make(true);
+  }
+
+  protected function statut($user)
     {
       return view('datatables.warning')->with(compact('user'))->render();
     }

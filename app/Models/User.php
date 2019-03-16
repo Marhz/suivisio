@@ -165,6 +165,12 @@ class User extends Authenticatable
         return $this->belongsTo(Group::class);
     }
 
+    public function documents()
+    {
+      return $this->belongsToMany(Document::class)
+        ->withPivot('file_name');
+    }
+
     public function teacherOf()
     {
         return $this->belongsToMany(Group::class);
