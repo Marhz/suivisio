@@ -28,8 +28,8 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 	Route::get('bilanPDF/{id}', 'SuiviSio\PdfController@index');
 	Route::get('changerNumeroCandidat', 'UserController@editNumeroCandidat');
 	Route::post('changerNumeroCandidat', 'UserController@storeNumeroCandidat');
-  Route::get('documents/{id}', 'SuiviSio\DocumentController@edit');
-  Route::post('documents/{id}', 'SuiviSio\DocumentController@update');
+    Route::get('documents/{id}', 'SuiviSio\DocumentController@editStudent');
+    Route::post('documents/{id}', 'SuiviSio\DocumentController@update');
 
 	Route::group(['middleware' => 'teacher'], function () {
 		Route::resource('classes','SuiviSio\GroupController');
@@ -44,8 +44,11 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
 		Route::post('classes/{id}/ajouterEleve', 'UserController@post_addUserInGroup');
 		Route::get('situations/datatables','SuiviSio\DatatablesController@showSituationsDatatables');
 		Route::get('classes/{id}/bilanPDF', 'SuiviSio\PdfController@group');
-    Route::get('classes/{classid}/documents/{documentid}', 'SuiviSio\DocumentController@show');
-    Route::get('classes/{classid}/datatables/documents/{documentid}', 'SuiviSio\DatatablesController@showDocumentsDatatables');
+        Route::get('classes/{classid}/documents/{documentid}', 'SuiviSio\DocumentController@show');
+        Route::get('users/{userid}/documents/{documentid}', 'SuiviSio\DocumentController@editTeacher');
+        Route::post('users/{userid}/documents/{documentid}/accept', 'SuiviSio\DocumentController@accept');
+        Route::post('users/{userid}/documents/{documentid}/reject', 'SuiviSio\DocumentController@reject');
+        Route::get('classes/{classid}/datatables/documents/{documentid}', 'SuiviSio\DatatablesController@showDocumentsDatatables');
 	});
 
 	//Middleware géré directement dans le constructeur de SituationController

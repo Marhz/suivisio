@@ -116,9 +116,9 @@ class DatatablesController extends Controller
         function (User $user) use ($document)
         {
           $doc = $user->documents()->where('document_id', $document->id)->first();
-          $file_name = ($doc!= null) ? $doc->pivot->file_name : null;
+          $pivot = ($doc!= null) ? $doc->pivot : null;
           return view('documents.partials.link')
-            ->with(['file_name' => $file_name])
+            ->with(['pivot' => $pivot])
             ->render();
         })
       ->make(true);

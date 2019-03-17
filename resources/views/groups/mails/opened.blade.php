@@ -3,7 +3,7 @@
 @section('body')
 <P>
   La
-  <a href="{{config('app.url').'/macAddress'}}">
+  <a href="{{ url('/situation') }}">
     saisie des situations professionnelles
   </a>
     est ouverte, elle sera close

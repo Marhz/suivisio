@@ -26,16 +26,21 @@ class DocumentPolicy
         != 0;
     }
 
-    public function edit(User $user, Document $document)
-    {
-      return $user->isTeacher()
-        || ($user
-          ->group
-          ->documents()
-          ->where('id', $document->id)->count()
-        != 0
-        && $user
-          ->group
-          ->isOpened());
-    }
+  public function accept(User $user)
+  {
+    return $user->isTeacher();
+  }
+
+  public function edit(User $user, Document $document)
+  {
+    return
+      $user->group != null
+      && $user
+        ->group
+        ->documents()
+        ->where('id', $document->id)->count() != 0
+      && $user
+        ->group
+        ->isOpened();
+  }
 }

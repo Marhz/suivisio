@@ -167,8 +167,7 @@ class User extends Authenticatable
 
     public function documents()
     {
-      return $this->belongsToMany(Document::class)
-        ->withPivot('file_name');
+      return $this->belongsToMany(Document::class)->withPivot(['file_name', 'validated', 'comment']);
     }
 
     public function teacherOf()

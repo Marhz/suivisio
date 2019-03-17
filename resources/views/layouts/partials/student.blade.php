@@ -42,9 +42,7 @@
   <li>
     <a href="{{url('/documents/'.$document->id)}}">
       {{ $document->name }}
-      @if($document->users()->where('id', \Auth::id())->count() == 0)
-        <i class="fa fa-warning"></i>
-      @endif
+      <i class="fa fa-{{ $document->validatedStatus(\Auth::user()) }} "></i>
     </a>
   </li>
   @endforeach

@@ -17,6 +17,8 @@ class CreateTypeUserTable extends Migration
         $table->integer('user_id');
         $table->integer('document_id');
         $table->string('file_name');
+        $table->boolean('validated')->nullable();
+        $table->string('comment')->nullable();
         $table->timestamps();
         $table->primary(['user_id', 'document_id']);
       });

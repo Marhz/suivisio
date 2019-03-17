@@ -14,7 +14,6 @@ use App\Observers\Comments\CommentObserver;
 use App\Models\Group;
 use App\Observers\Group\GroupObserver;
 
-
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        'App\Events\Document\DocumentOpenedEvent' => ['App\Observers\Document\DocumentOpenedListener'],
+        'App\Events\Document\DocumentUploadsEvent' => ['App\Observers\Document\DocumentUploadsListener'],
+        'App\Events\Document\TeacherAcceptsEvent' => ['App\Observers\Document\TeacherAcceptsListener'],
+        'App\Events\Document\TeacherRejectsEvent' => ['App\Observers\Document\TeacherRejectsListener'],
     ];
 
     /**
