@@ -14,8 +14,13 @@
 
 @section('content')
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3>{{ $document->name }} pour le groupe @include('groups.partials.name')
-				<a href="{{ url('classes/'.$group->id)}}" ><button class="btn btn-warning"><i class='fa fa-eye'></i></button></a>
+		<div class="panel-heading">
+			<h3>{{ $document->name }} pour le groupe @include('groups.partials.name')
+				<a href="{{ url('/classes/'.$group->id)}}" ><button class="btn btn-warning"><i class='fa fa-eye'></i></button></a>
+				@can('view', $document)
+					<a href="{{ url('/classes/'.$group->id.'/documents/'.$document->id.'/bilanPDF')}}" ><button class="btn btn-info"><i class='fa fa-file-pdf-o'></i></button></a>
+				@endcan
+
 			</h3>
 		</div>
 		<div class="panel-body">

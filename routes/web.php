@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth','checkPassword']], function () {
         Route::post('users/{userid}/documents/{documentid}/accept', 'SuiviSio\DocumentController@accept');
         Route::post('users/{userid}/documents/{documentid}/reject', 'SuiviSio\DocumentController@reject');
         Route::get('classes/{classid}/datatables/documents/{documentid}', 'SuiviSio\DatatablesController@showDocumentsDatatables');
+        Route::get('classes/{classid}/documents/{documentid}/bilanPDF', 'SuiviSio\DocumentController@concat');
 	});
 
 	//Middleware géré directement dans le constructeur de SituationController

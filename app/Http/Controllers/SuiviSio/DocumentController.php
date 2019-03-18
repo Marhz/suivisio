@@ -91,4 +91,27 @@ class DocumentController extends Controller
     else
       return redirect()->back();
   }
+
+  public function concat(Request $request, $classid, $documentid)
+  {
+    $pdf = new \PDFMerger();
+    $document = Document::findorfail($documentid);
+    if (Auth::user()->can('view', $document))
+    {
+      $empty = true;
+      foreach ($document->users()->where('group_id', $classid)->get() as $user)
+        if ($user->pivot->file_name != null && $user->pivot->validated)
+        {
+          $pdf->addPDF(storage_path('app') . '/' . $user->pivot->file_name, 'all');
+          $empty = false;
+        }
+      if (!$empty)
+      {
+        $binaryContent = $pdf->merge('string', "mergedpdf.pdf");
+        return response($binaryContent)
+            ->header('Content-type', 'application/pdf');
+      }
+    }
+    return redirect()->back();
+  }
 }
