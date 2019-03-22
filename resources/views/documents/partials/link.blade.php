@@ -9,9 +9,9 @@
   @endcan
   @if(isset($pivot->validated))
     @if($pivot->validated)
-      <i class="fa fa-check" style="position:relative ; top:5px; left:2px"></i>
+      <i class="fa fa-check fa-2x" style="position:relative ; top:5px; left:2px"></i>
     @else
-      <i class="fa fa-times" style="position:relative ; top:5px; left:2px"></i>
+      <i class="fa fa-times fa-2x" style="position:relative ; top:5px; left:2px"></i>
       {{ $pivot->comment }}
     @endif
   @else
