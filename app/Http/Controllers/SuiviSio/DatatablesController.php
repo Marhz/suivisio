@@ -109,7 +109,7 @@ class DatatablesController extends Controller
     $group = Group::find($classid);
     $document = $group->documents()->where('id', $documentid)->first();
     return Datatables::of($group->users)
-      ->editColumn('first_name', function($user){
+      ->editColumn('name', function($user){
         return $user->fullName();
       })
       ->addColumn('file_name',

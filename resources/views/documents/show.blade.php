@@ -39,8 +39,7 @@
 			<table id="table" class="table datatable" style="width:100%;">
 				<thead>
 					<tr>
-						<td>Nom</td>
-						<td>Prénom</td>
+						<td>Elève</td>
 						<td>Fichier</td>
 				</thead>
 				<tbody>
@@ -60,8 +59,7 @@
 		serverSide: true,
 		ajax: '/classes/{{$group->id}}/datatables/documents/{{$document->id}}',
 		columns: [
-			{data: 'last_name', name: 'last_name'},
-			{data: 'first_name', name: 'first_name'},
+			{data: 'name', name: 'name'},
 			{data: 'file_name', name: 'file_name'},
 		]
 	});

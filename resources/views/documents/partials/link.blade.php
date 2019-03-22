@@ -9,14 +9,14 @@
   @endcan
   @if(isset($pivot->validated))
     @if($pivot->validated)
-      <i class="fa fa-check"></i>
+      <i class="fa fa-check" style="position:relative ; top:5px; left:2px"></i>
     @else
-      <i class="fa fa-times"></i>
+      <i class="fa fa-times" style="position:relative ; top:5px; left:2px"></i>
       {{ $pivot->comment }}
     @endif
   @else
-    En attente de validation.
+    <i class="fa fa-clock-o fa-2x" style="position:relative ; top:5px; left:2px"></i>
   @endif
 @else
-  Pas de document
+  <i class="fa fa-warning" style="position:relative ; top:2px; left:5px"></i>
 @endif
