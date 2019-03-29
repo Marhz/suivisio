@@ -16,5 +16,7 @@ class DocumentSeeder extends Seeder
       DB::table('documents')->insert(['name' => 'Attestation de stage année 1']);
       DB::table('documents')->insert(['name' => 'Attestation de stage année 2']);
       DB::table('documents')->insert(['name' => 'Attestation de travail (alternants)']);
+      DB::table('documents')->insert(['name' => 'Page de garde E4']);
+      DB::table('documents')->insert(['name' => 'Page de garde E6']);
     }
 }
