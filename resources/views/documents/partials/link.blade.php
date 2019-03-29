@@ -18,5 +18,5 @@
     <i class="fa fa-clock-o fa-2x" style="position:relative ; top:5px; left:2px"></i>
   @endif
 @else
-  <i class="fa fa-warning" style="position:relative ; top:2px; left:5px"></i>
+  <i class="fa fa-warning fa-2x" style="position:relative ; top:2px; left:5px"></i>
 @endif
