@@ -53,14 +53,26 @@ class DocumentController extends Controller
     $document = Document::find($id);
     if ($user->can('edit', $document))
     {
-      $this->validate($request, ['file_name' => 'required|mimes:pdf|max:10000']);
+      $this->validate($request, ['file_name' => 'required|mimes:pdf|max:2000']);
       $old_document = $user->documents()->where('id', $id)->first();
       if ($old_document != null)
         $user->documents()->detach($old_document);
+      $file_name = $request->file('file_name')->store('public');
       $user->documents()->attach($document,
-        ['file_name' => $request->file('file_name')->store('public')]);
-      event(new DocumentUploadsEvent($user, $document));
-      return redirect()->back()->with('success', 'Modifications enregistrées');
+        ['file_name' => $file_name]);
+      if ($this->checkFormat($file_name))
+      {
+        event(new DocumentUploadsEvent($user, $document));
+        return redirect()->back()->with('success', 'Modifications enregistrées');
+      }
+      else
+      {
+        $message = 'Ce pdf n\'est pas compatible avec l\'application. Tentez de le numériser avec un autre logiciel.';
+        $user->documents()->updateExistingPivot($id, ['validated' => 0, 'comment' => $message]);
+        event(new TeacherRejectsEvent($user, Document::find($id), $message));
+        return redirect()->back()->with('error',
+          $message);
+      }
     }
     else
       return redirect()->back();
@@ -90,6 +102,20 @@ class DocumentController extends Controller
     }
     else
       return redirect()->back();
+  }
+
+  public function checkFormat($file_name)
+  {
+    try
+    {
+      $pdf = new \PDFMerger();
+      $pdf->addPDF(storage_path('app') . '/' . $file_name, 'all');
+    }
+    catch (Exception $exception)
+    {
+      return false;
+    }
+    return true;
   }
 
   public function concat(Request $request, $classid, $documentid)
