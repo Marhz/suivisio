@@ -1,3 +1,6 @@
+@foreach($user->group->documents as $document)
+  {!! $user->getDocumentStatus($document) !!}
+@endforeach
 @if($user->portefeuille != null)
   <a href="{{$user->portefeuille}}">
     <i class="fa fa-link fa-2x" style="position:relative ; top:5px; left:2px"  data-toggle="tooltip" title="Portefeuille de compétences"></i>
@@ -12,6 +15,3 @@
   >
   </i>
 @endif
-@foreach($user->group->documents as $document)
-  {!! $user->getDocumentStatus($document) !!}
-@endforeach
