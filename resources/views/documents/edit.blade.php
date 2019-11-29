@@ -23,7 +23,7 @@
 			@if($document->pivot->file_name != null)
 				<div class="row">
 					<div class = "col-md-12">
-						@include('documents.partials.link', ['pivot' => $document->pivot])
+						@include('documents.partials.status', ['pivot' => $document->pivot])
 					</div>
 				</div>
 				<hr>

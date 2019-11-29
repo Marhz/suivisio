@@ -104,23 +104,28 @@ class DatatablesController extends Controller
           ->make(true);
     }
 
+  private function functionDocumentIcon($document)
+  {
+    return function (User $user) use ($document)
+        {
+          $doc = $user->documents()->where('document_id', $document->id)->first();
+          $pivot = ($doc!= null) ? $doc->pivot : null;
+          return view('documents.partials.status')
+            ->with(['pivot' => $pivot])
+            ->render();
+        };
+  }
+
   public function showDocumentsDatatables($classid, $documentid)
   {
     $group = Group::find($classid);
     $document = $group->documents()->where('id', $documentid)->first();
     return Datatables::of($group->users)
-      ->editColumn('name', function($user){
+      ->editColumn('name', function($user)
+      {
         return $user->fullName();
       })
-      ->addColumn('file_name',
-        function (User $user) use ($document)
-        {
-          $doc = $user->documents()->where('document_id', $document->id)->first();
-          $pivot = ($doc!= null) ? $doc->pivot : null;
-          return view('documents.partials.link')
-            ->with(['pivot' => $pivot])
-            ->render();
-        })
+      ->addColumn('file_name', $this->functionDocumentIcon($document))
       ->make(true);
   }
 

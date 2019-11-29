@@ -99,12 +99,11 @@ class DocumentController extends Controller
   {
       $pdf = new \PDFMerger();
       $pdf->addPDF(storage_path('app') . '/' . $file_name, 'all');
-      register_shutdown_function(
-	function ()
-	{
-		dd('Ce pdf n\'est pas compatible avec l\'application (pdf version supérieure à 1.4). Tentez de le numériser avec un autre logiciel.');
-	}
-	);
+      register_shutdown_function(function ()
+        {
+          dd('Ce pdf n\'est pas compatible avec l\'application (pdf version supérieure à 1.4). Tentez de le numériser avec un autre logiciel.');
+        }
+      );
       $pdf->merge('string', "mergedpdf.pdf");
   }
 

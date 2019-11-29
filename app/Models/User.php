@@ -90,6 +90,15 @@ class User extends Authenticatable
         || $this->can('enablePorteFolioCollect', $this) && $this->portefeuille == null;
     }
 
+    public function getDocumentStatus($document)
+    {
+      $doc = $this->documents()->where('document_id', $document->id)->first();
+      $pivot = ($doc != null) ? $doc->pivot : null;
+      return view('documents.partials.link')
+        ->with(['document' => $document, 'pivot' => $pivot])
+        ->render();
+    }
+
     public function macAddressOpened()
     {
       return $this->isTeacher() || $this->group->macAddressOpened();
