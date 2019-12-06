@@ -23,7 +23,12 @@ class DatatablesController extends Controller
             {
               return $this->statut($user);
             })
-        	->editColumn('actions',function ($user){
+          ->addColumn('documents',
+            function (User $user)
+            {
+              return $this->documents($user);
+            })
+          ->editColumn('actions',function ($user){
         		return
                     $this->showBtn('users',$user->id, null, '/situations').
                     $this->editBtn('users',$user->id).
@@ -129,12 +134,17 @@ class DatatablesController extends Controller
       ->make(true);
   }
 
-  protected function statut($user)
+  protected function documents($user)
     {
-      return view('datatables.warning')->with(compact('user'))->render();
+      return view('datatables.user_documents')->with(compact('user'))->render();
     }
 
-    protected function showBtn($name, $id, $prefix = null, $suffix = null)
+  protected function statut($user)
+  {
+    return view('datatables.user_statut')->with(compact('user'))->render();
+  }
+
+  protected function showBtn($name, $id, $prefix = null, $suffix = null)
     {
         return view('datatables.show')->with(compact('name', 'id', 'prefix', 'suffix'))->render();
     }

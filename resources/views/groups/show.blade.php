@@ -61,6 +61,7 @@
 						<td>Prénom</td>
 						<td>Email</td>
 						<td>Statut</td>
+						<td>Documents</td>
 						<td>Actions</td>
 				</thead>
 				<tbody>
@@ -95,6 +96,7 @@
 			{data: 'first_name', name: 'first_name'},
 			{data: 'email', name: 'email'},
 			{data: 'statut', name: 'statut'},
+			{data: 'documents', name: 'documents'},
 			{data: 'actions', name: 'actions', orderable: false, searchable: false}
 		]
 	});
