@@ -1,0 +1,82 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: php/.
+    container_name: ${PHP_CONTAINER_NAME}
+    restart: always
+    volumes:
+      - ./log/apache:/var/log/apache2
+      - ../:/var/www/html
+    networks:
+       - traefik_network
+    labels:
+       - "traefik.enable=true"
+       - "traefik.frontend.rule=Host:${HTTP_HOSTNAME}"
+       - "traefik.port=80"
+       - "traefik.backend=${TRAEFIK_HTTP_BACK_END}"
+       - "traefik.frontend.entryPoints=http,https"
+
+  queue:
+    build:
+      context: php/.
+    restart: always
+    container_name: ${QUEUE_CONTAINER_NAME}
+    volumes:
+      - ../:/var/www/html
+    networks:
+       - traefik_network
+    command: php /var/www/html/artisan queue:listen --queue=default --timeout=0
+    labels:
+       - "traefik.enable=false"
+
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: ${MYSQL_CONTAINER_NAME}
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+       - traefik_network
+    command: --max_allowed_packet=325058560
+    volumes:
+      - ./mysql:/var/lib/mysql
+    labels:
+       - "traefik.enable=false"
+
+  redis:
+    image: redis
+    networks:
+       - traefik_network
+    restart: always
+    container_name: ${REDIS_CONTAINER_NAME}
+    labels:
+       - "traefik.enable=false"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    container_name: ${PHPMYADMIN_CONTAINER_NAME}
+    environment:
+      PMA_HOST: fst_db
+      PMA_ABSOLUTE_PATH: ${PMA_ABSOLUTE_PATH}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD}
+    networks:
+       - traefik_network
+    labels:
+       - "traefik.enable=true"
+       - "traefik.frontend.rule=Host:${phpmyadmin.suivisio.com}"
+       - "traefik.port=80"
+       - "traefik.backend=${TRAEFIK_PMA_BACK_END}"
+       - "traefik.frontend.entryPoints=http,https"
+
+networks:
+  traefik_network:
+    external: true

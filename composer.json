@@ -15,7 +15,8 @@
         "codedge/laravel-fpdf": "^1.0",
         "barryvdh/laravel-dompdf": "^0.7.0",
         "anouar/fpdf": "^1.0",
-        "rguedes/pdfmerger": "^1.0"
+        "rguedes/pdfmerger": "^1.0",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
