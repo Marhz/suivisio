@@ -1,8 +1,13 @@
 FROM ubuntu:latest
 MAINTAINER Dan Pupius <dan@pupi.us>
 
-ARG USER_ID
-ARG USER_NAME
+ARG USER_ID=user
+ARG USER_NAME=1000
+
+ENV USER_ID=$USER_ID
+ENV USER_NAME=$USER_NAME
+
+RUN useradd -m -u ${USER_ID} -s /bin/bash ${USER_NAME}
 
 # Install apache, PHP, and supplimentary programs. openssh-server, curl, and lynx-cur are for debugging the container.
 RUN apt-get update \
@@ -40,8 +45,6 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
-RUN useradd -m -u ${USER_ID} -s /bin/bash ${USER_NAME}
 
 RUN chown -R ${USER_NAME}:www-data /var/www/html
 

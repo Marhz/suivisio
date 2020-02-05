@@ -6,6 +6,9 @@ services:
       context: php/.
     container_name: ${PHP_CONTAINER_NAME}
     restart: always
+    environment:
+      USER_ID : ${USER_ID}
+      USER_NAME : ${USER_NAME}
     volumes:
       - ./log/apache:/var/log/apache2
       - ../:/var/www/html
@@ -23,6 +26,9 @@ services:
       context: php/.
     restart: always
     container_name: ${QUEUE_CONTAINER_NAME}
+    environment:
+      USER_ID : ${USER_ID}
+      USER_NAME : ${USER_NAME}
     volumes:
       - ../:/var/www/html
     networks:
@@ -62,8 +68,8 @@ services:
     restart: always
     container_name: ${PHPMYADMIN_CONTAINER_NAME}
     environment:
-      PMA_HOST: fst_db
-      PMA_ABSOLUTE_PATH: ${PMA_ABSOLUTE_PATH}
+      PMA_HOST: ${MYSQL_CONTAINER_NAME}
+      PMA_ABSOLUTE_PATH: ${PHPMYADMIN_HOSTNAME}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
@@ -72,7 +78,7 @@ services:
        - traefik_network
     labels:
        - "traefik.enable=true"
-       - "traefik.frontend.rule=Host:${phpmyadmin.suivisio.com}"
+       - "traefik.frontend.rule=Host:${PHPMYADMIN_HOSTNAME}"
        - "traefik.port=80"
        - "traefik.backend=${TRAEFIK_PMA_BACK_END}"
        - "traefik.frontend.entryPoints=http,https"
