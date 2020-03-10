@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Carbon;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Carbon::setLocale(env('LOCALE', 'fr'));
+	URL::forceSchema(config('app.url_scheme', 'http'));
     }
 
     /**

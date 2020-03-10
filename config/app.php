@@ -49,6 +49,8 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
+    
+    'url_scheme' => env('URL_SCHEME', 'http'),
 
     'url' => env('APP_URL', 'http://localhost'),
 
