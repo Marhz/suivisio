@@ -12,7 +12,8 @@
       <i class="fa fa-check fa-2x" style="position:relative ; top:5px; left:2px"></i>
     @else
       <i class="fa fa-times fa-2x" style="position:relative ; top:5px; left:2px"></i>
-      {{ $pivot->comment }}
+      <br>
+      {!! nl2br($pivot->comment) !!}
     @endif
   @else
     <i class="fa fa-clock-o fa-2x" style="position:relative ; top:5px; left:2px"></i>

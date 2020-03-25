@@ -7,7 +7,7 @@
     {{ $notification->data['document_name'] }}</a>
   a été refusé pour les raisons suivantes :
   <hr>
-  {{ $notification->data['comment'] }}</a>
+  {!! nl2br($notification->data['comment']) !!}
   <hr>
 </P>
 @stop
