@@ -8,8 +8,13 @@ use Auth;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Year;
 use App\Http\Requests\GroupRequest;
 use App\Http\Controllers\Controller;
+
+use App\Events\Document\DocumentOpenedEvent;
+
+use Carbon\Carbon;
 
 class GroupController extends Controller
 {
@@ -52,6 +57,7 @@ class GroupController extends Controller
       if (Auth::user()->can('create', Group::class))
       {
         $group = Group::create($request->except('teacher_list'));
+        $group->year()->associate(Year::current());
         $teachers = ($request->input('teacher_list')) ? $request->input('teacher_list') : [];
         $group->teachers()->sync($teachers);
         $documents = ($request->input('document_list')) ? $request->input('document_list') : [];
@@ -95,7 +101,18 @@ class GroupController extends Controller
       return redirect()->back();
     }
 
-    /**
+  public function editDeadLines($id)
+  {
+    $group = Group::find($id);
+    if (Auth::user()->can('edit', $group))
+    {
+      $documents = $group->documents;
+      return view('groups.deadlines',compact('group', 'documents'));
+    }
+    return redirect()->back();
+  }
+
+  /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -117,7 +134,26 @@ class GroupController extends Controller
       return redirect()->back();
     }
 
-    /**
+  public function updateDeadLines(Request $request, $id)
+  {
+    $group = Group::find($id);
+    if (Auth::user()->can('edit', $group))
+    {
+      $group->update($request->input());
+      foreach ($group->documents as $document)
+      {
+        $previous_dead_line = $group->documents()->where('document_id', $document->id)->first()->pivot->deadline;
+        $new_dead_line = $request->input($document->id);
+        $group->documents()->updateExistingPivot($document->id, ['deadline' => new Carbon($new_dead_line)]);
+        if ($new_dead_line != $previous_dead_line)
+          event(new DocumentOpenedEvent($group, $document));
+      }
+      return redirect('classes/'.$group->id.'/')->with('success','La classe a été modifiée avec succès');
+    }
+    return redirect()->back();
+  }
+
+  /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

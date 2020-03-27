@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Group;
+use App\Models\Year;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GroupPolicy
@@ -22,7 +23,8 @@ class GroupPolicy
 
     public function view(User $user, Group $group)
     {
-        return $user->isAdmin() || $this->owns($user, $group);
+        return $user->isAdmin() ||
+            $this->owns($user, $group) && $group->year->id == Year::current()->id;
     }
 
     public function delete(User $user, Group $group)
@@ -32,7 +34,8 @@ class GroupPolicy
 
     public function edit(User $user, Group $group)
     {
-      return $user->isAdmin() || $this->owns($user, $group);
+      return $user->isAdmin() ||
+          $this->owns($user, $group) && $group->year->id == Year::current()->id;
     }
 
     public function viewPDF(User $user, Group $group)
@@ -43,7 +46,7 @@ class GroupPolicy
     public function viewMacAddresses(User $user, Group $group)
     {
       return config('app.collect_mac_addresses')
-        && $user->isTeacher()
+        && $this->view($user, $group)
         && $group->mac_address_deadline != null;
     }
 
@@ -56,7 +59,7 @@ class GroupPolicy
     public function viewPoll(User $user, Group $group)
     {
       return config('app.enable_poll')
-        && $user->isTeacher()
+          && $this->view($user, $group)
         && $group->poll_deadline != null;
     }
 

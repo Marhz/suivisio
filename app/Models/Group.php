@@ -9,7 +9,7 @@ use Carbon;
 class Group extends Model
 {
     protected $fillable = [
-    	'name', 'year', 'course_id', 'deadline', 'mac_address_deadline', 'poll_deadline'
+    	'name', 'course_id', 'deadline', 'mac_address_deadline', 'poll_deadline'
     ];
 
     public function getTeacherListAttribute()
@@ -37,9 +37,15 @@ class Group extends Model
     	return $this->belongsTo(Course::class);
     }
 
-    public function documents()
+    public function year()
     {
-      return $this->belongsToMany(Document::class);
+      return $this->belongsTo(Year::class);
+    }
+
+  public function documents()
+    {
+      return $this->belongsToMany(Document::class)
+          ->withPivot(['deadline']);
     }
 
     public function isOpened()
@@ -47,7 +53,12 @@ class Group extends Model
       return Carbon::now()->lessThan(new Carbon($this->deadline));
     }
 
-    public function macAddressOpened()
+    public function documentIsOpened($document)
+    {
+      return Carbon::now()->lessThan(new Carbon($this->documents()->where('id', $document->id)->first()->pivot->deadline));
+    }
+
+  public function macAddressOpened()
     {
       return Carbon::now()->lessThan(new Carbon($this->mac_address_deadline));
     }

@@ -17,6 +17,7 @@
 		<div class="panel-heading"><h3>@include('groups.partials.name')
 		@can('edit', $group)
 			<a href="{{ url('classes/'.$group->id.'/edit')}}" ><button class="btn btn-warning"><i class='fa fa-edit'></i></button></a>
+			<a href="{{ url('classes/'.$group->id.'/deadlines')}}" ><button class="btn btn-danger"><i class='fa fa-clock-o'></i></button></a>
 		@endcan
 		@can('viewPDF', $group)
 			<a href="{{ url('classes/'.$group->id.'/bilanPDF')}}" ><button class="btn btn-info"><i class='fa fa-file-pdf-o'></i></button></a>

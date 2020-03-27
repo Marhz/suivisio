@@ -2,6 +2,9 @@
   <a tabindex="-1" href="#"><span class="caret-left"></span>Administration</a>
     <ul class="dropdown-menu">
       <li>
+        <a href="{{url('users')}}">Utilisateurs</a>
+      </li>
+      <li>
         <a href="{{url('professeurs')}}">Professeurs</a>
       </li>
       <li>

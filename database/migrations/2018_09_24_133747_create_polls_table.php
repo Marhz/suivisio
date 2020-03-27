@@ -17,7 +17,7 @@ class CreatePollsTable extends Migration
         $table->integer('id', true);
         $table->integer('course_id');
         $table->string('name');
-  			$table->timestamps();
+        $table->timestamps();
         $table->softDeletes();        
       });
       Schema::table('polls', function(Blueprint $table)

@@ -27,11 +27,11 @@ class SituationController extends Controller
 
     public function index()
     {
-			$user = Auth::user();
+      $user = Auth::user();
       if($user->isTeacher())
       	return $this->teacherIndex();
-    	$situations = Situation::getUserSituations()->get();
-    	return view('situations.list',compact('situations', 'user'));
+      $situations = Situation::getUserSituations()->get();
+      return view('situations.list',compact('situations', 'user'));
     }
 
 		public function forUser(Request $request, $user_id)
@@ -223,6 +223,6 @@ class SituationController extends Controller
 
     protected function teacherIndex()
     {
-        return view('situations.teacher-list',compact('situations'));
+        return view('situations.teacher-list');
     }
 }

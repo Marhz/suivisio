@@ -32,7 +32,7 @@ class GroupRequest extends FormRequest
                 return [
                     'name' => 'required|unique:groups,name|max:255',
                     'deadline' => 'date',
-                    'year' => 'required|numeric',
+//                    'year' => 'required|numeric',
                 ];
             }
             case 'PUT':
@@ -40,7 +40,7 @@ class GroupRequest extends FormRequest
                 return [
                     'name' => 'required',
                     Rule::unique('groups')->ignore($this->route()->parameters['id']),
-                    'year' => 'required|numeric',
+//                    'year' => 'required|numeric',
                     'deadline' => 'date',
                 ];
             }

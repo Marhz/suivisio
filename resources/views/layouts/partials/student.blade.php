@@ -43,7 +43,11 @@
     <a href="{{url('/documents/'.$document->id)}}">
       {{ $document->name }}
       <i class="fa fa-{{ $document->validatedStatus(\Auth::user()) }} "></i>
-    </a>
+        @can('edit', $document)
+          <i class="fa fa-unlock"></i>
+        @else
+          <i class="fa fa-lock"></i>
+        @endcan
   </li>
-  @endforeach
-@endif
+    @endforeach
+  @endif

@@ -38,7 +38,34 @@ class DatatablesController extends Controller
           ->make(true);
     }
 
-    public function showActivitiesDatatables()
+  public function showUsersDatatables()
+  {
+    $users = User::all();
+    return Datatables::of($users)
+        ->addColumn('group',
+            function (User $user)
+            {
+              return $user->group != null ? $user->group->name : 'Prof';
+            })
+        ->addColumn('year',
+            function (User $user)
+            {
+              return $user->group != null && $user->group->year != null ? $user->group->year->name : '';
+            })
+        ->editColumn('actions',function ($user){
+          if ($user->isStudent())
+            return $this->editBtn('users',$user->id).
+                $this->deleteBtn('users',$user->id).
+                $this->pdfBtn('users',$user).
+                $this->showBtn('users',$user->id, null, '/situations');
+          else
+            return $this->editBtn('professeurs',$user->id);
+
+        })
+        ->make(true);
+  }
+
+  public function showActivitiesDatatables()
     {
         $activities = Activity::with('category.course')->select('activities.*');
         return Datatables::of($activities)

@@ -1,8 +1,8 @@
 <li class="dropdown-submenu">
   <a tabindex="-1" href="#"><span class="caret-left"></span>Mes classes</a>
     <ul class="dropdown-menu">
-      @if(Auth::user()->teacherOf->count() > 0)
-        @foreach (Auth::user()->teacherOf as $group)
+      @if(Auth::user()->teacherOfThisYear()->count() > 0)
+        @foreach (Auth::user()->teacherOfThisYear() as $group)
           <li>
             <a href="{{ url('classes/'.$group->id) }}">@include('groups.partials.name')</a>
           </li>

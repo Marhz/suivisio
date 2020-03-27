@@ -185,6 +185,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
+    public function teacherOfThisYear()
+    {
+        return $this->teacherOf()->where('year_id', \App\Models\Year::current()->id)->get();
+    }
+
     public function situations()
     {
         return $this->hasMany(Situation::class);

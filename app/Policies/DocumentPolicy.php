@@ -41,6 +41,6 @@ class DocumentPolicy
         ->where('id', $document->id)->count() != 0
       && $user
         ->group
-        ->isOpened();
+        ->documentIsOpened($document);
   }
 }

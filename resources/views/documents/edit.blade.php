@@ -13,13 +13,19 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			{{ $document->name }}
-			<i class=@if($user->group != null && $user->group->isOpened())"fa fa-unlock"@else"fa fa-lock"@endif></i>
+			@can('edit', $document)
+				<i class="fa fa-unlock"></i>
+			@else
+				<i class="fa fa-lock"></i>
+			@endcan
 		</div>
 		<div class="panel-body">
-			Verrouillage le
-			{{ (new Carbon($user->group->deadline))->formatLocalized('%d/%m/%Y à %H heures') }}
-			({{ (new Carbon($user->group->deadline))->diffForHumans()}})
+			@if($document->pivot->deadline != null)
+				Verrouillage le
+				{{ (new Carbon($document->pivot->deadline))->formatLocalized('%d/%m/%Y à %H heures') }}
+				({{ (new Carbon($document->pivot->deadline))->diffForHumans()}})
 			<hr>
+			@endif
 			@if($document->pivot->file_name != null)
 				<div class="row">
 					<div class = "col-md-12">

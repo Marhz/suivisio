@@ -24,7 +24,7 @@
 					@foreach($groups as $group)
 						<tr>
 							<td>{{$group->name}}</td>
-							<td>{{$group->year}}</td>
+							<td>{{$group->year->short_name}}</td>
 							<td>@include('groups.partials.lock')</td>
 							<td>{{$group->course->name}}</td>
 							<td>
