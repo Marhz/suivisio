@@ -10,18 +10,18 @@
               {{Form::model($group,['method' => 'put','url' => 'classes/'.$group->id.'/deadlines'])}}
                 <div class="form-group">
                 <div class="form-group">
-                  {{Form::label('deadline','Saisie ds situations :')}}
+                  {{Form::label('deadline','Situations :')}}
                   {{Form::date('deadline', $group->deadline != null ? new Carbon($group->deadline) : null,['class' => 'form-control'])}}
                 </div>
                 @can('enableMacAddressesCollect', \App\Models\Group::class)
                   <div class="form-group">
-                    {{Form::label('mac_address_deadline','Saisie des adresses MAC :')}}
+                    {{Form::label('mac_address_deadline','Adresses MAC :')}}
                     {{Form::date('mac_address_deadline', $group->mac_address_deadline != null? new Carbon($group->mac_address_deadline) : null,['class' => 'form-control'])}}
                   </div>
                 @endcan
                 @can('enableCoursesPoll', \App\Models\Group::class)
                   <div class="form-group">
-                    {{Form::label('poll_deadline','Saisie des voeux :')}}
+                    {{Form::label('poll_deadline','Voeux :')}}
                     {{Form::date('poll_deadline', $group->poll_deadline != null? new Carbon($group->poll_deadline) : null,['class' => 'form-control'])}}
                   </div>
                 @endcan
