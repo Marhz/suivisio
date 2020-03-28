@@ -31,6 +31,6 @@ class GroupObserver
     private function opened(Group $group)
     {
       if(!self::datesEgales($group->deadline, $group->getOriginal()['deadline']))
-        Notification::send($group->getUsers(), new GroupOpenedNotification($group));
+        Notification::send($group->users, new GroupOpenedNotification($group));
     }
 }

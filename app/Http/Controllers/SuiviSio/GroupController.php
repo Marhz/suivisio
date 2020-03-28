@@ -146,7 +146,7 @@ class GroupController extends Controller
         $new_dead_line = $request->input($document->id);
         $group->documents()->updateExistingPivot($document->id, ['deadline' => new Carbon($new_dead_line)]);
 	$now = Carbon::now()->toDateString();
-        if ($previous_dead_line != $new_dead_line && $previous_dead_line <= $now && $now <= new_dead_line)
+        if ($previous_dead_line != $new_dead_line && $previous_dead_line <= $now && $now <= $new_dead_line)
           event(new DocumentOpenedEvent($group, $document));
       }
       return redirect('classes/'.$group->id.'/')->with('success','La classe a été modifiée avec succès');
