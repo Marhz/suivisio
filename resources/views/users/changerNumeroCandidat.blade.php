@@ -13,12 +13,12 @@
   @endif
 
 	<div class="panel panel-default">
-		<div class="panel-heading">Renseigner le numéro de candidat</div>
+		<div class="panel-heading">Renseigner le numéro de candidat </div>
 		<div class="panel-body">
 			{{Form::model($user,['method' => 'post','url' => 'changerNumeroCandidat'])}}
         <input name="_token" type="hidden" id="_token" value="{{ csrf_token() }}" />
         <div class="form-group">
-					{{Form::label('numeroCandidat','Numéro de candidat :')}}
+					{{Form::label('numeroCandidat','Numéro de candidat ('. config('app.numero_candidat_format') .') :')}}
 					{{Form::text('numeroCandidat',null,['class' => 'form-control'])}}
 				</div>
         @can('enablePortefolioCollect', $user)

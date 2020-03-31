@@ -174,9 +174,9 @@ class UserController extends Controller
       if ($user->can('changerNumeroCandidat', $user))
       {
           $this->validate($request,
-          ['numeroCandidat' => 'digits:10'],
+          ['numeroCandidat' => config('app.numero_candidat_format')],
           ['portefeuille' => 'url|active_url'],
-          ['numeroCandidat.digits' => 'Votre numéro de candidat doit être composé de 10 chiffres.'],
+          ['numeroCandidat.regex' => 'Format du numéro de candidat incorrect : ' . config('app.numero_candidat_format')],
           ['numeroCandidat.url' => 'L\'adresse de votre portefeuille est invalide.']
           );
         $user->update($request->input());
