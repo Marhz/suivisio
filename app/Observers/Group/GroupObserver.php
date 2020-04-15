@@ -13,8 +13,11 @@ class GroupObserver
 {
     public function updated(Group $group)
     {
+	if (!$group->wasRecentlyCreated)
+	{
         $this->macAddressOpened($group);
         $this->opened($group);
+	}
     }
 
     private static function datesEgales($date1, $date2)
