@@ -9,7 +9,7 @@
 
 	<div class="panel panel-default">
 		<div class="panel-heading">
-      Mon choix pour le deuxième semestre
+      Mon choix d'orientation
     </div>
 		<div class="panel-body">
       @if($user->isStudent() && $user->group->poll_deadline != null)

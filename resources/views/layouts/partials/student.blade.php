@@ -30,7 +30,7 @@
 @can('view', \App\Models\Poll::class)
 <li>
   <a href="{{url('poll')}}">
-    Mes voeux pour le deuxième semestre
+    Mon choix d'orientation
     @cannot('edit', \App\Models\Poll::class)
       <i class="fa fa-lock"></i>
     @endcan
