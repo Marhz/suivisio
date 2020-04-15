@@ -58,6 +58,7 @@ class GroupController extends Controller
       {
         $group = Group::create($request->except('teacher_list'));
         $group->year()->associate(Year::current());
+	$group->save();
         $teachers = ($request->input('teacher_list')) ? $request->input('teacher_list') : [];
         $group->teachers()->sync($teachers);
         $documents = ($request->input('document_list')) ? $request->input('document_list') : [];
