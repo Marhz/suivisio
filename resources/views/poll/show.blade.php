@@ -14,7 +14,7 @@
 
 @section('content')
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3>Voeux pour le groupe {{ $group->name }}
+		<div class="panel-heading"><h3>Choix d'orientation pour le groupe {{ $group->name }}
 			<a href="{{ url('classes/'.$group->id)}}" ><button class="btn btn-warning"><i class='fa fa-eye'></i></button></a>
 		</h3>
 		</div>
