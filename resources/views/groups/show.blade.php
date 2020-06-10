@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
 <style>
 	form{
 		display: inline;
@@ -86,7 +85,6 @@
 @endsection
 
 @section('js')
-	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 	<script>
 	$('#table').DataTable({
 		processing: true,

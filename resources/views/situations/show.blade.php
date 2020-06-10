@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('css')
-    <link rel="stylesheet" href="{{url('js/eternicode/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css')}}" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-@endsection
-
 @section('content')
     <div>
     <a href={{ url('/situation')}}><button class="btn btn-default">Retour</button></a>
@@ -79,5 +74,4 @@
 @endsection
 
 @section('js')
-
 @endsection

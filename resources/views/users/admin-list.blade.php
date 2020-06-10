@@ -1,13 +1,4 @@
 @extends('layouts.app')
-@section('css')
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
-<style>
-    td{
-        min-width:150px;
-    }
-</style>
-@endsection
 
 @section('content')
     <div class="panel panel-default">
@@ -33,7 +24,6 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script>
        $('#table').DataTable({
         processing: true,

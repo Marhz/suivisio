@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
-
-@endsection
 
 @section('content')
 
@@ -16,7 +12,7 @@
         	<table id='table' class="table table-striped">
         		<thead>
         			<tr>
-        				<td>Libéllé</td>
+        				<td>Libellé</td>
         				<td>Elève</td>
         				<td>Classe</td>
                         <td>Vu</td>
@@ -33,7 +29,6 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script>
         var table = $('#table').DataTable({
         processing: true,

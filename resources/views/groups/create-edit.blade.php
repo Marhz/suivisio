@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-@endsection
 @section('content')
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">{{ $error }}</div>
@@ -41,7 +38,6 @@
 @endsection
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
         $('#teacher_list').select2({
             closeOnSelect : false,

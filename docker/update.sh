@@ -19,6 +19,10 @@ docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME /usr/local/bin/composer dump-au
 
 docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME php artisan migrate --force
 
+docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME npm install
+
+docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME gulp --production
+
 docker-compose build --build-arg USER_ID=$USER_ID --build-arg USER_NAME=$USER_NAME
 
 docker-compose down
