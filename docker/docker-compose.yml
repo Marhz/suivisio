@@ -83,6 +83,18 @@ services:
        - "traefik.backend=${TRAEFIK_PMA_BACK_END}"
        - "traefik.frontend.entryPoints=http,https"
 
+  mailcatcher:
+    container_name: ${MAILCATCHER_CONTAINER_NAME}
+    image: tophfr/mailcatcher
+    networks:
+       - traefik_network
+    labels:
+       - "traefik.enable=true"
+       - "traefik.frontend.rule=Host:${MAILCATCHER_HOSTNAME}"
+       - "traefik.port=80"
+       - "traefik.backend=${TRAEFIK_MC_BACK_END}"
+       - "traefik.frontend.entryPoints=https,http"
+
 networks:
   traefik_network:
     external: true

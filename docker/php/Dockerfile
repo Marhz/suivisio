@@ -14,7 +14,7 @@ RUN apt-get update \
     &&  apt-get install -y software-properties-common \
     && add-apt-repository ppa:ondrej/php \
     && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 php5.6 php5.6-mysql libapache2-mod-php5.6 php5.6-mbstring php5.6-xml php5.6-gd php5.6-zip unzip php5.6-redis curl lynx ffmpeg npm gulp
+    && DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 php5.6 php5.6-mysql libapache2-mod-php5.6 php5.6-mbstring php5.6-xml php5.6-gd php5.6-zip unzip php5.6-redis curl lynx ffmpeg npm gulp git
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
