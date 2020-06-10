@@ -13,6 +13,14 @@ USER_NAME=$(read_var USER_NAME .env)
 
 PHP_CONTAINER_NAME=$(read_var PHP_CONTAINER_NAME .env)
 
+docker-compose build --build-arg USER_ID=$USER_ID --build-arg USER_NAME=$USER_NAME
+
+docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME php artisan down
+
+docker-compose down
+
+docker-compose up -d
+
 docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME /usr/local/bin/composer install
 
 docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME /usr/local/bin/composer dump-autoload
@@ -23,8 +31,4 @@ docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME npm install
 
 docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME gulp --production
 
-docker-compose build --build-arg USER_ID=$USER_ID --build-arg USER_NAME=$USER_NAME
-
-docker-compose down
-
-docker-compose up -d
+docker exec -u $USER_NAME -i $PHP_CONTAINER_NAME php artisan up
