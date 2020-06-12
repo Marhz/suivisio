@@ -25,9 +25,9 @@ RUN a2enmod rewrite
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
 RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/5.6/apache2/php.ini
 RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php/5.6/apache2/php.ini
-RUN echo "display_errors = On" >> /etc/php/5.6/apache2/php.ini
-RUN echo "upload_max_filesize = 200M" >> /etc/php/5.6/apache2/php.ini
-RUN echo "post_max_size = 200M" >> /etc/php/5.6/apache2/php.ini
+RUN echo "display_errors = Off" >> /etc/php/5.6/apache2/php.ini
+RUN echo "upload_max_filesize = 10M" >> /etc/php/5.6/apache2/php.ini
+RUN echo "post_max_size = 10M" >> /etc/php/5.6/apache2/php.ini
 RUN echo "memory_limit = 500M" >> /etc/php/5.6/apache2/php.ini
 RUN echo "max_execution_time = 600" >> /etc/php/5.6/apache2/php.ini
 

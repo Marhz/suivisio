@@ -54,7 +54,7 @@ class DocumentController extends Controller
     $document = Document::find($id);
     if ($user->can('edit', $document))
     {
-      $this->validate($request, ['file_name' => 'required|mimes:pdf|max:3000']);
+      $this->validate($request, ['file_name' => 'required|mimes:pdf|max:10000']);
       $old_document = $user->documents()->where('id', $id)->first();
       if ($old_document != null)
         $user->documents()->detach($old_document);
