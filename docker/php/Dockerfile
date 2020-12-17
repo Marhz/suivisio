@@ -18,6 +18,8 @@ RUN apt-get update \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN npm install -g npm@latest
+
 # Enable apache mods.
 RUN a2enmod php5.6
 RUN a2enmod rewrite
