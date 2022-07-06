@@ -20,6 +20,6 @@
     "datatables.net": "^1.10.12",
     "datatables.net-dt": "^1.10.12",
     "font-awesome": "^4.7.0",
-    "select2": "^4.0.3"
+    "select2": "^4.0.6"
   }
 }
